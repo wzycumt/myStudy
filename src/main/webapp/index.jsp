@@ -32,8 +32,6 @@
         </ul>
       </div>
       <div class="col-md-10 col-md-offset-2 main">
-        <%-- <%@include file="WEB-INF/views/sysInfo.jsp"%> --%>
-        <%-- <jsp:include page="WEB-INF/views/common/container.jsp" flush="true" /> --%>
         <div id="container">
           <c:import url="sysInfo" />
         </div>
