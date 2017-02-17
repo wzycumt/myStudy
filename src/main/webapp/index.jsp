@@ -15,7 +15,7 @@
     <div class="navbar-collapse collapse" id="navbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="javascript:void(0);">Abort</a></li>
-        <li><a href="javascript:void(0);">Contact</a></li>
+        <li><a name="navigation" rel="contact" href="javascript:void(0);">Contact</a></li>
       </ul>
     </div>
   </div>
@@ -25,10 +25,10 @@
     <div class="row">
       <div class="col-md-2 sidebar">
         <ul class="nav nav-sidebar">
-          <li class="active"><a rel="sysInfo" href="javascript:void(0);">系统信息 <span class="sr-only">(current)</span></a></li>
-          <li><a href="javascript:void(0);">Reports</a></li>
-          <li><a href="">Analytics</a></li>
-          <li><a href="">Export</a></li>
+          <li class="active"><a name="navigation" rel="sysInfo" href="javascript:void(0);">Overview <span class="sr-only">(current)</span></a></li>
+          <li><a name="navigation" rel="sysInfo" href="javascript:void(0);">File upload</a></li>
+          <li><a name="navigation" href="javascript:void(0);">Analytics</a></li>
+          <li><a name="navigation" href="javascript:void(0);">Export</a></li>
         </ul>
       </div>
       <div class="col-md-10 col-md-offset-2 main">
@@ -42,9 +42,11 @@
   </div>
   <script type="text/javascript">
   $(document).ready(function(){
-	  $('.nav-sidebar a').click(function() {
+	  $('a[name="navigation"]').click(function() {
           var action = $(this).attr('rel');
-          $('#container').load(action);
+          if (action) {
+              $('#container').load(action);
+          }
 	  });
   })
   </script>

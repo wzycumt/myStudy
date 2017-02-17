@@ -19,10 +19,10 @@ public class NavigationController {
 		model.addAttribute("viewName", viewName);
 		return viewName;
 	}
-	
+
 	@RequestMapping(value = "/sysInfo", method = RequestMethod.GET)
 	public String sysInfo(HttpServletRequest request, Model model) {
-		//获取服务器信息
+		// 获取服务器信息
 		Properties props = System.getProperties();
 		Runtime runtime = Runtime.getRuntime();
 		long freeMemory = runtime.freeMemory();
@@ -42,9 +42,12 @@ public class NavigationController {
 		model.addAttribute("useableMemoryMB", useableMemoryMB);
 		model.addAttribute("totalMemoryMB", totalMemoryMB);
 		model.addAttribute("freeMemoryMB", freeMemoryMB);
-		
-		String clientIp = request.getHeader("X-Real-IP");
-		model.addAttribute("clientIp", clientIp);
+
 		return "sysInfo";
+	}
+
+	@RequestMapping(value = "/contact", method = RequestMethod.GET)
+	public String contact(HttpServletRequest request, Model model) {
+		return "contact";
 	}
 }
