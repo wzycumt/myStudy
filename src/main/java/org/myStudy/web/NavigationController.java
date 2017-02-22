@@ -1,7 +1,6 @@
 package org.myStudy.web;
 
 import java.util.Properties;
-import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping("/nav")
 public class NavigationController {
 
 	@RequestMapping(value = "/container/{viewName}", method = RequestMethod.GET)
@@ -49,5 +49,10 @@ public class NavigationController {
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contact(HttpServletRequest request, Model model) {
 		return "contact";
+	}
+
+	@RequestMapping(value = "/fileUpload", method = RequestMethod.GET)
+	public String fileUpload(HttpServletRequest request, Model model) {
+		return "fileUpload";
 	}
 }

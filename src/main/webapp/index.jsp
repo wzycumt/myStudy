@@ -15,7 +15,7 @@
     <div class="navbar-collapse collapse" id="navbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="javascript:void(0);">Abort</a></li>
-        <li><a name="navigation" rel="contact" href="javascript:void(0);">Contact</a></li>
+        <li><a name="navigation" rel="nav/contact" href="javascript:void(0);">Contact</a></li>
       </ul>
     </div>
   </div>
@@ -25,15 +25,15 @@
     <div class="row">
       <div class="col-md-2 sidebar">
         <ul class="nav nav-sidebar">
-          <li class="active"><a name="navigation" rel="sysInfo" href="javascript:void(0);">Overview <span class="sr-only">(current)</span></a></li>
-          <li><a name="navigation" rel="sysInfo" href="javascript:void(0);">File upload</a></li>
+          <li class="active"><a name="navigation" rel="nav/sysInfo" href="javascript:void(0);">Overview <span class="sr-only">(current)</span></a></li>
+          <li><a name="navigation" rel="nav/fileUpload" href="javascript:void(0);">File upload</a></li>
           <li><a name="navigation" href="javascript:void(0);">Analytics</a></li>
           <li><a name="navigation" href="javascript:void(0);">Export</a></li>
         </ul>
       </div>
       <div class="col-md-10 col-md-offset-2 main">
         <div id="container">
-          <c:import url="sysInfo" />
+          <c:import url="nav/sysInfo" />
         </div>
       </div>
     </div>
@@ -45,6 +45,10 @@
           if (action) {
               $('#container').load(action);
           }
+	  });
+	  $('.nav-sidebar li').click(function(){
+		  $('.nav-sidebar li').removeClass('active');
+		  $(this).addClass('active');
 	  });
   })
   </script>
