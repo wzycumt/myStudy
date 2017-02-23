@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.myStudy.dao.MessageDao">
+	<!-- 为DAO接口方法提供sql语句配置 -->
+    <select id="getById" parameterType="java.lang.Long" resultType="org.myStudy.entity.Message">
+		select id, name, content, status, create_time, update_time, version
+		from message
+		where id = #{id}
+	</select>
+	
+    <select id="getList" resultType="org.myStudy.entity.Message">
+		select id, name, content, status, create_time, update_time, version
+		from message
+		order by create_time desc
+		limit #{offset}, #{limit}
+	</select>
+	
+	<insert id="add" parameterType="org.myStudy.entity.Message" useGeneratedKeys="true" keyProperty="id">
+		insert into message (name, content, status, create_time, update_time, version)
+		values (#{name}, #{content}, #{status}, #{createTime}, #{updateTime}, #{version})
+	</insert>
+	
+	<update id="edit" parameterType="org.myStudy.entity.Message">
+		update message set
+			name = #{name},
+			content = #{content},
+			status = #{status},
+			update_time = #{updateTime},
+			version = version + 1
+		where id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="long">
+		delete from message where id = #{_prarmeter}
+	</delete>
+	
+	<delete id="deleteAll" parameterType="java.lang.String">
+		delete from message where id in(#{id})
+	</delete>
+</mapper>
