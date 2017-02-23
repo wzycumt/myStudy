@@ -14,7 +14,7 @@
     </div>
     <div class="navbar-collapse collapse" id="navbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="javascript:void(0);">Abort</a></li>
+        <li><a name="navigation" rel="nav/msgBoard" href="javascript:void(0);">Message board</a></li>
         <li><a name="navigation" rel="nav/contact" href="javascript:void(0);">Contact</a></li>
       </ul>
     </div>
@@ -39,9 +39,10 @@
     </div>
   </div>
   <script type="text/javascript">
+  var action = 'nav/sysInfo';
   $(document).ready(function(){
 	  $('a[name="navigation"]').click(function() {
-          var action = $(this).attr('rel');
+          action = $(this).attr('rel');
           if (action) {
               $('#container').load(action);
           }
@@ -51,6 +52,12 @@
 		  $(this).addClass('active');
 	  });
   })
+  
+  function refresh(){
+      if (action) {
+          $('#container').load(action);
+      }
+  }
   </script>
 </body>
 </html>

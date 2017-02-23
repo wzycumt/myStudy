@@ -20,6 +20,9 @@ public class NavigationController {
 		return viewName;
 	}
 
+	/**
+	 * 系统信息
+	 */
 	@RequestMapping(value = "/sysInfo", method = RequestMethod.GET)
 	public String sysInfo(HttpServletRequest request, Model model) {
 		// 获取服务器信息
@@ -45,14 +48,28 @@ public class NavigationController {
 
 		return "sysInfo";
 	}
+	
+	/**
+	 * 文件上传
+	 */
+	@RequestMapping(value = "/fileUpload", method = RequestMethod.GET)
+	public String fileUpload(HttpServletRequest request, Model model) {
+		return "fileUpload";
+	}
 
+	/**
+	 * 联系方式
+	 */
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contact(HttpServletRequest request, Model model) {
 		return "contact";
 	}
 
-	@RequestMapping(value = "/fileUpload", method = RequestMethod.GET)
-	public String fileUpload(HttpServletRequest request, Model model) {
-		return "fileUpload";
+	/**
+	 * 留言板
+	 */
+	@RequestMapping(value = "/msgBoard", method = RequestMethod.GET)
+	public String msgBoard(HttpServletRequest request, Model model) {
+		return "msgBoard";
 	}
 }
