@@ -1,5 +1,6 @@
 package org.myStudy.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,6 +24,8 @@ public class Message {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updateTime;
 	private int version;
+	
+	private long rowNum;
 
 	public Long getId() {
 		return id;
@@ -78,6 +81,36 @@ public class Message {
 
 	public void setVersion(int version) {
 		this.version = version;
+	}
+
+	//----------------------------
+	//扩展方法
+	public String getCreateTimeStr() {
+		Date now = new Date();
+		long diffSec = (now.getTime() - createTime.getTime()) / 1000; // 时间差（秒）
+		if (diffSec < 60) {
+			return diffSec + "秒前";
+		} else if (diffSec < 60 * 60) {
+			return diffSec / 60 + "分钟前";
+		} else if (diffSec < 60 * 60 * 24) {
+			return diffSec / (60 * 60) + "小时前";
+		} else {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			return sdf.format(createTime);
+		}
+	}
+
+	public String getUpdateTimeStr() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return sdf.format(updateTime);
+	}
+
+	public long getRowNum() {
+		return rowNum;
+	}
+
+	public void setRowNum(long rowNum) {
+		this.rowNum = rowNum;
 	}
 
 }

@@ -10,10 +10,13 @@
 		where id = #{id}
 	</select>
 	
-    <select id="getList" resultType="org.myStudy.entity.Message">
-		select id, name, content, status, create_time, update_time, version
-		from message
-		order by create_time desc
+    <select id="getAll" resultType="org.myStudy.entity.Message">
+    	select t.rownum, t.id, t.name, t.content, t.status, t.create_time, t.update_time, t.version 
+    	from (select (@i:=@i+1) as rownum, m.id, m.name, m.content, m.status, m.create_time, m.update_time, m.version 
+    		  from message m,(select @i:=0) as row
+    	) t 
+		<if test="sort != null"> order by ${sort}</if>
+		<if test="sort != null and order != null"> ${order}</if>
 		limit #{offset}, #{limit}
 	</select>
 	

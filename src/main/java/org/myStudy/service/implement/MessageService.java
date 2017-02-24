@@ -3,17 +3,15 @@ package org.myStudy.service.implement;
 import java.util.Date;
 import java.util.List;
 
+import org.myStudy.Enum.OrderEnum;
 import org.myStudy.dao.MessageDao;
 import org.myStudy.entity.Message;
 import org.myStudy.service.IMessageService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MessageService implements IMessageService {
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private MessageDao messageDao;
@@ -22,8 +20,12 @@ public class MessageService implements IMessageService {
 		return messageDao.getById(id);
 	}
 
-	public List<Message> getAll(int offset, int limit) {
-		return messageDao.getAll(offset, limit);
+	public List<Message> getAll(int page, int pageSize, String sort, OrderEnum order) throws Exception {
+		try {
+			return messageDao.getAll(page * pageSize, pageSize, sort, order);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	public long add(Message message) throws Exception {
@@ -39,7 +41,6 @@ public class MessageService implements IMessageService {
 			messageDao.add(message);
 			return message.getId();
 		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
 			throw e;
 		}
 	}

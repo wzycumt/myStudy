@@ -2,6 +2,7 @@ package org.myStudy.service;
 
 import java.util.List;
 
+import org.myStudy.Enum.OrderEnum;
 import org.myStudy.entity.Message;
 
 /**
@@ -19,11 +20,14 @@ public interface IMessageService {
 	
 	/**
 	 * 获取所有留言信息
-	 * @param offset
-	 * @param limit
+	 * @param page
+	 * @param pageSize
+	 * @param sort 排序字段
+	 * @param order 排序类别（升序/降序）
 	 * @return
+	 * @throws Exception 
 	 */
-	public List<Message> getAll(int offset, int limit);
+	public List<Message> getAll(int page, int pageSize, String sort, OrderEnum order) throws Exception;
 	
 	/**
 	 * 添加

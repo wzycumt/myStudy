@@ -3,6 +3,7 @@ package org.myStudy.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.myStudy.Enum.OrderEnum;
 import org.myStudy.entity.Message;
 
 /**
@@ -22,9 +23,11 @@ public interface MessageDao {
 	 * 获取所有留言信息
 	 * @param offset
 	 * @param limit
+	 * @param sort 排序字段
+	 * @param order 排序类别（升序/降序）
 	 * @return
 	 */
-	public List<Message> getAll(@Param("offset") int offset, @Param("limit") int limit);
+	public List<Message> getAll(@Param("offset") int offset, @Param("limit") int limit, @Param("sort") String sort, @Param("order") OrderEnum order);
 	
 	/**
 	 * 添加
