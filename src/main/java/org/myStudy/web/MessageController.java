@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.myStudy.Enum.OrderEnum;
 import org.myStudy.entity.Message;
+import org.myStudy.enums.OrderEnum;
 import org.myStudy.service.IMessageService;
 import org.myStudy.utility.VerifyCodeUtility;
 import org.slf4j.Logger;

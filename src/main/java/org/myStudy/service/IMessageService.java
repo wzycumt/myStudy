@@ -2,8 +2,8 @@ package org.myStudy.service;
 
 import java.util.List;
 
-import org.myStudy.Enum.OrderEnum;
 import org.myStudy.entity.Message;
+import org.myStudy.enums.OrderEnum;
 
 /**
  * 留言业务接口

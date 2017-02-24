@@ -1,4 +1,4 @@
-package org.myStudy.Enum;
+package org.myStudy.enums;
 
 public enum OrderEnum {
 	ASC(0, "升序"),

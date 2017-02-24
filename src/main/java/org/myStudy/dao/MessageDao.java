@@ -3,8 +3,8 @@ package org.myStudy.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.myStudy.Enum.OrderEnum;
 import org.myStudy.entity.Message;
+import org.myStudy.enums.OrderEnum;
 
 /**
  * 留言板数据访问层
