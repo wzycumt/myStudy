@@ -126,3 +126,18 @@ body {
     margin-top: 20px;
     margin-bottom: 30px;
 }
+
+.avatar {
+	display: block;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	margin: 0px;
+	padding: 0px;
+	transition: border .2s ease-in-out;
+}
+
+a.avatar.active, 
+a.avatar:focus, 
+a.avatar:hover {
+	border-color: #337ab7;
+}

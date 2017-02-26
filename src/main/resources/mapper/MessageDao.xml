@@ -5,14 +5,14 @@
 <mapper namespace="org.myStudy.dao.MessageDao">
 	<!-- 为DAO接口方法提供sql语句配置 -->
     <select id="getById" parameterType="java.lang.Long" resultType="org.myStudy.entity.Message">
-		select id, name, content, status, create_time, update_time, version
+		select id, name, content, avatar, status, create_time, update_time, version
 		from message
 		where id = #{id}
 	</select>
 	
     <select id="getAll" resultType="org.myStudy.entity.Message">
-    	select t.rownum, t.id, t.name, t.content, t.status, t.create_time, t.update_time, t.version 
-    	from (select (@i:=@i+1) as rownum, m.id, m.name, m.content, m.status, m.create_time, m.update_time, m.version 
+    	select t.rownum, t.id, t.name, t.content, t.avatar, t.status, t.create_time, t.update_time, t.version 
+    	from (select (@i:=@i+1) as rownum, m.id, m.name, m.content, m.avatar, m.status, m.create_time, m.update_time, m.version 
     		  from message m,(select @i:=0) as row
     	) t 
 		<if test="sort != null"> order by ${sort}</if>
@@ -21,14 +21,15 @@
 	</select>
 	
 	<insert id="add" parameterType="org.myStudy.entity.Message" useGeneratedKeys="true" keyProperty="id">
-		insert into message (name, content, status, create_time, update_time, version)
-		values (#{name}, #{content}, #{status}, #{createTime}, #{updateTime}, #{version})
+		insert into message (name, content, avatar, status, create_time, update_time, version)
+		values (#{name}, #{content}, #{avatar}, #{status}, #{createTime}, #{updateTime}, #{version})
 	</insert>
 	
 	<update id="edit" parameterType="org.myStudy.entity.Message">
 		update message set
 			name = #{name},
 			content = #{content},
+			avatar = #{avatar},
 			status = #{status},
 			update_time = #{updateTime},
 			version = version + 1

@@ -16,6 +16,7 @@ public class Message {
 	private Long id;
 	private String name;
 	private String content;
+	private String avatar;
 	private int status;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") // 取日期时使用
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -25,6 +26,7 @@ public class Message {
 	private Date updateTime;
 	private int version;
 	
+	//扩展字段
 	private long rowNum;
 
 	public Long getId() {
@@ -49,6 +51,14 @@ public class Message {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 
 	public int getStatus() {
@@ -81,6 +91,12 @@ public class Message {
 
 	public void setVersion(int version) {
 		this.version = version;
+	}
+
+	@Override
+	public String toString() {
+		return "Message [id=" + id + ", name=" + name + ", content=" + content + ", status=" + status + ", createTime="
+				+ createTime + ", updateTime=" + updateTime + ", version=" + version + ", rowNum=" + rowNum + "]";
 	}
 
 	//----------------------------

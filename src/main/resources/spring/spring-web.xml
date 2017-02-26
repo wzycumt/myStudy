@@ -31,19 +31,6 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</bean>
 
-	<!-- <bean
-		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-		<property name="objectMapper">
-			<bean class="com.fasterxml.jackson.databind.ObjectMapper">
-				<property name="dateFormat">
-					<bean class="java.text.SimpleDateFormat">
-						<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
-					</bean>
-				</property>
-			</bean>
-		</property>
-	</bean> -->
-
 	<!-- 4.扫描web相关的bean -->
 	<context:component-scan base-package="org.myStudy.web" />
 
