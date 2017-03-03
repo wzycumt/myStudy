@@ -1,29 +1,32 @@
 package org.myStudy.enums;
 
-public enum OrderEnum {
-	ASC(0, "升序"),
-	DESC(1, "降序");
+/**
+ * sql排序方式 0-升序 1-降序
+ * @author WZY
+ */
+public enum OrderEnum implements IEnum {
+	ASC(0, "升序"), DESC(1, "降序");
+
+	private int vlaue;
+	private String description;
+
+	private OrderEnum(int vlaue, String description) {
+		this.vlaue = vlaue;
+		this.description = description;
+	}
+
+	public int getValue() {
+		return vlaue;
+	}
+
+	public String getDescription() {
+		return description;
+	}
 	
-	private int order;
-	private String orderDes;
-	
-	private OrderEnum(int order, String orderDes) {
-		this.order = order;
-		this.orderDes = orderDes;
-	}
-
-	public int getOrder() {
-		return order;
-	}
-
-	public String getOrderDes() {
-		return orderDes;
-	}
-
 	public static OrderEnum stateOf(int index) {
-		for (OrderEnum order : values()) {
-			if (order.getOrder() == index) {
-				return order;
+		for (OrderEnum item : values()) {
+			if (item.getValue() == index) {
+				return item;
 			}
 		}
 		return null;

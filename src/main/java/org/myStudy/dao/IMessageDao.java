@@ -10,7 +10,7 @@ import org.myStudy.enums.OrderEnum;
  * 留言板数据访问层
  * @author WZY
  */
-public interface MessageDao {
+public interface IMessageDao {
 	
 	/**
 	 * 根据ID获取留言信息

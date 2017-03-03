@@ -88,7 +88,7 @@
 			title : '选择头像',
 			placement : 'right',
 			container : 'form',
-			//trigger : 'focus',
+			trigger : 'focus',
 			html : true,
 			content : function () {
 				var avatar = '<div class="row" style="padding:0px 5px;">';

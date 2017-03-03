@@ -2,7 +2,8 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.myStudy.dao.MessageDao">
+<mapper namespace="org.myStudy.dao.IMessageDao">
+	
 	<!-- 为DAO接口方法提供sql语句配置 -->
     <select id="getById" parameterType="java.lang.Long" resultType="org.myStudy.entity.Message">
 		select id, name, content, avatar, status, create_time, update_time, version
@@ -41,6 +42,6 @@
 	</delete>
 	
 	<delete id="deleteAll" parameterType="java.lang.String">
-		delete from message where id in(#{id})
+		delete from message where id in(#{_prarmeter})
 	</delete>
 </mapper>

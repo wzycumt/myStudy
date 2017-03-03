@@ -141,3 +141,11 @@ a.avatar:focus,
 a.avatar:hover {
 	border-color: #337ab7;
 }
+
+table.dataTable th,
+table.dataTable td {
+	text-align: left;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	overflow: hidden;
+}

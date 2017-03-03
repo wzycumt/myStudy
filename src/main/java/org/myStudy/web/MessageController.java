@@ -1,9 +1,7 @@
 package org.myStudy.web;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +12,7 @@ import org.myStudy.entity.Message;
 import org.myStudy.enums.OrderEnum;
 import org.myStudy.service.IMessageService;
 import org.myStudy.utility.VerifyCodeUtility;
+import org.myStudy.web.common.BaseController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +22,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import flexjson.JSONSerializer;
-
 @Controller
 @RequestMapping("/message")
-public class MessageController {
+public class MessageController extends BaseController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
@@ -91,23 +88,5 @@ public class MessageController {
 		// 生成图片
 		int w = 100, h = 30;
 		VerifyCodeUtility.outputImage(w, h, response.getOutputStream(), verifyCode);
-
-	}
-
-	/**
-	 * 序列化json返回结果
-	 * 
-	 * @param result
-	 * @param value
-	 * @param descriptoin
-	 * @return
-	 */
-	private String jsonResult(boolean result, Object value, String descriptoin) {
-		JSONSerializer serializer = new JSONSerializer().include("value");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", result);
-		map.put("value", value);
-		map.put("des", descriptoin);
-		return serializer.serialize(map);
 	}
 }

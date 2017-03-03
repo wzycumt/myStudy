@@ -4,22 +4,26 @@
     "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-  <settings>
+	<settings>
 		<!-- 使用jdbc的getGeneratedKeys获取数据库自增主键值 -->
-		<setting name="useGeneratedKeys" value="true"/>
-		
-		<!-- 使用列别名替换列名 默认：true -->
-		<setting name="useColumnLabel" value="true"/>
-		
-		<!-- 开户驼峰命名转换 -->
-		<setting name="mapUnderscoreToCamelCase" value="true"/>
-  </settings>
+		<setting name="useGeneratedKeys" value="true" />
 
+		<!-- 使用列别名替换列名 默认：true -->
+		<setting name="useColumnLabel" value="true" />
+
+		<!-- 开户驼峰命名转换 -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+	
+	<!-- 类型处理器 -->
+	<typeHandlers>
+		<typeHandler handler="org.myStudy.enums.EnumHandler" jdbcType="TINYINT" javaType="org.myStudy.enums.BaseStatusEnum" />
+	</typeHandlers>
 <!-- 
   <typeAliases>
     <typeAlias alias="UserAlias" type="org.apache.ibatis.submitted.complex_property.User"/>
   </typeAliases> -->
-  <environments default="development">
+  <!-- <environments default="development">
     <environment id="development">
       <transactionManager type="JDBC">
         <property name="" value=""/>
@@ -30,6 +34,6 @@
         <property name="username" value="root"/>
       </dataSource>
     </environment>
-  </environments>
+  </environments> -->
 
 </configuration>

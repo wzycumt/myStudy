@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.myStudy.web.common.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/nav")
-public class NavigationController {
+public class NavigationController extends BaseController {
 
 	@RequestMapping(value = "/container/{viewName}", method = RequestMethod.GET)
 	public String container(@PathVariable("viewName") String viewName, Model model) {

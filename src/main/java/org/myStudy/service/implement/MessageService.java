@@ -3,8 +3,9 @@ package org.myStudy.service.implement;
 import java.util.Date;
 import java.util.List;
 
-import org.myStudy.dao.MessageDao;
+import org.myStudy.dao.IMessageDao;
 import org.myStudy.entity.Message;
+import org.myStudy.enums.BaseStatusEnum;
 import org.myStudy.enums.OrderEnum;
 import org.myStudy.service.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class MessageService implements IMessageService {
 
 	@Autowired
-	private MessageDao messageDao;
+	private IMessageDao messageDao;
 
 	public Message getById(Long id) {
 		return messageDao.getById(id);
@@ -33,7 +34,7 @@ public class MessageService implements IMessageService {
 			throw new Exception("留言人不能为空");
 		if (message.getContent() == null || message.getContent().trim().isEmpty())
 			throw new Exception("留言内容不能为空");
-		message.setStatus(1);
+		message.setStatus(BaseStatusEnum.VALID);
 		message.setCreateTime(new Date());
 		message.setUpdateTime(message.getCreateTime());
 		message.setVersion(0);
@@ -56,5 +57,4 @@ public class MessageService implements IMessageService {
 	public int deleteAll(String ids) {
 		return messageDao.deleteAll(ids);
 	}
-
 }
