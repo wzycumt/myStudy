@@ -65,12 +65,4 @@ public class NavigationController extends BaseController {
 	public String contact(HttpServletRequest request, Model model) {
 		return "contact";
 	}
-
-	/**
-	 * 留言板
-	 */
-	@RequestMapping(value = "/msgBoard", method = RequestMethod.GET)
-	public String msgBoard(HttpServletRequest request, Model model) {
-		return "msgBoard";
-	}
 }

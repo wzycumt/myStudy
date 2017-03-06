@@ -72,12 +72,12 @@ body {
  */
 
 .main {
-  padding: 20px;
+  padding: 10px;
 }
 @media (min-width: 768px) {
   .main {
-    padding-right: 40px;
-    padding-left: 40px;
+    padding-right: 20px;
+    padding-left: 20px;
   }
 }
 .main .page-header {
@@ -106,40 +106,6 @@ body {
 
 .tab-content {
 	margin-top: 16px;
-}
-
-.message-item {
-    border-top: 1px solid #ddd;
-    padding-top: 15px;
-    margin-top: 0px !important;
-    margin-bottom: 15px;
-}
-
-.message-more {
-    display: block;
-    width: 100%;
-    height: 50px;
-    background: #efefef;
-    text-align: center;
-    text-decoration: none;
-    padding: 15px 0;
-    margin-top: 20px;
-    margin-bottom: 30px;
-}
-
-.avatar {
-	display: block;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	margin: 0px;
-	padding: 0px;
-	transition: border .2s ease-in-out;
-}
-
-a.avatar.active, 
-a.avatar:focus, 
-a.avatar:hover {
-	border-color: #337ab7;
 }
 
 table.dataTable th,
