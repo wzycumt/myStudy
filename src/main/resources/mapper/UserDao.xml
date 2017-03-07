@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.myStudy.dao.IUserDao">
+	
+    <select id="getById" resultType="org.myStudy.entity.User">
+    	select t.id, t.user_name, t.password, t.nickname, t.real_name, t.phone, t.email, t.status, t.remark, t.creator,
+    		t.create_time, t.update_person, t.update_time, t.version 
+    	from t_user t 
+    	where id = #{_paramter}
+	</select>
+	
+    <select id="getAll" resultType="org.myStudy.entity.User">
+    	select t.id, t.user_name, t.password, t.nickname, t.real_name, t.phone, t.email, t.status, t.remark, t.creator,
+    		t.create_time, t.update_person, t.update_time, t.version 
+    	from t_user t 
+	</select>
+	
+	<select id="getPageList" parameterType="org.myStudy.dto.PageQuery" resultType="org.myStudy.entity.User">  
+        select t.id, t.user_name, t.password, t.nickname, t.real_name, t.phone, t.email, t.status, t.remark, t.creator,
+    		t.create_time, t.update_person, t.update_time, t.version 
+    	from t_user t 
+        <where>
+        	<if test="search != null and search.value != null">
+        		(t.user_name like CONCAT('%', #{search.value}, '%') or
+        		 t.nickname like CONCAT('%', #{search.value}, '%') or
+        		 t.real_name like CONCAT('%', #{search.value}, '%'))
+        	</if>
+        </where>
+        <if test="order != null and order.length > 0">
+        	<foreach collection="order" item="item" separator="," open="order by ">
+        		<choose>
+        			<when test="columns[item.column].name != null and columns[item.column].name != ''">
+        				${columns[item.column].name} ${item.dir}
+        			</when>
+        			<otherwise>
+        				${columns[item.column].data} ${item.dir}
+        			</otherwise>
+        		</choose>
+        	</foreach>
+        </if>
+        limit ${start},${length}
+	</select> 
+	
+	<insert id="add" parameterType="org.myStudy.entity.User" useGeneratedKeys="true" keyProperty="id">
+		insert into t_user 
+			(user_name, password, nickname, real_name, phone, email, status, remark, creator, create_time, update_person, update_time, version)
+		values (#{userName}, #{password}, #{nickname}, #{realName}, #{phone}, #{email}, #{status}, #{remark}, #{creator},
+			NOW(), #{updatePerson}, NOW(), 0)
+	</insert>
+	
+	<update id="edit" parameterType="org.myStudy.entity.User">
+		update t_user set
+			user_name = #{userName},
+			password = #{password},
+			nickname = #{nickname},
+			real_name = #{realName},
+			phone = #{phone},
+			email = #{email},
+			status = #{status},
+			remark = #{remark},
+			update_person = #{updatePerson},
+			update_time = now(),
+			version = version + 1
+		where id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from t_user where id = #{_prarmeter}
+	</delete>
+	
+	<delete id="deleteAll" parameterType="java.lang.String">
+		delete from t_user where id in(#{_prarmeter})
+	</delete>
+</mapper>

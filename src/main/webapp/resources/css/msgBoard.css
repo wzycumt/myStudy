@@ -1,0 +1,36 @@
+.message-item {
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+}
+
+.message-more {
+    display: block;
+    width: 100%;
+    height: 50px;
+    background: #efefef;
+    text-align: center;
+    text-decoration: none;
+    padding: 15px 0;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+#avatar {
+	width: 37px;
+	heigth: 37px;
+}
+
+a.avatar {
+	display: block;
+	border: 1px solid #bbb;
+	border-radius: 4px;
+	margin: 0px;
+	padding: 0px;
+	transition: border .2s ease-in-out;
+}
+
+a.avatar.active, 
+a.avatar:focus, 
+a.avatar:hover {
+	border-color: #337ab7;
+}

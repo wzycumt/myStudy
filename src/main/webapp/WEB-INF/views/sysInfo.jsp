@@ -19,35 +19,35 @@
             <table class="table table-bordered">
               <tbody>
                 <tr>
-                  <td class="success col-md-2">操作系统</td>
+                  <td class="active col-md-2">操作系统</td>
                   <td class="col-md-10">${props['os.name']}/${props['os.version']}</td>
                 </tr>
                 <tr>
-                  <td class="success">JAVA运行环境</td>
+                  <td class="active">JAVA运行环境</td>
                   <td>${props['java.runtime.name']}/${props['java.runtime.version']}</td>
                 </tr>
                 <tr>
-                  <td class="success">JAVA虚拟机</td>
+                  <td class="active">JAVA虚拟机</td>
                   <td>${props['java.vm.name']}/${props['java.vm.version']}</td>
                 </tr>
                 <tr>
-                  <td class="success">系统用户</td>
+                  <td class="active">系统用户</td>
                   <td>${props['user.name']}</td>
                 </tr>
                 <tr>
-                  <td class="success">用户主目录</td>
+                  <td class="active">用户主目录</td>
                   <td>${props['user.home']}</td>
                 </tr>
                 <tr>
-                  <td class="success">最大内存</td>
+                  <td class="active">最大内存</td>
                   <td><fmt:formatNumber value="${maxMemoryMB}" pattern="#.00" /> MB</td>
                 </tr>
                 <tr>
-                  <td class="success">已用内存</td>
+                  <td class="active">已用内存</td>
                   <td><fmt:formatNumber value="${usedMemoryMB}" pattern="#.00" /> MB</td>
                 </tr>
                 <tr>
-                  <td class="success">可用内存</td>
+                  <td class="active">可用内存</td>
                   <td><fmt:formatNumber value="${useableMemoryMB}" pattern="#.00" /> MB</td>
                 </tr>
               </tbody>
@@ -59,31 +59,31 @@
             <table class="table table-bordered">
               <tbody>
                 <tr>
-                  <td class="success col-md-2">操作系统</td>
+                  <td class="active col-md-2">操作系统</td>
                   <td class="col-md-10"><span id="osName"></span></td>
                 </tr>
                 <tr>
-                  <td class="success">客户端IP</td>
+                  <td class="active">客户端IP</td>
                   <td><span id="clientIp"></span></td>
                 </tr>
                 <tr>
-                  <td class="success">用户代理</td>
+                  <td class="active">用户代理</td>
                   <td><span id="userAgent"></span></td>
                 </tr>
                 <tr>
-                  <td class="success">浏览器类型</td>
+                  <td class="active">浏览器类型</td>
                   <td><span id="browerType"></span></td>
                 </tr>
                 <tr>
-                  <td class="success">浏览器版本</td>
+                  <td class="active">浏览器版本</td>
                   <td><span id="browerVersion"></span></td>
                 </tr>
                 <tr>
-                  <td class="success">浏览器语言</td>
+                  <td class="active">浏览器语言</td>
                   <td><span id="browerLanguage"></span></td>
                 </tr>
                 <tr>
-                  <td class="success">分辨率</td>
+                  <td class="active">分辨率</td>
                   <td id="resolution"></td>
                 </tr>
               </tbody>
