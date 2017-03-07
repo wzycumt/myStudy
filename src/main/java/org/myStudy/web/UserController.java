@@ -2,8 +2,6 @@ package org.myStudy.web;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.myStudy.dto.BootstrapTable;
 import org.myStudy.dto.Datatables;
 import org.myStudy.dto.PageQuery;
@@ -22,10 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.javafx.scene.control.behavior.TableCellBehavior;
 
 @Controller
 @RequestMapping("/user")
