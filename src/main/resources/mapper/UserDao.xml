@@ -17,31 +17,35 @@
     	from t_user t 
 	</select>
 	
+	<!-- 获取分页列表 -->
 	<select id="getPageList" parameterType="org.myStudy.dto.PageQuery" resultType="org.myStudy.entity.User">  
         select t.id, t.user_name, t.password, t.nickname, t.real_name, t.phone, t.email, t.status, t.remark, t.creator,
     		t.create_time, t.update_person, t.update_time, t.version 
     	from t_user t 
         <where>
-        	<if test="search != null and search.value != null">
-        		(t.user_name like CONCAT('%', #{search.value}, '%') or
-        		 t.nickname like CONCAT('%', #{search.value}, '%') or
-        		 t.real_name like CONCAT('%', #{search.value}, '%'))
+        	<if test="search != null and !query.search.trim().equals('')">
+        		(t.user_name like CONCAT('%', #{search}, '%') or
+        		 t.nickname like CONCAT('%', #{search}, '%') or
+        		 t.real_name like CONCAT('%', #{search}, '%'))
         	</if>
         </where>
-        <if test="order != null and order.length > 0">
-        	<foreach collection="order" item="item" separator="," open="order by ">
-        		<choose>
-        			<when test="columns[item.column].name != null and columns[item.column].name != ''">
-        				${columns[item.column].name} ${item.dir}
-        			</when>
-        			<otherwise>
-        				${columns[item.column].data} ${item.dir}
-        			</otherwise>
-        		</choose>
-        	</foreach>
+        <if test="sort != null and !sort.equals('')">
+        	order by ${sort} ${order}
         </if>
-        limit ${start},${length}
-	</select> 
+        limit ${offset},${limit}
+	</select>
+	
+	<!-- 获取分页查询结果的总数 -->
+	<select id="getPageListTotal" parameterType="org.myStudy.dto.PageQuery" resultType="int">
+		select count(1) from t_user
+        <where>
+        	<if test="search != null and !search.trim().equals('')">
+        		(t.user_name like CONCAT('%', #{search}, '%') or
+        		 t.nickname like CONCAT('%', #{search}, '%') or
+        		 t.real_name like CONCAT('%', #{search}, '%'))
+        	</if>
+        </where>
+	</select>
 	
 	<insert id="add" parameterType="org.myStudy.entity.User" useGeneratedKeys="true" keyProperty="id">
 		insert into t_user 

@@ -1,5 +1,7 @@
 package org.myStudy.entity;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.myStudy.enums.BaseStatusEnum;
 
 /**
@@ -8,11 +10,13 @@ import org.myStudy.enums.BaseStatusEnum;
  */
 public class User extends BaseEntity {
 
+	@NotEmpty(message = "{username.not.empty}")
 	private String userName;
 	private String password;
 	private String nickname;
 	private String realName;
 	private String phone;
+	@Email(message = "{email.not.correct}")
 	private String email;
 	private BaseStatusEnum status;
 	private String remark;
@@ -68,11 +72,13 @@ public class User extends BaseEntity {
 	public BaseStatusEnum getStatus() {
 		return status;
 	}
-	
-	/**状态描述
+
+	/**
+	 * 状态描述
+	 * 
 	 * @return
 	 */
-	public String getStatusDes(){
+	public String getStatusDes() {
 		return status.getDescription();
 	}
 
@@ -93,5 +99,5 @@ public class User extends BaseEntity {
 		return "User [userName=" + userName + ", password=" + password + ", nickname=" + nickname + ", realName=" + realName + ", phone=" + phone
 				+ ", email=" + email + ", status=" + status + ", remark=" + remark + "]";
 	}
-	
+
 }

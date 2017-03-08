@@ -23,6 +23,8 @@ public class BaseEntity {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updateTime;
 	private int version;
+	
+	private boolean isChecked;
 
 	public int getId() {
 		return id;
@@ -76,6 +78,14 @@ public class BaseEntity {
 
 	public void setVersion(int version) {
 		this.version = version;
+	}
+
+	public boolean isChecked() {
+		return isChecked;
+	}
+
+	public void setChecked(boolean isChecked) {
+		this.isChecked = isChecked;
 	}
 
 	//----------------------------

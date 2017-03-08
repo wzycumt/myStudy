@@ -2,8 +2,7 @@ package org.myStudy.service;
 
 import java.util.List;
 
-import org.myStudy.dto.Datatables;
-import org.myStudy.dto.PageQuery1;
+import org.myStudy.dto.PageQuery;
 import org.myStudy.entity.User;
 
 public interface IUserService {
@@ -16,6 +15,7 @@ public interface IUserService {
 	public User getById(int id);
 	
 	/**
+	 * 获取所有
 	 * @return
 	 * @throws Exception 
 	 */
@@ -26,7 +26,14 @@ public interface IUserService {
 	 * @param query
 	 * @return
 	 */
-	public Datatables<User> getPageList(PageQuery1 query);
+	public List<User> getPageList(PageQuery query);
+	
+	/**
+	 * 获取分页查询结果的总数
+	 * @param query
+	 * @return
+	 */
+	public int getPageListTotal(PageQuery query);
 	
 	/**
 	 * 添加

@@ -2,7 +2,7 @@ package org.myStudy.dao;
 
 import java.util.List;
 
-import org.myStudy.dto.PageQuery1;
+import org.myStudy.dto.PageQuery;
 import org.myStudy.entity.User;
 
 /**
@@ -29,7 +29,14 @@ public interface IUserDao {
 	 * @param query
 	 * @return
 	 */
-	public List<User> getPageList(PageQuery1 query);
+	public List<User> getPageList(PageQuery query);
+	
+	/**
+	 * 获取分页查询结果的总数
+	 * @param query
+	 * @return
+	 */
+	public int getPageListTotal(PageQuery query);
 	
 	/**
 	 * 添加

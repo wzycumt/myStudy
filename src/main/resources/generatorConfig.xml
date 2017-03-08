@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 指定数据连接驱动jar地址 -->  
+    <classPathEntry location="C:/Users/WZY/.m2/repository/mysql/mysql-connector-java/5.1.40/mysql-connector-java-5.1.40.jar" /> 
+	<context id="context1">
+		<commentGenerator>
+			<property name="suppressAllComments" value="false" /><!-- 是否取消注释 -->
+			<property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳 -->
+		</commentGenerator>
+		<jdbcConnection connectionURL="jdbc:mysql://127.0.0.1:3306/myStudy" driverClass="com.mysql.jdbc.Driver" password="" userId="root" />
+		<javaModelGenerator targetPackage="org.myStudy.entity" targetProject="myStudy/src/main/java">
+			<property name="rootClass" value="org.myStudy.entity.BaseEntity"/>
+		</javaModelGenerator>
+		<sqlMapGenerator targetPackage="org.myStudy.entity" targetProject="myStudy/src/main/java" />
+		<javaClientGenerator targetPackage="org.myStudy.dao" targetProject="myStudy/src/main/java" type="XMLMAPPER" />
+		<table schema="myStudy" tableName="T_MENU" domainObjectName="Menu" enableCountByExample="false"  
+            enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false">
+			<columnOverride column="ID" javaType="int" />
+			<columnOverride column="PARENT_ID" javaType="int" />
+			<columnOverride column="SERIAL_NUM" javaType="int" />
+			<columnOverride column="STATUS" javaType="int" />
+			<columnOverride column="CREATOR" javaType="int" />
+			<columnOverride column="UPDATE_PERSON" javaType="int" />
+			<columnOverride column="VERSION" javaType="int" />
+		</table>
+		<table schema="myStudy" tableName="T_ROLE" domainObjectName="Role" enableCountByExample="false"  
+            enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false">
+			<columnOverride column="ID" javaType="int" />
+			<columnOverride column="STATUS" javaType="int" />
+			<columnOverride column="CREATOR" javaType="int" />
+			<columnOverride column="UPDATE_PERSON" javaType="int" />
+			<columnOverride column="VERSION" javaType="int" />
+		</table>
+	</context>
+</generatorConfiguration>

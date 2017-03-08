@@ -12,13 +12,6 @@
 <!-- Bootstrap -->
 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- <link rel="stylesheet" href="resources/css/dashboard.css"> -->
-
-<!-- datatables插件 -->
-<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"> -->
-<link rel="stylesheet" href="http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.css">
-<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-<script src="http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 
 <!-- H+ UI -->
 <link rel="shortcut icon" href="resources/hplus-v4.1.0/favicon.ico">
@@ -31,6 +24,18 @@
 <script src="resources/hplus-v4.1.0/js/hplus.min.js?v=4.1.0"></script>
 <script src="resources/hplus-v4.1.0/js/contabs.min.js"></script>
 <script src="resources/hplus-v4.1.0/js/plugins/pace/pace.min.js"></script>
+<!-- bootstrap Table插件 -->
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+<%-- 
+<link href="resources/hplus-v4.1.0/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+<script src="resources/hplus-v4.1.0/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="resources/hplus-v4.1.0/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+--%>
+<!-- iCheck 单选/复选框插件 -->
+<link href="resources/hplus-v4.1.0/css/plugins/iCheck/custom.css" rel="stylesheet">
+<script src="resources/hplus-v4.1.0/js/plugins/iCheck/icheck.min.js"></script>
     
 <!-- base.js -->
 <script src="resources/js/base.js"></script>

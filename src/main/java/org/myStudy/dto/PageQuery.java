@@ -8,6 +8,7 @@ public class PageQuery {
 
 	private int offset;
 	private int limit;
+	private String sort;
 	private String order;
 	private String search;
 
@@ -25,6 +26,14 @@ public class PageQuery {
 
 	public void setLimit(int limit) {
 		this.limit = limit;
+	}
+
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
 	}
 
 	public String getOrder() {
