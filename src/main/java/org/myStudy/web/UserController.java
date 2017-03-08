@@ -35,16 +35,16 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
-		return "userManagement/index";
+		return "user/index";
 	}
 
 	@RequestMapping(value = "/pageList", produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String pageList(PageQuery query) {
-		List<User> list = userService.getPageList(query);
+		List<User> list = userService.selectPageList(query);
 		BootstrapTable<User> table = new BootstrapTable<User>();
 		table.setRows(list);
-		table.setTotal(userService.getPageListTotal(query));
+		table.setTotal(userService.selectPageListTotal(query));
 		return table.toJsonString();
 	}
 
@@ -54,10 +54,10 @@ public class UserController extends BaseController {
 		if (id == null || id == 0) {
 			user = new User();
 		} else {
-			user = userService.getById(id);
+			user = userService.selectById(id);
 		}
 		model.addAttribute(user);
-		return "userManagement/info";
+		return "user/info";
 	}
 
 	@RequestMapping(value = "/info", method = RequestMethod.POST)
@@ -66,15 +66,15 @@ public class UserController extends BaseController {
 		if (!result.hasErrors()) {
 			try {
 				if (user.getId() == 0) {
-					userService.add(user);
+					userService.insert(user);
 				} else {
-					userService.edit(user);
+					userService.update(user);
 				}
 			} catch (Exception e) {
 				logger.error(e.getMessage());
 				model.addAttribute("error", e.getMessage());
 			}
 		}
-		return "userManagement/info";
+		return "user/info";
 	}
 }

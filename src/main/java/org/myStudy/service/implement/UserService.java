@@ -16,23 +16,27 @@ public class UserService implements IUserService {
 	@Autowired
 	private IUserDao userDao;
 
-	public User getById(int id) {
-		return userDao.getById(id);
+	public User selectById(Integer id) {
+		return userDao.selectById(id);
 	}
 
-	public List<User> getAll() {
-		return userDao.getAll();
+	public List<User> selectAll() {
+		return userDao.selectAll();
 	}
 
-	public List<User> getPageList(PageQuery query) {
-		return userDao.getPageList(query);
+	public List<User> selectPageList(PageQuery query) {
+		return userDao.selectPageList(query);
 	}
 
-	public int getPageListTotal(PageQuery query) {
-		return userDao.getPageListTotal(query);
+	public int selectPageListTotal(PageQuery query) {
+		return userDao.selectPageListTotal(query);
 	}
 
-	public long add(User user) throws Exception {
+	public int deleteById(Integer id) {
+		return userDao.deleteById(id);
+	}
+
+	public long insert(User user) throws Exception {
 		//校验
 		if (user.getUserName() == null || user.getUserName().trim().equals("")) {
 			throw new Exception("用户名不能为空");
@@ -42,11 +46,15 @@ public class UserService implements IUserService {
 		}
 		user.setPassword(user.getUserName());
 		user.setStatus(BaseStatusEnum.VALID);
-		userDao.add(user);
+		userDao.insert(user);
 		return user.getId();
 	}
 
-	public int edit(User user) throws Exception {
+	public long insertSelective(User entity) throws Exception {
+		return userDao.insertSelective(entity);
+	}
+
+	public int update(User user) throws Exception {
 		//校验
 		if (user.getUserName() == null || user.getUserName().trim().equals("")) {
 			throw new Exception("用户名不能为空");
@@ -54,7 +62,7 @@ public class UserService implements IUserService {
 		if (user.getNickname() == null || user.getNickname().trim().equals("")) {
 			user.setNickname(user.getUserName());
 		}
-		User entity = userDao.getById(user.getId());
+		User entity = userDao.selectById(user.getId());
 		entity.setUserName(user.getUserName());
 		entity.setNickname(user.getNickname());
 		entity.setRealName(user.getRealName());
@@ -62,15 +70,11 @@ public class UserService implements IUserService {
 		entity.setEmail(user.getEmail());
 		entity.setStatus(user.getStatus());
 		entity.setRemark(user.getRemark());
-		return userDao.edit(user);
+		return userDao.update(user);
 	}
 
-	public int delete(int id) {
-		return userDao.delete(id);
-	}
-
-	public int deleteAll(String ids) {
-		return userDao.deleteAll(ids);
+	public long updateSelective(User entity) throws Exception {
+		return userDao.updateSelective(entity);
 	}
 
 }

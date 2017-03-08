@@ -12,28 +12,35 @@ public interface IUserService {
 	 * @param id
 	 * @return
 	 */
-	public User getById(int id);
+	User selectById(Integer id);
 	
 	/**
 	 * 获取所有
 	 * @return
 	 * @throws Exception 
 	 */
-	public List<User> getAll();
+	List<User> selectAll();
 
 	/**
 	 * 获取分页列表
 	 * @param query
 	 * @return
 	 */
-	public List<User> getPageList(PageQuery query);
+	List<User> selectPageList(PageQuery query);
 	
 	/**
 	 * 获取分页查询结果的总数
 	 * @param query
 	 * @return
 	 */
-	public int getPageListTotal(PageQuery query);
+	int selectPageListTotal(PageQuery query);
+	
+	/**
+	 * 删除
+	 * @param id
+	 * @return
+	 */
+	int deleteById(Integer id);
 	
 	/**
 	 * 添加
@@ -41,7 +48,9 @@ public interface IUserService {
 	 * @return
 	 * @throws Exception 
 	 */
-	public long add(User entity) throws Exception;
+	long insert(User entity) throws Exception;
+	
+	long insertSelective(User entity) throws Exception;
 	
 	/**
 	 * 编辑
@@ -49,19 +58,7 @@ public interface IUserService {
 	 * @return
 	 * @throws Exception 
 	 */
-	public int edit(User entity) throws Exception;
+	int update(User entity) throws Exception;
 	
-	/**
-	 * 删除
-	 * @param id
-	 * @return
-	 */
-	public int delete(int id);
-	
-	/**
-	 * 批量删除
-	 * @param ids
-	 * @return
-	 */
-	public int deleteAll(String ids);
+	long updateSelective(User entity) throws Exception;
 }

@@ -10,7 +10,7 @@ import org.myStudy.enums.BaseStatusEnum;
  */
 public class User extends BaseEntity {
 
-	@NotEmpty(message = "{username.not.empty}")
+	@NotEmpty(message = "{not.empty}")
 	private String userName;
 	private String password;
 	private String nickname;
@@ -73,15 +73,6 @@ public class User extends BaseEntity {
 		return status;
 	}
 
-	/**
-	 * 状态描述
-	 * 
-	 * @return
-	 */
-	public String getStatusDes() {
-		return status.getDescription();
-	}
-
 	public void setStatus(BaseStatusEnum status) {
 		this.status = status;
 	}
@@ -92,12 +83,6 @@ public class User extends BaseEntity {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
-	}
-
-	@Override
-	public String toString() {
-		return "User [userName=" + userName + ", password=" + password + ", nickname=" + nickname + ", realName=" + realName + ", phone=" + phone
-				+ ", email=" + email + ", status=" + status + ", remark=" + remark + "]";
 	}
 
 }
