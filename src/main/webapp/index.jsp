@@ -36,6 +36,8 @@
         </li>
         <li><a class="J_menuItem" href="home"><i class="fa fa-home"></i><span class="nav-label">主页</span></a></li>
         <li><a class="J_menuItem" href="user/index"><i class="fa fa-user"></i><span class="nav-label">用户管理</span></a></li>
+        <li><a class="J_menuItem" href="role/index"><i class="fa fa-user-secret"></i><span class="nav-label">权限管理</span></a></li>
+        <li><a class="J_menuItem" href="menu/index"><i class="fa fa-reorder"></i><span class="nav-label">菜单管理</span></a></li>
         <li><a class="J_menuItem" href="nav/fileUpload"><i class="fa fa-upload"></i><span class="nav-label">文件上传</span></a></li>
         <li>
           <a href="#"><i class="fa fa-home"></i><span class="nav-label">主页</span><span class="fa arrow"></span></a>

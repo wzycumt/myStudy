@@ -85,4 +85,8 @@ public class User extends BaseEntity {
 		this.remark = remark;
 	}
 
+	//扩展
+	public String getStatusDes() {
+		return status.getDescription();
+	}
 }

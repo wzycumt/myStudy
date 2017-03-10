@@ -10,6 +10,10 @@ import org.myStudy.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 用户服务实现层
+ * @author WZY
+ */
 @Service
 public class UserService implements IUserService {
 	
@@ -36,44 +40,48 @@ public class UserService implements IUserService {
 		return userDao.deleteById(id);
 	}
 
-	public long insert(User user) throws Exception {
+	public int insert(User entity) throws Exception {
 		//校验
-		if (user.getUserName() == null || user.getUserName().trim().equals("")) {
+		if (entity.getUserName() == null || entity.getUserName().trim().equals("")) {
 			throw new Exception("用户名不能为空");
 		}
-		if (user.getNickname() == null || user.getNickname().trim().equals("")) {
-			user.setNickname(user.getUserName());
+		if (entity.getNickname() == null || entity.getNickname().trim().equals("")) {
+			entity.setNickname(entity.getUserName());
 		}
-		user.setPassword(user.getUserName());
-		user.setStatus(BaseStatusEnum.VALID);
-		userDao.insert(user);
-		return user.getId();
+		entity.setPassword(entity.getUserName());
+		entity.setStatus(BaseStatusEnum.VALID);
+		userDao.insert(entity);
+		return entity.getId();
 	}
 
-	public long insertSelective(User entity) throws Exception {
-		return userDao.insertSelective(entity);
+	public int insertSelective(User entity) throws Exception {
+		userDao.insertSelective(entity);
+		return entity.getId();
 	}
 
-	public int update(User user) throws Exception {
+	public int update(User entity) throws Exception {
 		//校验
-		if (user.getUserName() == null || user.getUserName().trim().equals("")) {
+		if (entity.getUserName() == null || entity.getUserName().trim().equals("")) {
 			throw new Exception("用户名不能为空");
 		}
-		if (user.getNickname() == null || user.getNickname().trim().equals("")) {
-			user.setNickname(user.getUserName());
+		if (entity.getNickname() == null || entity.getNickname().trim().equals("")) {
+			entity.setNickname(entity.getUserName());
 		}
-		User entity = userDao.selectById(user.getId());
-		entity.setUserName(user.getUserName());
-		entity.setNickname(user.getNickname());
-		entity.setRealName(user.getRealName());
-		entity.setPhone(user.getPhone());
-		entity.setEmail(user.getEmail());
-		entity.setStatus(user.getStatus());
-		entity.setRemark(user.getRemark());
-		return userDao.update(user);
+		User dbEntity = userDao.selectById(entity.getId());
+		if (dbEntity == null) {
+			throw new Exception("实体不存在");
+		}
+		dbEntity.setUserName(entity.getUserName());
+		dbEntity.setNickname(entity.getNickname());
+		dbEntity.setRealName(entity.getRealName());
+		dbEntity.setPhone(entity.getPhone());
+		dbEntity.setEmail(entity.getEmail());
+		dbEntity.setStatus(entity.getStatus());
+		dbEntity.setRemark(entity.getRemark());
+		return userDao.update(dbEntity);
 	}
 
-	public long updateSelective(User entity) throws Exception {
+	public int updateSelective(User entity) throws Exception {
 		return userDao.updateSelective(entity);
 	}
 

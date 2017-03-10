@@ -1,4 +1,4 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -25,14 +25,20 @@
 <script src="resources/hplus-v4.1.0/js/contabs.min.js"></script>
 <script src="resources/hplus-v4.1.0/js/plugins/pace/pace.min.js"></script>
 <!-- bootstrap Table插件 -->
+<%-- 
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
-<%-- 
+--%>
 <link href="resources/hplus-v4.1.0/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
 <script src="resources/hplus-v4.1.0/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="resources/hplus-v4.1.0/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
---%>
+
+<!-- jQuery-treeTable -->
+<!-- <link href="http://cdn.bootcss.com/jquery-treetable/3.2.0/css/jquery.treetable.min.css" rel="stylesheet">
+<link href="http://cdn.bootcss.com/jquery-treetable/3.2.0/css/jquery.treetable.theme.default.min.css" rel="stylesheet">
+<script src="http://cdn.bootcss.com/jquery-treetable/3.2.0/jquery.treetable.min.js"></script> -->
+
 <!-- iCheck 单选/复选框插件 -->
 <link href="resources/hplus-v4.1.0/css/plugins/iCheck/custom.css" rel="stylesheet">
 <script src="resources/hplus-v4.1.0/js/plugins/iCheck/icheck.min.js"></script>

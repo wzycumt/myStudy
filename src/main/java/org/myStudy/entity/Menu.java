@@ -11,10 +11,10 @@ public class Menu extends BaseEntity {
 
 	@NotEmpty(message = "{not.empty}")
     private String name;
-    private Integer parentId;
-	@NotEmpty(message = "{not.empty}")
+    private int parentId;
     private String url;
-    private Integer serialNum;
+	private String icon;
+    private int serialNum;
     private BaseStatusEnum status;
     private String remark;
     
@@ -42,6 +42,14 @@ public class Menu extends BaseEntity {
         this.url = url;
     }
 
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
     public int getSerialNum() {
         return serialNum;
     }
@@ -65,4 +73,9 @@ public class Menu extends BaseEntity {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+	//扩展
+	public String getStatusDes() {
+		return status.getDescription();
+	}
 }

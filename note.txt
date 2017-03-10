@@ -13,4 +13,8 @@ mybatis中的#和$的区别
 6.一般能用#的就别用$.
 MyBatis排序时使用order by 动态参数时需要注意，用$而不是#
 
-2017-03-09 菜单、角色service,controller,view
+2017-03-09 
+菜单、角色service,controller,view
+母版页
+
+<span id="jqxWidget55547182" style="position: absolute; right: 5px; bottom: 5px; color: rgb(144, 144, 144); cursor: pointer; z-index: 999999; font-size: 9px; overflow: hidden; height: 0.20206px; padding: 0px; margin: 0px; width: 1.54928px; opacity: 0.0144329;">www.jqwidgets.com</span>

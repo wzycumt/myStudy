@@ -13,32 +13,32 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 public class BaseEntity {
 
-	private Integer id;
-	private Integer creator;
+	private int id;
+	private int creator;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") // 取日期时使用
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
-	private Integer updatePerson;
+	private int updatePerson;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") // 取日期时使用
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updateTime;
-	private Integer version;
+	private int version;
 	
 	private boolean isChecked;
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public Integer getCreator() {
+	public int getCreator() {
 		return creator;
 	}
 
-	public void setCreator(Integer creator) {
+	public void setCreator(int creator) {
 		this.creator = creator;
 	}
 
@@ -53,11 +53,11 @@ public class BaseEntity {
 		this.createTime = createTime;
 	}
 
-	public Integer getUpdatePerson() {
+	public int getUpdatePerson() {
 		return updatePerson;
 	}
 
-	public void setUpdatePerson(Integer updatePerson) {
+	public void setUpdatePerson(int updatePerson) {
 		this.updatePerson = updatePerson;
 	}
 
@@ -72,11 +72,11 @@ public class BaseEntity {
 		this.updateTime = updateTime;
 	}
 
-	public Integer getVersion() {
+	public int getVersion() {
 		return version;
 	}
 
-	public void setVersion(Integer version) {
+	public void setVersion(int version) {
 		this.version = version;
 	}
 

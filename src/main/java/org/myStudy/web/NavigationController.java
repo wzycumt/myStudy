@@ -4,7 +4,10 @@ import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.myStudy.entity.Menu;
+import org.myStudy.service.implement.MenuService;
 import org.myStudy.web.common.BaseController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,11 +17,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/nav")
 public class NavigationController extends BaseController {
+	
+	@Autowired
+	MenuService MenuService;
 
-	@RequestMapping(value = "/container/{viewName}", method = RequestMethod.GET)
-	public String container(@PathVariable("viewName") String viewName, Model model) {
-		model.addAttribute("viewName", viewName);
-		return viewName;
+	@RequestMapping(value = "/{menuId}", method = RequestMethod.GET)
+	public String index(@PathVariable Integer menuId, Model model) {
+		//TODO 权限控制
+		if(menuId != null && menuId != 0) {
+			Menu menu = MenuService.selectById(menuId);
+			if (menu != null) {
+		        model.addAttribute("title", menu.getName());
+		        model.addAttribute("url", menu.getUrl());
+			}
+		}
+		return "common/layout_default";
 	}
 
 	/**
@@ -56,13 +69,5 @@ public class NavigationController extends BaseController {
 	@RequestMapping(value = "/fileUpload", method = RequestMethod.GET)
 	public String fileUpload(HttpServletRequest request, Model model) {
 		return "fileUpload";
-	}
-
-	/**
-	 * 联系方式
-	 */
-	@RequestMapping(value = "/contact", method = RequestMethod.GET)
-	public String contact(HttpServletRequest request, Model model) {
-		return "contact";
 	}
 }

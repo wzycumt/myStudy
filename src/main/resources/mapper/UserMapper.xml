@@ -60,142 +60,75 @@
 		values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
 			#{nickname,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
 			#{email,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR},
-			#{creator,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updatePerson,jdbcType=INTEGER},
-			#{updateTime,jdbcType=TIMESTAMP}, #{version,jdbcType=SMALLINT})
+			#{creator,jdbcType=INTEGER}, now(), #{updatePerson,jdbcType=INTEGER}, now(), 0)
 	</insert>
 	
 	<insert id="insertSelective" parameterType="org.myStudy.entity.User" useGeneratedKeys="true" keyProperty="id">
 		insert into t_user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			ID,
-			<if test="userName != null">
-				USER_NAME,
-			</if>
-			<if test="password != null">
-				PASSWORD,
-			</if>
-			<if test="nickname != null">
-				NICKNAME,
-			</if>
-			<if test="realName != null">
-				REAL_NAME,
-			</if>
-			<if test="phone != null">
-				PHONE,
-			</if>
-			<if test="email != null">
-				EMAIL,
-			</if>
+			<if test="userName != null">USER_NAME,</if>
+			<if test="password != null">PASSWORD,</if>
+			<if test="nickname != null">NICKNAME,</if>
+			<if test="realName != null">REAL_NAME,</if>
+			<if test="phone != null">PHONE,</if>
+			<if test="email != null">EMAIL,</if>
 			STATUS,
-			<if test="remark != null">
-				REMARK,
-			</if>
+			<if test="remark != null">REMARK,</if>
 			CREATOR,
-			<if test="createTime != null">
-				CREATE_TIME,
-			</if>
+			CREATE_TIME,
 			UPDATE_PERSON,
-			<if test="updateTime != null">
-				UPDATE_TIME,
-			</if>
+			UPDATE_TIME,
 			VERSION,
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			#{id,jdbcType=INTEGER},
-			<if test="userName != null">
-				#{userName,jdbcType=VARCHAR},
-			</if>
-			<if test="password != null">
-				#{password,jdbcType=VARCHAR},
-			</if>
-			<if test="nickname != null">
-				#{nickname,jdbcType=VARCHAR},
-			</if>
-			<if test="realName != null">
-				#{realName,jdbcType=VARCHAR},
-			</if>
-			<if test="phone != null">
-				#{phone,jdbcType=VARCHAR},
-			</if>
-			<if test="email != null">
-				#{email,jdbcType=VARCHAR},
-			</if>
+			<if test="userName != null">#{userName,jdbcType=VARCHAR},</if>
+			<if test="password != null">#{password,jdbcType=VARCHAR},</if>
+			<if test="nickname != null">#{nickname,jdbcType=VARCHAR},</if>
+			<if test="realName != null">#{realName,jdbcType=VARCHAR},</if>
+			<if test="phone != null">#{phone,jdbcType=VARCHAR},</if>
+			<if test="email != null">#{email,jdbcType=VARCHAR},</if>
 			#{status,jdbcType=TINYINT},
-			<if test="remark != null">
-				#{remark,jdbcType=VARCHAR},
-			</if>
+			<if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
 			#{creator,jdbcType=INTEGER},
-			<if test="createTime != null">
-				#{createTime,jdbcType=TIMESTAMP},
-			</if>
+			now(),
 			#{updatePerson,jdbcType=INTEGER},
-			<if test="updateTime != null">
-				#{updateTime,jdbcType=TIMESTAMP},
-			</if>
-			#{version,jdbcType=SMALLINT},
+			now(),
+			0,
 		</trim>
 	</insert>
 	
 	<update id="update" parameterType="org.myStudy.entity.User">
 		update t_user
 		set USER_NAME = #{userName,jdbcType=VARCHAR},
-		PASSWORD = #{password,jdbcType=VARCHAR},
-		NICKNAME = #{nickname,jdbcType=VARCHAR},
-		REAL_NAME = #{realName,jdbcType=VARCHAR},
-		PHONE = #{phone,jdbcType=VARCHAR},
-		EMAIL = #{email,jdbcType=VARCHAR},
-		STATUS = #{status,jdbcType=TINYINT},
-		REMARK = #{remark,jdbcType=VARCHAR},
-		CREATOR = #{creator,jdbcType=INTEGER},
-		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-		UPDATE_PERSON = #{updatePerson,jdbcType=INTEGER},
-		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-		VERSION = #{version,jdbcType=SMALLINT}
-		where ID = #{id,jdbcType=INTEGER}
+			PASSWORD = #{password,jdbcType=VARCHAR},
+			NICKNAME = #{nickname,jdbcType=VARCHAR},
+			REAL_NAME = #{realName,jdbcType=VARCHAR},
+			PHONE = #{phone,jdbcType=VARCHAR},
+			EMAIL = #{email,jdbcType=VARCHAR},
+			STATUS = #{status,jdbcType=TINYINT},
+			REMARK = #{remark,jdbcType=VARCHAR},
+			UPDATE_PERSON = #{updatePerson,jdbcType=INTEGER},
+			UPDATE_TIME = now(),
+			VERSION = VERSION + 1
+			where ID = #{id,jdbcType=INTEGER}
 	</update>
 	
 	<update id="updateSelective" parameterType="org.myStudy.entity.User">
 		update t_user
 		<set>
-			<if test="userName != null">
-				USER_NAME = #{userName,jdbcType=VARCHAR},
-			</if>
-			<if test="password != null">
-				PASSWORD = #{password,jdbcType=VARCHAR},
-			</if>
-			<if test="nickname != null">
-				NICKNAME = #{nickname,jdbcType=VARCHAR},
-			</if>
-			<if test="realName != null">
-				REAL_NAME = #{realName,jdbcType=VARCHAR},
-			</if>
-			<if test="phone != null">
-				PHONE = #{phone,jdbcType=VARCHAR},
-			</if>
-			<if test="email != null">
-				EMAIL = #{email,jdbcType=VARCHAR},
-			</if>
-			<if test="status != null">
-				STATUS = #{status,jdbcType=TINYINT},
-			</if>
-			<if test="remark != null">
-				REMARK = #{remark,jdbcType=VARCHAR},
-			</if>
-			<if test="creator != null">
-				CREATOR = #{creator,jdbcType=INTEGER},
-			</if>
-			<if test="createTime != null">
-				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="updatePerson != null">
-				UPDATE_PERSON = #{updatePerson,jdbcType=INTEGER},
-			</if>
-			<if test="updateTime != null">
-				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="version != null">
-				VERSION = #{version,jdbcType=SMALLINT},
-			</if>
+			<if test="userName != null">USER_NAME = #{userName,jdbcType=VARCHAR},</if>
+			<if test="password != null">PASSWORD = #{password,jdbcType=VARCHAR},</if>
+			<if test="nickname != null">NICKNAME = #{nickname,jdbcType=VARCHAR},</if>
+			<if test="realName != null">REAL_NAME = #{realName,jdbcType=VARCHAR},</if>
+			<if test="phone != null">PHONE = #{phone,jdbcType=VARCHAR},</if>
+			<if test="email != null">EMAIL = #{email,jdbcType=VARCHAR},</if>
+			<if test="status != null">STATUS = #{status,jdbcType=TINYINT},</if>
+			<if test="remark != null">REMARK = #{remark,jdbcType=VARCHAR},</if>
+			<if test="updatePerson != null">UPDATE_PERSON = #{updatePerson,jdbcType=INTEGER},</if>
+			UPDATE_TIME = now(),
+			VERSION = VERSION + 1,
 		</set>
 		where ID = #{id,jdbcType=INTEGER}
 	</update>

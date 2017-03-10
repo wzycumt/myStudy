@@ -37,4 +37,9 @@ public class Role extends BaseEntity {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+	//扩展
+	public String getStatusDes() {
+		return status.getDescription();
+	}
 }
