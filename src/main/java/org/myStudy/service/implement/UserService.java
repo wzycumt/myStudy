@@ -20,19 +20,19 @@ public class UserService implements IUserService {
 	@Autowired
 	private IUserDao userDao;
 
-	public User selectById(Integer id) {
+	public User getById(Integer id) {
 		return userDao.selectById(id);
 	}
 
-	public List<User> selectAll() {
+	public List<User> getAll() {
 		return userDao.selectAll();
 	}
 
-	public List<User> selectPageList(PageQuery query) {
+	public List<User> getPageList(PageQuery query) {
 		return userDao.selectPageList(query);
 	}
 
-	public int selectPageListTotal(PageQuery query) {
+	public int getPageListTotal(PageQuery query) {
 		return userDao.selectPageListTotal(query);
 	}
 
@@ -40,7 +40,7 @@ public class UserService implements IUserService {
 		return userDao.deleteById(id);
 	}
 
-	public int insert(User entity) throws Exception {
+	public int add(User entity) throws Exception {
 		//校验
 		if (entity.getUserName() == null || entity.getUserName().trim().equals("")) {
 			throw new Exception("用户名不能为空");
@@ -54,12 +54,12 @@ public class UserService implements IUserService {
 		return entity.getId();
 	}
 
-	public int insertSelective(User entity) throws Exception {
+	public int addSelective(User entity) throws Exception {
 		userDao.insertSelective(entity);
 		return entity.getId();
 	}
 
-	public int update(User entity) throws Exception {
+	public int edit(User entity) throws Exception {
 		//校验
 		if (entity.getUserName() == null || entity.getUserName().trim().equals("")) {
 			throw new Exception("用户名不能为空");
@@ -81,7 +81,7 @@ public class UserService implements IUserService {
 		return userDao.update(dbEntity);
 	}
 
-	public int updateSelective(User entity) throws Exception {
+	public int editSelective(User entity) throws Exception {
 		return userDao.updateSelective(entity);
 	}
 

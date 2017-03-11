@@ -25,7 +25,7 @@ public class NavigationController extends BaseController {
 	public String index(@PathVariable Integer menuId, Model model) {
 		//TODO 权限控制
 		if(menuId != null && menuId != 0) {
-			Menu menu = MenuService.selectById(menuId);
+			Menu menu = MenuService.getById(menuId);
 			if (menu != null) {
 		        model.addAttribute("title", menu.getName());
 		        model.addAttribute("url", menu.getUrl());

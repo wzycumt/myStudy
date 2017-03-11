@@ -41,10 +41,10 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/pageList", produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String pageList(PageQuery query) {
-		List<User> list = userService.selectPageList(query);
+		List<User> list = userService.getPageList(query);
 		BootstrapTable<User> table = new BootstrapTable<User>();
 		table.setRows(list);
-		table.setTotal(userService.selectPageListTotal(query));
+		table.setTotal(userService.getPageListTotal(query));
 		return table.toJsonString();
 	}
 
@@ -54,7 +54,7 @@ public class UserController extends BaseController {
 		if (id == null || id == 0) {
 			user = new User();
 		} else {
-			user = userService.selectById(id);
+			user = userService.getById(id);
 		}
 		model.addAttribute(user);
 		return "user/info";
@@ -66,9 +66,9 @@ public class UserController extends BaseController {
 		if (!result.hasErrors()) {
 			try {
 				if (user.getId() == 0) {
-					userService.insert(user);
+					userService.add(user);
 				} else {
-					userService.update(user);
+					userService.edit(user);
 				}
 			} catch (Exception e) {
 				logger.error(e.getMessage());

@@ -29,7 +29,7 @@
               <li><a class="J_menuItem" href="contacts.html">联系我们</a></li>
               <li><a class="J_menuItem" href="mailbox.html">信箱</a></li>
               <li class="divider"></li>
-              <li><a href="login.html">安全退出</a></li>
+              <li><a href="login">安全退出</a></li>
             </ul>
           </div>
           <div class="logo-element">H+</div>
@@ -151,7 +151,7 @@
             <li class="J_tabCloseOther"><a>关闭其他选项卡</a></li>
           </ul>
         </div>
-        <a href="login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+        <a href="login" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
       </div>
       <div class="row J_mainContent" id="content-main">
         <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="nav/sysInfo" frameborder="0" data-id="home" seamless></iframe>

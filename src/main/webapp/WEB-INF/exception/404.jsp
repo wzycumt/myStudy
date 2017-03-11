@@ -10,12 +10,12 @@
     <h1>404</h1>
     <h3 class="font-bold">页面未找到！</h3>
     <div class="error-desc">
-      <span>抱歉，页面好像去火星了~</span>
+      <span>抱歉，您访问的页面不在这个地球上~</span>
       <form class="form-inline m-t" role="form">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="请输入您需要查找的内容 …">
         </div>
-        <button type="submit" class="btn btn-primary">搜索</button>
+        <button type="submit" class="btn btn-success">搜索</button>
       </form>
     </div>
   </div>
