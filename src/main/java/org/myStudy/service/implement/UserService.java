@@ -21,19 +21,19 @@ public class UserService implements IUserService {
 	private IUserDao userDao;
 
 	public User getById(Integer id) {
-		return userDao.selectById(id);
+		return userDao.getById(id);
 	}
 
 	public List<User> getAll() {
-		return userDao.selectAll();
+		return userDao.getAll();
 	}
 
 	public List<User> getPageList(PageQuery query) {
-		return userDao.selectPageList(query);
+		return userDao.getPageList(query);
 	}
 
 	public int getPageListTotal(PageQuery query) {
-		return userDao.selectPageListTotal(query);
+		return userDao.getPageListTotal(query);
 	}
 
 	public int deleteById(Integer id) {
@@ -50,12 +50,12 @@ public class UserService implements IUserService {
 		}
 		entity.setPassword(entity.getUserName());
 		entity.setStatus(BaseStatusEnum.VALID);
-		userDao.insert(entity);
+		userDao.add(entity);
 		return entity.getId();
 	}
 
 	public int addSelective(User entity) throws Exception {
-		userDao.insertSelective(entity);
+		userDao.addSelective(entity);
 		return entity.getId();
 	}
 
@@ -67,7 +67,7 @@ public class UserService implements IUserService {
 		if (entity.getNickname() == null || entity.getNickname().trim().equals("")) {
 			entity.setNickname(entity.getUserName());
 		}
-		User dbEntity = userDao.selectById(entity.getId());
+		User dbEntity = userDao.getById(entity.getId());
 		if (dbEntity == null) {
 			throw new Exception("实体不存在");
 		}
@@ -78,11 +78,11 @@ public class UserService implements IUserService {
 		dbEntity.setEmail(entity.getEmail());
 		dbEntity.setStatus(entity.getStatus());
 		dbEntity.setRemark(entity.getRemark());
-		return userDao.update(dbEntity);
+		return userDao.edit(dbEntity);
 	}
 
 	public int editSelective(User entity) throws Exception {
-		return userDao.updateSelective(entity);
+		return userDao.editSelective(entity);
 	}
 
 }

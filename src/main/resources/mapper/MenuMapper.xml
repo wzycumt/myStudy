@@ -5,21 +5,21 @@
 		ID, NAME, PARENT_ID, URL, ICON, SERIAL_NUM, STATUS, REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION
 	</sql>
 
-	<select id="selectById" parameterType="Integer" resultType="org.myStudy.entity.Menu">
+	<select id="getById" parameterType="Integer" resultType="org.myStudy.entity.Menu">
 		select
 		<include refid="Base_Column_List" />
 		from t_menu
 		where ID = #{id,jdbcType=INTEGER}
 	</select>
 
-	<select id="selectAll" resultType="org.myStudy.entity.Menu">
+	<select id="getAll" resultType="org.myStudy.entity.Menu">
 		select
 		<include refid="Base_Column_List" />
 		from t_menu
 	</select>
 
 	<!-- 获取分页列表 -->
-	<select id="selectPageList" parameterType="org.myStudy.dto.PageQuery" resultType="org.myStudy.entity.Menu">
+	<select id="getPageList" parameterType="org.myStudy.dto.PageQuery" resultType="org.myStudy.entity.Menu">
 		select
 		<include refid="Base_Column_List" />
 		from t_menu t
@@ -35,7 +35,7 @@
 	</select>
 	
 	<!-- 获取分页查询结果的总数 -->
-	<select id="selectPageListTotal" parameterType="org.myStudy.dto.PageQuery" resultType="int">
+	<select id="getPageListTotal" parameterType="org.myStudy.dto.PageQuery" resultType="int">
 		select count(1) from t_menu t
         <where>
         	<if test="search != null and !search.trim().equals('')">
@@ -49,7 +49,7 @@
 		where ID = #{id,jdbcType=INTEGER}
 	</delete>
 	
-	<insert id="insert" parameterType="org.myStudy.entity.Menu" useGeneratedKeys="true" keyProperty="id">
+	<insert id="add" parameterType="org.myStudy.entity.Menu" useGeneratedKeys="true" keyProperty="id">
 		insert into t_menu (NAME, PARENT_ID, URL, ICON, SERIAL_NUM, STATUS,
 			REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION)
 		values (#{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER},#{url,jdbcType=VARCHAR}, 
@@ -58,10 +58,9 @@
 			now(), #{updatePerson,jdbcType=INTEGER}, now(), 0)
 	</insert>
 	
-	<insert id="insertSelective" parameterType="org.myStudy.entity.Menu">
+	<insert id="addSelective" parameterType="org.myStudy.entity.Menu" useGeneratedKeys="true" keyProperty="id">
 		insert into t_menu
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			ID,
 			<if test="name != null">NAME,</if>
 			PARENT_ID,
 			<if test="url != null">URL,</if>
@@ -76,7 +75,6 @@
 			VERSION,
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			#{id,jdbcType=INTEGER},
 			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
 			#{parentId,jdbcType=INTEGER},
 			<if test="url != null">#{url,jdbcType=VARCHAR},</if>
@@ -92,7 +90,7 @@
 		</trim>
 	</insert>
 	
-	<update id="update" parameterType="org.myStudy.entity.Menu">
+	<update id="edit" parameterType="org.myStudy.entity.Menu">
 		update t_menu
 		set NAME = #{name,jdbcType=VARCHAR},
 			PARENT_ID = #{parentId,jdbcType=INTEGER},
@@ -104,10 +102,10 @@
 			UPDATE_PERSON = #{updatePerson,jdbcType=INTEGER},
 			UPDATE_TIME = now(),
 			VERSION = VERSION + 1
-			where ID = #{id,jdbcType=INTEGER}
+		where ID = #{id,jdbcType=INTEGER}
 	</update>
 	
-	<update id="updateSelective" parameterType="org.myStudy.entity.Menu">
+	<update id="editSelective" parameterType="org.myStudy.entity.Menu">
 		update t_menu
 		<set>
 			<if test="name != null">NAME = #{name,jdbcType=VARCHAR},</if>

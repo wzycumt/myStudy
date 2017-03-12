@@ -20,19 +20,19 @@ public class MenuService implements IMenuService {
 	private IMenuDao menuDao;
 
 	public Menu getById(Integer id) {
-		return menuDao.selectById(id);
+		return menuDao.getById(id);
 	}
 
 	public List<Menu> getAll() {
-		return menuDao.selectAll();
+		return menuDao.getAll();
 	}
 
 	public List<Menu> getPageList(PageQuery query) {
-		return menuDao.selectPageList(query);
+		return menuDao.getPageList(query);
 	}
 
 	public int getPageListTotal(PageQuery query) {
-		return menuDao.selectPageListTotal(query);
+		return menuDao.getPageListTotal(query);
 	}
 
 	public int deleteById(Integer id) {
@@ -43,7 +43,7 @@ public class MenuService implements IMenuService {
 		if (entity.getName() == null || entity.getName().trim().equals("")) {
 			throw new Exception("名称不能为空");
 		}
-		menuDao.insert(entity);
+		menuDao.add(entity);
 		return entity.getId();
 	}
 
@@ -51,7 +51,7 @@ public class MenuService implements IMenuService {
 		if (entity.getName() == null || entity.getName().trim().equals("")) {
 			throw new Exception("名称不能为空");
 		}
-		menuDao.insertSelective(entity);
+		menuDao.addSelective(entity);
 		return entity.getId();
 	}
 
@@ -59,7 +59,7 @@ public class MenuService implements IMenuService {
 		if (entity.getName() == null || entity.getName().trim().equals("")) {
 			throw new Exception("名称不能为空");
 		}
-		Menu dbEntity = menuDao.selectById(entity.getId());
+		Menu dbEntity = menuDao.getById(entity.getId());
 		if (dbEntity == null) {
 			throw new Exception("实体不存在");
 		}
@@ -68,11 +68,11 @@ public class MenuService implements IMenuService {
 		dbEntity.setSerialNum(entity.getSerialNum());
 		dbEntity.setStatus(entity.getStatus());
 		dbEntity.setRemark(entity.getRemark());
-		return menuDao.update(entity);
+		return menuDao.edit(entity);
 	}
 
 	public int editSelective(Menu entity) throws Exception {
-		return menuDao.updateSelective(entity);
+		return menuDao.editSelective(entity);
 	}
 
 }

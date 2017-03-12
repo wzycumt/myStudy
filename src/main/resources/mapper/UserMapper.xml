@@ -6,21 +6,21 @@
 		REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION
 	</sql>
 
-	<select id="selectById" parameterType="Integer" resultType="org.myStudy.entity.User">
+	<select id="getById" parameterType="Integer" resultType="org.myStudy.entity.User">
 		select
 		<include refid="Base_Column_List" />
 		from t_user
 		where ID = #{id,jdbcType=INTEGER}
 	</select>
 
-	<select id="selectAll" resultType="org.myStudy.entity.User">
+	<select id="getAll" resultType="org.myStudy.entity.User">
 		select
 		<include refid="Base_Column_List" />
 		from t_user
 	</select>
 	
 	<!-- 获取分页列表 -->
-	<select id="selectPageList" parameterType="org.myStudy.dto.PageQuery" resultType="org.myStudy.entity.User">  
+	<select id="getPageList" parameterType="org.myStudy.dto.PageQuery" resultType="org.myStudy.entity.User">  
         select 
 		<include refid="Base_Column_List" />
     	from t_user t 
@@ -38,7 +38,7 @@
 	</select>
 	
 	<!-- 获取分页查询结果的总数 -->
-	<select id="selectPageListTotal" parameterType="org.myStudy.dto.PageQuery" resultType="int">
+	<select id="getPageListTotal" parameterType="org.myStudy.dto.PageQuery" resultType="int">
 		select count(1) from t_user t
         <where>
         	<if test="search != null and !search.trim().equals('')">
@@ -54,7 +54,7 @@
 		where ID = #{id,jdbcType=INTEGER}
 	</delete>
 	
-	<insert id="insert" parameterType="org.myStudy.entity.User" useGeneratedKeys="true" keyProperty="id">
+	<insert id="add" parameterType="org.myStudy.entity.User" useGeneratedKeys="true" keyProperty="id">
 		insert into t_user (USER_NAME, PASSWORD, NICKNAME, REAL_NAME, PHONE, EMAIL, STATUS, REMARK,
 			CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION)
 		values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
@@ -63,10 +63,9 @@
 			#{creator,jdbcType=INTEGER}, now(), #{updatePerson,jdbcType=INTEGER}, now(), 0)
 	</insert>
 	
-	<insert id="insertSelective" parameterType="org.myStudy.entity.User" useGeneratedKeys="true" keyProperty="id">
+	<insert id="addSelective" parameterType="org.myStudy.entity.User" useGeneratedKeys="true" keyProperty="id">
 		insert into t_user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			ID,
 			<if test="userName != null">USER_NAME,</if>
 			<if test="password != null">PASSWORD,</if>
 			<if test="nickname != null">NICKNAME,</if>
@@ -82,7 +81,6 @@
 			VERSION,
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			#{id,jdbcType=INTEGER},
 			<if test="userName != null">#{userName,jdbcType=VARCHAR},</if>
 			<if test="password != null">#{password,jdbcType=VARCHAR},</if>
 			<if test="nickname != null">#{nickname,jdbcType=VARCHAR},</if>
@@ -99,7 +97,7 @@
 		</trim>
 	</insert>
 	
-	<update id="update" parameterType="org.myStudy.entity.User">
+	<update id="edit" parameterType="org.myStudy.entity.User">
 		update t_user
 		set USER_NAME = #{userName,jdbcType=VARCHAR},
 			PASSWORD = #{password,jdbcType=VARCHAR},
@@ -115,7 +113,7 @@
 			where ID = #{id,jdbcType=INTEGER}
 	</update>
 	
-	<update id="updateSelective" parameterType="org.myStudy.entity.User">
+	<update id="editSelective" parameterType="org.myStudy.entity.User">
 		update t_user
 		<set>
 			<if test="userName != null">USER_NAME = #{userName,jdbcType=VARCHAR},</if>

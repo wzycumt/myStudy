@@ -3,15 +3,15 @@
 <html>
 <head>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
-<title>用户管理</title>
+<title>角色管理</title>
 </head>
 <body class="fixed-sidebar">
   <div class="wrapper wrapper-content animated fadeInRight">
     <div class="panel panel-default">
-      <div class="panel-heading">用户信息</div>
+      <div class="panel-heading">角色列表</div>
       <div class="panel-body">
         <div class="btn-group" id="toolbar">
-          <button type="button" class="btn btn-success" id="btnAdd"><i class="fa fa-plus"></i>&nbsp;新增</button>
+          <button type="button" class="btn btn-success" id="btnAdd"><i class="fa fa-plus"></i>&nbsp;添加</button>
           <button type="button" class="btn btn-primary" id="btnEdit"><i class="fa fa-edit"></i>&nbsp;编辑</button>
           <button type="button" class="btn btn-danger" id="btnRemove"><i class="fa fa-remove"></i>&nbsp;删除</button>
         </div>
@@ -28,16 +28,12 @@
           data-click-to-select="true"
           data-toolbar="#toolbar"
           data-id-field="id"
-          data-url="user/pageList">
+          data-url="role/pageList">
           <thead>
             <tr>
                 <th data-field="isChecked" data-checkbox="true"></th>
                 <th data-field="id" data-visible="false">ID</th>
-                <th data-field="userName" data-sortable="true">用户名</th>
-                <th data-field="nickname" data-sortable="true">昵称</th>
-                <th data-field="realName" data-sortable="true">真实姓名</th>
-                <th data-field="phone">手机</th>
-                <th data-field="email">E-mail</th>
+                <th data-field="name" data-sortable="true">用户名</th>
                 <th data-field="statusDes" data-sortable="true">状态</th>
                 <th data-field="remark">备注</th>
                 <th data-field="creator" data-sortable="true">创建人</th>
@@ -52,19 +48,19 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var table = $('#table');
-		//新增
+		//添加
 		$('#btnAdd').click(function() {
-			layerAdd(table, '新增', 'user/info', '80%', '90%');
+			layerAdd(table, '添加', 'role/info', '80%', '90%');
 		})
 		
 		//编辑
 		$('#btnEdit').click(function() {
-			layerEdit(table, 'id', '编辑', 'user/info', '80%', '90%');
+			layerEdit(table, 'id', '编辑', 'role/info', '80%', '90%');
 		})
 		
 		//删除
 		$('#btnRemove').click(function() {
-			
+			gridOperation(table, '删除', 'role/delete');
 		})
 	})
 </script>

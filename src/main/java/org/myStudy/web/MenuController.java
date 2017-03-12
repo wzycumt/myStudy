@@ -2,8 +2,6 @@ package org.myStudy.web;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.myStudy.dto.BootstrapTable;
 import org.myStudy.dto.PageQuery;
 import org.myStudy.entity.Menu;
@@ -14,8 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,23 +75,23 @@ public class MenuController extends BaseController {
 		return "menu/info";
 	}
 
-	@RequestMapping(value = "/info", method = RequestMethod.POST)
-	public String info(@ModelAttribute("menu") @Valid Menu menu, BindingResult result, Model model) {
-		model.addAttribute(menu);
-		if (!result.hasErrors()) {
-			try {
-				if (menu.getId() == 0) {
-					menuService.add(menu);
-					this.addModelResult(model, true, "添加成功");
-				} else {
-					menuService.edit(menu);
-					this.addModelResult(model, true, "保存成功");
-				}
-			} catch (Exception e) {
-				logger.error(e.getMessage());
-				this.addModelResult(model, false, e.getMessage());
-			}
+	@RequestMapping(value = "/info", produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String info(Menu menu) {
+		if (menu == null) {
+			return jsonResult(false, null, "model is null");
 		}
-		return "menu/info";
+		try {
+			int res;
+			if (menu.getId() == 0) {
+				res = menuService.add(menu);
+			} else {
+				res = menuService.edit(menu);
+			}
+			return jsonResult(true, res, "");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return jsonResult(false, 0, e.getMessage());
+		}
 	}
 }

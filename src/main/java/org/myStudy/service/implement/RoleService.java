@@ -20,19 +20,19 @@ public class RoleService implements IRoleService {
 	private IRoleDao roleDao;
 
 	public Role getById(Integer id) {
-		return roleDao.selectById(id);
+		return roleDao.getById(id);
 	}
 
 	public List<Role> getAll() {
-		return roleDao.selectAll();
+		return roleDao.getAll();
 	}
 
 	public List<Role> getPageList(PageQuery query) {
-		return roleDao.selectPageList(query);
+		return roleDao.getPageList(query);
 	}
 
 	public int getPageListTotal(PageQuery query) {
-		return roleDao.selectPageListTotal(query);
+		return roleDao.getPageListTotal(query);
 	}
 
 	public int deleteById(Integer id) {
@@ -40,21 +40,21 @@ public class RoleService implements IRoleService {
 	}
 
 	public int add(Role entity) throws Exception {
-		roleDao.insert(entity);
+		roleDao.add(entity);
 		return entity.getId();
 	}
 
 	public int addSelective(Role entity) throws Exception {
-		roleDao.insertSelective(entity);
+		roleDao.addSelective(entity);
 		return entity.getId();
 	}
 
 	public int edit(Role entity) throws Exception {
-		return roleDao.update(entity);
+		return roleDao.edit(entity);
 	}
 
 	public int editSelective(Role entity) throws Exception {
-		return roleDao.updateSelective(entity);
+		return roleDao.editSelective(entity);
 	}
 
 }

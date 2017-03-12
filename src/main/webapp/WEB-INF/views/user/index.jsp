@@ -11,7 +11,7 @@
       <div class="panel-heading">用户信息</div>
       <div class="panel-body">
         <div class="btn-group" id="toolbar">
-          <button type="button" class="btn btn-success" id="btnAdd"><i class="fa fa-plus"></i>&nbsp;新增</button>
+          <button type="button" class="btn btn-success" id="btnAdd"><i class="fa fa-plus"></i>&nbsp;添加</button>
           <button type="button" class="btn btn-primary" id="btnEdit"><i class="fa fa-edit"></i>&nbsp;编辑</button>
           <button type="button" class="btn btn-danger" id="btnRemove"><i class="fa fa-remove"></i>&nbsp;删除</button>
         </div>
@@ -52,9 +52,9 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var table = $('#table');
-		//新增
+		//添加
 		$('#btnAdd').click(function() {
-			layerAdd(table, '新增', 'user/info', '80%', '90%');
+			layerAdd(table, '添加', 'user/info', '80%', '90%');
 		})
 		
 		//编辑

@@ -2,8 +2,6 @@ package org.myStudy.web;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.myStudy.dto.BootstrapTable;
 import org.myStudy.dto.PageQuery;
 import org.myStudy.entity.User;
@@ -14,8 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,21 +56,23 @@ public class UserController extends BaseController {
 		return "user/info";
 	}
 
-	@RequestMapping(value = "/info", method = RequestMethod.POST)
-	public String info(@ModelAttribute("user") @Valid User user, BindingResult result, Model model) {
-		model.addAttribute(user);
-		if (!result.hasErrors()) {
-			try {
-				if (user.getId() == 0) {
-					userService.add(user);
-				} else {
-					userService.edit(user);
-				}
-			} catch (Exception e) {
-				logger.error(e.getMessage());
-				model.addAttribute("error", e.getMessage());
-			}
+	@RequestMapping(value = "/info", produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String info(User user) {
+		if (user == null) {
+			return jsonResult(false, null, "model is null");
 		}
-		return "user/info";
+		try {
+			int res;
+			if (user.getId() == 0) {
+				res = userService.add(user);
+			} else {
+				res = userService.edit(user);
+			}
+			return jsonResult(true, res, "");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return jsonResult(false, 0, e.getMessage());
+		}
 	}
 }

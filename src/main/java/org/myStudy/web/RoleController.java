@@ -2,8 +2,6 @@ package org.myStudy.web;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.myStudy.dto.BootstrapTable;
 import org.myStudy.dto.PageQuery;
 import org.myStudy.entity.Role;
@@ -14,8 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,21 +56,23 @@ public class RoleController extends BaseController {
 		return "role/info";
 	}
 
-	@RequestMapping(value = "/info", method = RequestMethod.POST)
-	public String info(@ModelAttribute("role") @Valid Role role, BindingResult result, Model model) {
-		model.addAttribute(role);
-		if (!result.hasErrors()) {
-			try {
-				if (role.getId() == 0) {
-					roleService.add(role);
-				} else {
-					roleService.edit(role);
-				}
-			} catch (Exception e) {
-				logger.error(e.getMessage());
-				model.addAttribute("error", e.getMessage());
-			}
+	@RequestMapping(value = "/info", produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String info(Role role) {
+		if (role == null) {
+			return jsonResult(false, null, "model is null");
 		}
-		return "role/info";
+		try {
+			int res;
+			if (role.getId() == 0) {
+				res = roleService.add(role);
+			} else {
+				res = roleService.edit(role);
+			}
+			return jsonResult(true, res, "");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return jsonResult(false, 0, e.getMessage());
+		}
 	}
 }

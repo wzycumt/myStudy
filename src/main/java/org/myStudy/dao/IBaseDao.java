@@ -6,31 +6,31 @@ import org.myStudy.dto.PageQuery;
 
 public interface IBaseDao<T> {
 
-    T selectById(Integer id);
+    T getById(Integer id);
 
-    List<T> selectAll();
+    List<T> getAll();
 
 	/**
 	 * 获取分页列表
 	 * @param query
 	 * @return
 	 */
-	List<T> selectPageList(PageQuery query);
+	List<T> getPageList(PageQuery query);
 	
 	/**
 	 * 获取分页查询结果的总数
 	 * @param query
 	 * @return
 	 */
-	int selectPageListTotal(PageQuery query);
+	int getPageListTotal(PageQuery query);
     
     int deleteById(Integer id);
 
-    int insert(T entity);
+    int add(T entity);
 
-    int insertSelective(T entity);
+    int addSelective(T entity);
 
-    int update(T entity);
+    int edit(T entity);
 
-    int updateSelective(T entity);
+    int editSelective(T entity);
 }

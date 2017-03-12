@@ -70,6 +70,9 @@ public class User extends BaseEntity {
 	}
 
 	public BaseStatusEnum getStatus() {
+    	if (status == null) {
+    		status = BaseStatusEnum.INVALID;
+    	}
 		return status;
 	}
 
@@ -87,6 +90,6 @@ public class User extends BaseEntity {
 
 	//扩展
 	public String getStatusDes() {
-		return status.getDescription();
+		return getStatus().getDescription();
 	}
 }

@@ -23,6 +23,9 @@ public class Role extends BaseEntity {
     }
 
     public BaseStatusEnum getStatus() {
+    	if (status == null) {
+    		status = BaseStatusEnum.INVALID;
+    	}
         return status;
     }
 
@@ -40,6 +43,6 @@ public class Role extends BaseEntity {
 
 	//扩展
 	public String getStatusDes() {
-		return status.getDescription();
+		return getStatus().getDescription();
 	}
 }

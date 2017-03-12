@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ page import="org.myStudy.enums.BaseStatusEnum"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib  uri ="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -11,7 +11,7 @@
 </head>
 <body class="fixed-sidebar">
   <div class="container">
-    <form:form class="form-horizontal" modelAttribute="user" id="mainForm" action="user/info" method="post">
+    <form:form class="form-horizontal" modelAttribute="role" id="mainForm" action="role/info" method="post">
       <div class="page-header text-center">
         <h4>用户信息</h4>
         <form:hidden path="id"/>
@@ -22,38 +22,10 @@
         <form:hidden path="version"/>
       </div>
       <div class="form-group">
-        <label class="col-xs-2 control-label">用户名</label>
+        <label class="col-xs-2 control-label">角色名</label>
         <div class="col-xs-10">
-          <form:input class="form-control" path="userName" />
-          <form:errors class="text-danger" path="userName"></form:errors>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-xs-2 control-label">昵称</label>
-        <div class="col-xs-10">
-          <form:input class="form-control" path="nickname" />
-          <form:errors class="text-danger" path="nickname"></form:errors>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-xs-2 control-label">真实姓名</label>
-        <div class="col-xs-10">
-          <form:input class="form-control" path="realName" />
-          <form:errors class="text-danger" path="realName"></form:errors>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-xs-2 control-label">手机</label>
-        <div class="col-xs-10">
-          <form:input class="form-control" path="phone" />
-          <form:errors class="text-danger" path="phone"></form:errors>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-xs-2 control-label">E-mail</label>
-        <div class="col-xs-10">
-          <form:input class="form-control" path="email" />
-          <form:errors class="text-danger" path="email"></form:errors>
+          <form:input class="form-control" path="name" />
+          <form:errors class="text-danger" path="name"></form:errors>
         </div>
       </div>
       <div class="form-group">
@@ -72,13 +44,5 @@
       </div>
     </form:form>
   </div>
-<script type="text/javascript">
-$(document).ready(function() {
-    var error = '${error}';
-    	if (error != null && error != '') {
-    		layer.alert(error, { icon: 0 });
-    	}
-    })
-</script>
 </body>
 </html>

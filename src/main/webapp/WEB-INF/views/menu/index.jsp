@@ -22,8 +22,8 @@
       <div class="panel-heading">菜单信息</div>
       <div class="panel-body">
         <div class="btn-group" id="toolbar">
-          <button type="button" class="btn btn-success" id="btnAddRoot"><i class="fa fa-plus"></i>&nbsp;新增根节点</button>
-          <button type="button" class="btn btn-success" id="btnAddChild"><i class="fa fa-plus"></i>&nbsp;新增子节点</button>
+          <button type="button" class="btn btn-success" id="btnAddRoot"><i class="fa fa-plus"></i>&nbsp;添加根节点</button>
+          <button type="button" class="btn btn-success" id="btnAddChild"><i class="fa fa-plus"></i>&nbsp;添加子节点</button>
           <button type="button" class="btn btn-primary" id="btnEdit"><i class="fa fa-edit"></i>&nbsp;编辑</button>
           <button type="button" class="btn btn-danger" id="btnRemove"><i class="fa fa-remove"></i>&nbsp;删除</button>
         </div>
@@ -67,6 +67,9 @@ $(document).ready(function() {
         source: dataAdapter,
         altRows: true,
         checkboxes: true,
+        hierarchicalCheckboxes: true,
+        sortable: true,
+        columnsReorder: false,
         theme: 'bootstrap',
         pageable: false,
         columnsResize: true,
@@ -82,28 +85,41 @@ $(document).ready(function() {
             	return '&nbsp;<i class="' + rowData['icon'] + '"></i>&nbsp;' + value;
             } },
             { text: '路径',  dataField: 'url', width: 200 },
-            { text: '图标',  dataField: 'icon', width: 100 },
-            { text: '序号', dataField: 'serialNum', sortable: true, width: 50 },
+            { text: '图标',  dataField: 'icon', width: 150 },
+            { text: '序号', dataField: 'serialNum', width: 50 },
             { text: '状态', dataField: 'status', displayField: 'statusDes', width: 60 },
             { text: '备注', dataField: 'remark' },
             { text: '创建人', dataField: 'creator', width: 100 },
             { text: '创建时间', dataField: 'createTime', cellsFormat: 'yyyy-MM-dd HH:mm:ss', width: 150 },
             { text: '更新时间', dataField: 'updateTime', cellsFormat: 'yyyy-MM-dd HH:mm:ss', width: 150 }
-        ]
+        ],
+        ready: function() {
+        	$("#treeGrid").jqxTreeGrid('sortBy', 'serialNum', 'asc');
+        	$("#treeGrid").jqxTreeGrid('expandAll');
+        }
     });
     
-	//新增根节点
+	//添加根节点
 	$('#btnAddRoot').click(function() {
 		layer.open({
 			type : 2,
-			title : '新增根节点',
+			title : '添加根节点',
 			area : [ '80%', '90%' ],
 			maxmin : true,
 			content : 'menu/info',
 			btn : [ '保存', '关闭' ],
 			yes : function(index, layero) {
+				var loading = layer.load(1);
 				var mainForm = layer.getChildFrame('#mainForm', index);
-				mainForm.submit();
+				$.post(mainForm.attr('action'), mainForm.serialize(), function(data) {
+					layer.close(loading);
+					if (data.result) {
+			  			layer.msg("添加成功", { time: 2000 });
+						layero.find('iframe').attr('src', layero.find('iframe').attr('src')); //刷新页面
+					} else {
+			  			layer.alert(data.des, { icon: 0 });
+					}
+				}, 'json');
 			},
 			end : function(index, layero) {
 				$("#treetable").bootstrapTable('refresh');
@@ -111,7 +127,7 @@ $(document).ready(function() {
 		});
 	})
     
-	//新增子节点
+	//添加子节点
 	$('#btnAddChild').click(function() {
 		var rows = $("#treeGrid").jqxTreeGrid('getSelection');
 		if (rows.length == 0) {
@@ -120,14 +136,23 @@ $(document).ready(function() {
 		}
 		layer.open({
 			type : 2,
-			title : '新增子节点',
+			title : '添加子节点',
 			area : [ '80%', '90%' ],
 			maxmin : true,
 			content : 'menu/info?parentId=' + rows[0].id,
 			btn : [ '保存', '关闭' ],
 			yes : function(index, layero) {
+				var loading = layer.load(1);
 				var mainForm = layer.getChildFrame('#mainForm', index);
-				mainForm.submit();
+				$.post(mainForm.attr('action'), mainForm.serialize(), function(data) {
+					layer.close(loading);
+					if (data.result) {
+			  			layer.msg("添加成功", { time: 2000 });
+						layero.find('iframe').attr('src', layero.find('iframe').attr('src')); //刷新页面
+					} else {
+			  			layer.alert(data.des, { icon: 0 });
+					}
+				}, 'json');
 			},
 			end : function(index, layero) {
 				$("#treetable").bootstrapTable('refresh');
@@ -150,8 +175,17 @@ $(document).ready(function() {
 			content : 'menu/info?id=' + rows[0].id,
 			btn : [ '保存', '关闭' ],
 			yes : function(index, layero) {
+				var loading = layer.load(1);
 				var mainForm = layer.getChildFrame('#mainForm', index);
-				mainForm.submit();
+				$.post(mainForm.attr('action'), mainForm.serialize(), function(data) {
+					layer.close(loading);
+					if (data.result) {
+			  			layer.msg("保存成功", { time: 2000 });
+						layero.find('iframe').attr('src', layero.find('iframe').attr('src')); //刷新页面
+					} else {
+			  			layer.alert(data.des, { icon: 0 });
+					}
+				}, 'json');
 			},
 			end : function(index, layero) {
 				$("#treetable").bootstrapTable('refresh');

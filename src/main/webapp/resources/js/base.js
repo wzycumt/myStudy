@@ -45,8 +45,17 @@ function layerAdd(table, title, url, w, h) {
 		content : url,
 		btn : [ '保存', '关闭' ],
 		yes : function(index, layero) {
+			var loading = layer.load(1);
 			var mainForm = layer.getChildFrame('#mainForm', index);
-			mainForm.submit();
+			$.post(mainForm.attr('action'), mainForm.serialize(), function(data) {
+				layer.close(loading);
+				if (data.result) {
+		  			layer.msg("添加成功", { time: 2000 });
+					layero.find('iframe').attr('src', layero.find('iframe').attr('src')); //刷新页面
+				} else {
+		  			layer.alert(data.des, { icon: 0 });
+				}
+			}, 'json');
 		},
 		end : function(index, layero) {
 			table.bootstrapTable('refresh');
@@ -92,8 +101,17 @@ function layerEdit(table, key, title, url, w, h) {
 		content : url,
 		btn : [ '保存', '关闭' ],
 		yes : function(index, layero) {
+			var loading = layer.load(1);
 			var mainForm = layer.getChildFrame('#mainForm', index);
-			mainForm.submit();
+			$.post(mainForm.attr('action'), mainForm.serialize(), function(data) {
+				layer.close(loading);
+				if (data.result) {
+		  			layer.msg("保存成功", { time: 2000 });
+					layero.find('iframe').attr('src', layero.find('iframe').attr('src')); //刷新页面
+				} else {
+		  			layer.alert(data.des, { icon: 0 });
+				}
+			}, 'json');
 		},
 		end : function(index, layero) {
 			table.bootstrapTable('refresh');
@@ -101,8 +119,25 @@ function layerEdit(table, key, title, url, w, h) {
 	});
 }
 
+function gridOperation(table, operationName, url) {
+	layer.confirm('确定要' + operationName + '所选数据？', {
+		icon : 3,
+		title : '提示'
+	}, function(index) {
+		var loading = layer.load(1);
+		$.post(url, {}, function(data) {
+			layer.close(loading);
+			if (data.result) {
+	  			layer.msg(operationName + "成功", { time: 2000 });
+			} else {
+	  			layer.alert(data.des, { icon: 0 });
+			}
+		}, 'json');
+	});
+}
+
 /*关闭弹出框口*/
-function layer_close() {
+function layerClose() {
 	var index = parent.layer.getFrameIndex(window.name);
 	parent.layer.close(index);
 }
