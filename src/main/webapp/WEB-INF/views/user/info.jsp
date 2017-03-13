@@ -23,35 +23,30 @@
         <label class="col-xs-2 control-label">用户名</label>
         <div class="col-xs-10">
           <form:input class="form-control" path="userName" />
-          <form:errors class="text-danger" path="userName"></form:errors>
         </div>
       </div>
       <div class="form-group">
         <label class="col-xs-2 control-label">昵称</label>
         <div class="col-xs-10">
           <form:input class="form-control" path="nickname" />
-          <form:errors class="text-danger" path="nickname"></form:errors>
         </div>
       </div>
       <div class="form-group">
         <label class="col-xs-2 control-label">真实姓名</label>
         <div class="col-xs-10">
           <form:input class="form-control" path="realName" />
-          <form:errors class="text-danger" path="realName"></form:errors>
         </div>
       </div>
       <div class="form-group">
         <label class="col-xs-2 control-label">手机</label>
         <div class="col-xs-10">
           <form:input class="form-control" path="phone" />
-          <form:errors class="text-danger" path="phone"></form:errors>
         </div>
       </div>
       <div class="form-group">
         <label class="col-xs-2 control-label">E-mail</label>
         <div class="col-xs-10">
           <form:input class="form-control" path="email" />
-          <form:errors class="text-danger" path="email"></form:errors>
         </div>
       </div>
       <div class="form-group">

@@ -1,7 +1,5 @@
 package org.myStudy.entity;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.myStudy.enums.BaseStatusEnum;
 
 /**
@@ -10,13 +8,11 @@ import org.myStudy.enums.BaseStatusEnum;
  */
 public class User extends BaseEntity {
 
-	@NotEmpty(message = "{not.empty}")
 	private String userName;
 	private String password;
 	private String nickname;
 	private String realName;
 	private String phone;
-	@Email(message = "{email.not.correct}")
 	private String email;
 	private BaseStatusEnum status;
 	private String remark;

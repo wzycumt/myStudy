@@ -25,7 +25,6 @@
         <label class="col-xs-2 control-label">角色名</label>
         <div class="col-xs-10">
           <form:input class="form-control" path="name" />
-          <form:errors class="text-danger" path="name"></form:errors>
         </div>
       </div>
       <div class="form-group">

@@ -4,6 +4,9 @@
 <head>
 <title>myStudy</title>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
+<!-- Bootstrap treeView-->
+<link href="http://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.css" rel="stylesheet">
+<script src="http://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js"></script>
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg">
   <div id="wrapper">
@@ -48,6 +51,9 @@
             <li><a class="J_menuItem" href="index_v4.html">主页示例四</a></li>
             <li><a href="index_v5.html" target="_blank">主页示例五</a></li>
           </ul>
+        </li>
+        <li>
+        	<div id="tree"></div>
         </li>
       </ul>
     </div>
@@ -164,6 +170,57 @@
     </div>
     <!--右侧部分结束-->
   </div>
-
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		var tree = [ {
+			text : "系统设置",
+			icon : 'fa fa-cogs',
+			nodes : [ {
+				text : "用户管理",
+				nodes : [ {
+					text : "Grandchild 1"
+				}, {
+					text : "Grandchild 2"
+				} ]
+			}, {
+				text : "菜单管理"
+			}, {
+				text : "权限管理"
+			} ]
+		}, {
+			text : "文件上传"
+		}, {
+			text : "Parent 3",
+			nodes : [ {
+				text : "Child 1"
+			}, {
+				text : "Child 2"
+			} ]
+		}, {
+			text : "Parent 4"
+		} ];
+		$('#tree').treeview({
+			text : "Node 1",
+			//icon : "glyphicon glyphicon-stop",
+			//selectedIcon : "glyphicon glyphicon-stop",
+			//color : "#000000",
+			//backColor : "#FFFFFF",
+			levels : 0,
+			showIcon : false,
+			expandIcon : "",
+			href : "#node-1",
+			selectable : true,
+			state : {
+				checked : true,
+				disabled : true,
+				//expanded : true,
+				selected : true
+			},
+			tags : [ 'available' ],
+			data : tree
+		});
+	})
+</script>
 </body>
 </html>

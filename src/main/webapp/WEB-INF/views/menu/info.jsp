@@ -23,35 +23,30 @@
         <label class="col-xs-2 control-label">名称</label>
         <div class="col-xs-10">
           <form:input class="form-control" path="name" />
-          <form:errors class="text-danger" path="name"></form:errors>
         </div>
       </div>
       <div class="form-group">
         <label class="col-xs-2 control-label">parentId</label>
         <div class="col-xs-10">
           <form:input class="form-control" path="parentId" />
-          <form:errors class="text-danger" path="parentId"></form:errors>
         </div>
       </div>
       <div class="form-group">
         <label class="col-xs-2 control-label">路径</label>
         <div class="col-xs-10">
           <form:input class="form-control" path="url" />
-          <form:errors class="text-danger" path="url"></form:errors>
         </div>
       </div>
       <div class="form-group">
         <label class="col-xs-2 control-label">图标</label>
         <div class="col-xs-10">
           <form:input class="form-control" path="icon" />
-          <form:errors class="text-danger" path="icon"></form:errors>
         </div>
       </div>
       <div class="form-group">
         <label class="col-xs-2 control-label">序号</label>
         <div class="col-xs-10">
           <form:input class="form-control" path="serialNum" />
-          <form:errors class="text-danger" path="serialNum"></form:errors>
         </div>
       </div>
       <div class="form-group">

@@ -1,6 +1,5 @@
 package org.myStudy.entity;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.myStudy.enums.BaseStatusEnum;
 
 /**
@@ -9,7 +8,6 @@ import org.myStudy.enums.BaseStatusEnum;
  */
 public class Role extends BaseEntity {
 
-	@NotEmpty(message = "{not.empty}")
     private String name;
     private BaseStatusEnum status;
     private String remark;
