@@ -82,16 +82,28 @@ public class MenuController extends BaseController {
 			return jsonResult(false, null, "model is null");
 		}
 		try {
-			int res;
 			if (menu.getId() == 0) {
-				res = menuService.add(menu);
+				int id = menuService.add(menu);
+				return jsonResult(true, id, "添加成功");
 			} else {
-				res = menuService.edit(menu);
+				int id = menuService.edit(menu);
+				return jsonResult(true, id, "保存成功");
 			}
-			return jsonResult(true, res, "");
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return jsonResult(false, 0, e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String delete(String ids) {
+		try {
+			menuService.deleteBatch(ids);
+			return jsonResult(true, null, "删除成功");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return jsonResult(false, null, e.getMessage());
 		}
 	}
 }

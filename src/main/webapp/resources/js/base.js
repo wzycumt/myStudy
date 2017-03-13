@@ -7,16 +7,16 @@ $(document).ready(function() {
 	})
 });
 
-/* 新增弹出层
-参数解释：
-table	table元素
-title	标题
-url		请求的url
-w		弹出层宽度（缺省调默认值）
-h		弹出层高度（缺省调默认值）
-*/
-function layerAdd(table, title, url, w, h) {
-	if (table == null) {
+/**
+ * 新增弹出层
+ * @param grid grid元素
+ * @param title 标题
+ * @param url
+ * @param w 弹出层宽度（默认值80%）
+ * @param h 弹出层高度（默认值90%）
+ */
+function layerAdd(grid, title, url, w, h) {
+	if (grid == null) {
 		return false;
 	}
 	if (title == null || title == '') {
@@ -50,39 +50,39 @@ function layerAdd(table, title, url, w, h) {
 			$.post(mainForm.attr('action'), mainForm.serialize(), function(data) {
 				layer.close(loading);
 				if (data.result) {
-		  			layer.msg("添加成功", { time: 2000 });
-					layero.find('iframe').attr('src', layero.find('iframe').attr('src')); //刷新页面
+		  			layer.msg(data.des, { time: 2000 });
+		  			var src = layero.find('iframe').attr('src');
+		  			if (src.indexOf('?id=') == -1)
+		  				src = src + '?id=' + data.value;
+		  			layero.find('iframe').attr('src', src);
 				} else {
 		  			layer.alert(data.des, { icon: 0 });
 				}
 			}, 'json');
 		},
-		end : function(index, layero) {
-			table.bootstrapTable('refresh');
+		end : function() {
+			grid.bootstrapTable('refresh');
 		}
 	});
 }
 
-/* 编辑弹出层
-参数解释：
-table	table元素
-key		传递到服务器的参数名称
-title	标题
-url		请求的url
-w		弹出层宽度（缺省调默认值）
-h		弹出层高度（缺省调默认值）
-*/
-function layerEdit(table, key, title, url, w, h) {
-	if (table == null)
+/**
+ * 编辑弹出层
+ * @param grid grid元素
+ * @param title 标题
+ * @param url
+ * @param w 弹出层宽度（默认值80%）
+ * @param h 弹出层高度（默认值90%）
+ */
+function layerEdit(grid, title, url, w, h) {
+	if (grid == undefined)
 		return false;
-	var rows = table.bootstrapTable('getSelections');
-	if (rows.length == 0) {
-		layer.msg('请选择一行数据');
+	var rows = grid.bootstrapTable('getSelections');
+	if (rows == undefined || rows.length == 0) {
+		layer.msg('请选择一行数据', { time: 2000 });
 		return false;
 	}
-	if (key == null || key == '')
-		key = "id";
-	if (title == null || title == '')
+	if (title == undefined || title == '')
 		title = false;
 	if (w == null || w == '')
 		w = '80%'; // 默认宽度
@@ -92,7 +92,9 @@ function layerEdit(table, key, title, url, w, h) {
 		h = '90%'; // 默认高度
 	if (h.indexOf('%') == -1 && h.indexOf('px') == -1)
 		h = h + 'px';
-	url = url + "?" + key + "=" + rows[0].id;
+	var options = grid.bootstrapTable('getOptions');
+	var key = options.idField;
+	url = url + "?id=" + rows[0][key];
 	layer.open({
 		type : 2,
 		title : title,
@@ -106,37 +108,73 @@ function layerEdit(table, key, title, url, w, h) {
 			$.post(mainForm.attr('action'), mainForm.serialize(), function(data) {
 				layer.close(loading);
 				if (data.result) {
-		  			layer.msg("保存成功", { time: 2000 });
+		  			layer.msg(data.des, { time: 2000 });
 					layero.find('iframe').attr('src', layero.find('iframe').attr('src')); //刷新页面
 				} else {
 		  			layer.alert(data.des, { icon: 0 });
 				}
 			}, 'json');
 		},
-		end : function(index, layero) {
-			table.bootstrapTable('refresh');
+		end : function() {
+			grid.bootstrapTable('refresh');
 		}
 	});
 }
 
-function gridOperation(table, operationName, url) {
-	layer.confirm('确定要' + operationName + '所选数据？', {
-		icon : 3,
-		title : '提示'
-	}, function(index) {
+/**
+ * 操作
+ * @param grid grid元素
+ * @param operationName 操作
+ * @param url
+ * @param ajaxData ajax参数(object类型)
+ * @returns
+ */
+function operateGird(grid, operationName, url, ajaxData) {
+	var rows = grid.bootstrapTable('getSelections');
+    if (rows == undefined || rows.length == 0) {
+		layer.msg('请至少选择一行数据', { time: 2000 });
+		return false;
+    }
+    if (undefined == operationName || "" == operationName)
+    	operationName = "操作";
+	layer.confirm('确定' + operationName + '所选数据？', { icon : 3, title : '提示' }, function(index) {
+		if (ajaxData == undefined)
+			ajaxData = {};
+		if (ajaxData['ids'] == undefined) {
+			var options = grid.bootstrapTable('getOptions');
+			var key = options.idField;
+			var idArr = [];
+	        for (var i = 0; i < rows.length; i++) {
+	        	idArr.push(rows[i][key]);
+	        }
+	        ajaxData['ids'] = idArr.join(',');
+		}
 		var loading = layer.load(1);
-		$.post(url, {}, function(data) {
-			layer.close(loading);
-			if (data.result) {
-	  			layer.msg(operationName + "成功", { time: 2000 });
-			} else {
-	  			layer.alert(data.des, { icon: 0 });
-			}
-		}, 'json');
+        $.ajax({
+            url: url,
+            data: ajaxData,
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+    			layer.close(loading);
+    			if (data.result) {
+    	  			layer.msg(data.des, { time: 2000 });
+    				grid.bootstrapTable('refresh');
+    			} else {
+    	  			layer.alert(data.des, { icon: 0 });
+    			}
+            },
+            error: function (xhr, textStatus, error) {
+    			layer.close(loading);
+	  			layer.alert(error, { icon: 2 });
+            }
+        });
 	});
 }
 
-/*关闭弹出框口*/
+/**
+ * 关闭弹出层
+ */
 function layerClose() {
 	var index = parent.layer.getFrameIndex(window.name);
 	parent.layer.close(index);

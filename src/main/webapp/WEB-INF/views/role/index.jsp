@@ -47,20 +47,20 @@
   </div>
 <script type="text/javascript">
 	$(document).ready(function() {
-		var table = $('#table');
+		var grid = $('#table');
 		//添加
 		$('#btnAdd').click(function() {
-			layerAdd(table, '添加', 'role/info', '80%', '90%');
+			layerAdd(grid, '添加', 'role/info', '80%', '90%');
 		})
 		
 		//编辑
 		$('#btnEdit').click(function() {
-			layerEdit(table, 'id', '编辑', 'role/info', '80%', '90%');
+			layerEdit(grid, '编辑', 'role/info', '80%', '90%');
 		})
 		
 		//删除
 		$('#btnRemove').click(function() {
-			gridOperation(table, '删除', 'role/delete');
+			operateGird(grid, '删除', 'role/delete');
 		})
 	})
 </script>

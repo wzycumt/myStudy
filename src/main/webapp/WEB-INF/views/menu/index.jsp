@@ -19,7 +19,7 @@
 <body class="fixed-sidebar">
   <div class="wrapper wrapper-content animated fadeInRight">
     <div class="panel panel-default">
-      <div class="panel-heading">菜单信息</div>
+      <div class="panel-heading">菜单列表</div>
       <div class="panel-body">
         <div class="btn-group" id="toolbar">
           <button type="button" class="btn btn-success" id="btnAddRoot"><i class="fa fa-plus"></i>&nbsp;添加根节点</button>
@@ -33,6 +33,7 @@
   </div>
 <script type="text/javascript">
 $(document).ready(function() {
+	var grid = $("#treeGrid");
 	// prepare the data
     var dataAdapter = new $.jqx.dataAdapter({
         dataType: "json",
@@ -60,24 +61,20 @@ $(document).ready(function() {
         url: 'menu/treeList'
     });
     // create Tree Grid
-    $("#treeGrid").jqxTreeGrid(
+    grid.jqxTreeGrid(
     {
         width: '100%',
         columnsHeight: 36,
         source: dataAdapter,
         altRows: true,
         checkboxes: true,
-        hierarchicalCheckboxes: true,
+        //hierarchicalCheckboxes: true,
         sortable: true,
-        columnsReorder: false,
+        columnsReorder: true,
         theme: 'bootstrap',
         pageable: false,
         columnsResize: true,
         enableBrowserSelection: true,
-        ready: function()
-        {
-            $("#treeGrid").jqxTreeGrid('expandRow', 1);
-        },
         columns: [
             { text: 'ID', dataField: 'id', hidden: true, minWidth: 80, width: 80 },
             { text: 'PARENT_ID', dataField: 'parentId', hidden: true, minWidth: 80, width: 80 },
@@ -94,8 +91,8 @@ $(document).ready(function() {
             { text: '更新时间', dataField: 'updateTime', cellsFormat: 'yyyy-MM-dd HH:mm:ss', width: 150 }
         ],
         ready: function() {
-        	$("#treeGrid").jqxTreeGrid('sortBy', 'serialNum', 'asc');
-        	$("#treeGrid").jqxTreeGrid('expandAll');
+        	grid.jqxTreeGrid('sortBy', 'serialNum', 'asc');
+            //grid.jqxTreeGrid('expandAll');
         }
     });
     
@@ -114,22 +111,25 @@ $(document).ready(function() {
 				$.post(mainForm.attr('action'), mainForm.serialize(), function(data) {
 					layer.close(loading);
 					if (data.result) {
-			  			layer.msg("添加成功", { time: 2000 });
-						layero.find('iframe').attr('src', layero.find('iframe').attr('src')); //刷新页面
+			  			layer.msg(data.des, { time: 2000 });
+			  			var src = layero.find('iframe').attr('src');
+			  			if (src.indexOf('?id=') == -1)
+			  				src = src + '?id=' + data.value;
+			  			layero.find('iframe').attr('src', src);
 					} else {
 			  			layer.alert(data.des, { icon: 0 });
 					}
 				}, 'json');
 			},
-			end : function(index, layero) {
-				$("#treetable").bootstrapTable('refresh');
+			end : function() {
+				grid.jqxTreeGrid('refresh');
 			}
 		});
 	})
     
 	//添加子节点
 	$('#btnAddChild').click(function() {
-		var rows = $("#treeGrid").jqxTreeGrid('getSelection');
+		var rows = grid.jqxTreeGrid('getSelection');
 		if (rows.length == 0) {
 			layer.msg('请选择一行');
 			return false;
@@ -147,29 +147,33 @@ $(document).ready(function() {
 				$.post(mainForm.attr('action'), mainForm.serialize(), function(data) {
 					layer.close(loading);
 					if (data.result) {
-			  			layer.msg("添加成功", { time: 2000 });
-						layero.find('iframe').attr('src', layero.find('iframe').attr('src')); //刷新页面
+			  			layer.msg(data.des, { time: 2000 });
+			  			var src = layero.find('iframe').attr('src');
+			  			if (src.indexOf('id=') == -1)
+			  				src = src + '&id=' + data.value;
+			  			layero.find('iframe').attr('src', src);
 					} else {
 			  			layer.alert(data.des, { icon: 0 });
 					}
 				}, 'json');
 			},
-			end : function(index, layero) {
-				$("#treetable").bootstrapTable('refresh');
+			end : function() {
+				//grid.jqxTreeGrid('refresh');
+				location.reload();
 			}
 		});
 	})
 
 	//编辑
 	$('#btnEdit').click(function() {
-		var rows = $("#treeGrid").jqxTreeGrid('getSelection');
+		var rows = grid.jqxTreeGrid('getSelection');
 		if (rows.length == 0) {
 			layer.msg('请选择一行');
 			return false;
 		}
 		layer.open({
 			type : 2,
-			title : '新增',
+			title : '编辑',
 			area : [ '80%', '90%' ],
 			maxmin : true,
 			content : 'menu/info?id=' + rows[0].id,
@@ -181,21 +185,53 @@ $(document).ready(function() {
 					layer.close(loading);
 					if (data.result) {
 			  			layer.msg("保存成功", { time: 2000 });
-						layero.find('iframe').attr('src', layero.find('iframe').attr('src')); //刷新页面
+			  			layero.find('iframe').attr('src', layero.find('iframe').attr('src')); //刷新页面
 					} else {
 			  			layer.alert(data.des, { icon: 0 });
 					}
 				}, 'json');
 			},
-			end : function(index, layero) {
-				$("#treetable").bootstrapTable('refresh');
+			end : function() {
+				//grid.jqxTreeGrid('refresh');
+				location.reload();
 			}
 		});
 	})
 
 	//删除
 	$('#btnRemove').click(function() {
-
+		var rows = grid.jqxTreeGrid('getSelection');
+	    if (rows == undefined || rows.length == 0) {
+			layer.msg('请至少选择一行数据', { time: 2000 });
+			return false;
+	    }
+	    layer.confirm('确定删除所选数据？', { icon : 3, title : '提示' }, function(index) {
+			var idArr = [];
+	    	for (var i = 0; i < rows.length; i++) {
+	        	idArr.push(rows[i].id);
+	        }
+			var loading = layer.load(1);
+	        $.ajax({
+	            url: 'menu/delete',
+	            data: { ids: idArr.join(',') },
+	            type: 'post',
+	            dataType: 'json',
+	            success: function (data) {
+	    			layer.close(loading);
+	    			if (data.result) {
+	    	  			layer.msg(data.des, { time: 2000 });
+	    				//grid.jqxTreeGrid('refresh');
+	    				location.reload();
+	    			} else {
+	    	  			layer.alert(data.des, { icon: 0 });
+	    			}
+	            },
+	            error: function (xhr, textStatus, error) {
+	    			layer.close(loading);
+		  			layer.alert(error, { icon: 2 });
+	            }
+	        });
+		});
 	})
 })
 </script>

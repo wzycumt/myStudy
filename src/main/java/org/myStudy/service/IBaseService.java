@@ -43,8 +43,17 @@ public interface IBaseService<T> {
 	 * 删除
 	 * @param id
 	 * @return
+	 * @throws Exception TODO
 	 */
-	int deleteById(Integer id);
+	int deleteById(Integer id) throws Exception;
+	
+	/**
+	 * 批量删除
+	 * @param ids
+	 * @return
+	 * @throws Exception TODO
+	 */
+	String deleteBatch(String ids) throws Exception;
 	
 	/**
 	 * 添加

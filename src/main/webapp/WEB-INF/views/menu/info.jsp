@@ -5,13 +5,13 @@
 <html>
 <head>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
-<title>用户信息</title>
+<title>菜单信息</title>
 </head>
 <body class="fixed-sidebar">
   <div class="container">
     <form:form class="form-horizontal" modelAttribute="menu" id="mainForm" action="menu/info" method="post">
       <div class="page-header text-center">
-        <h4>用户信息</h4>
+        <h4>菜单信息</h4>
         <form:hidden path="id"/>
         <form:hidden path="creator"/>
         <form:hidden path="createTime"/>

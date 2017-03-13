@@ -36,8 +36,24 @@ public class UserService implements IUserService {
 		return userDao.getPageListTotal(query);
 	}
 
-	public int deleteById(Integer id) {
+	public int deleteById(Integer id) throws Exception {
 		return userDao.deleteById(id);
+	}
+
+	public String deleteBatch(String ids) throws Exception {
+		StringBuilder sBuilder = new StringBuilder();
+		if (ids == null || ids.length() == 0) {
+			throw new Exception("ID不能为空");
+		}
+		String[] idArray = ids.split(",");
+		for (String id : idArray) {
+			try {
+				deleteById(Integer.parseInt(id));
+			} catch (Exception e) {
+				sBuilder.append(e.getMessage());
+			}
+		}
+		return sBuilder.toString();
 	}
 
 	public int add(User entity) throws Exception {

@@ -56,23 +56,35 @@ public class RoleController extends BaseController {
 		return "role/info";
 	}
 
-	@RequestMapping(value = "/info", produces = "text/json;charset=UTF-8")
+	@RequestMapping(value = "/info", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String info(Role role) {
+	public String save(Role role) {
 		if (role == null) {
 			return jsonResult(false, null, "model is null");
 		}
 		try {
-			int res;
 			if (role.getId() == 0) {
-				res = roleService.add(role);
+				int id = roleService.add(role);
+				return jsonResult(true, id, "添加成功");
 			} else {
-				res = roleService.edit(role);
+				int id = roleService.edit(role);
+				return jsonResult(true, id, "保存成功");
 			}
-			return jsonResult(true, res, "");
 		} catch (Exception e) {
 			logger.error(e.getMessage());
-			return jsonResult(false, 0, e.getMessage());
+			return jsonResult(false, null, e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String delete(String ids) {
+		try {
+			roleService.deleteBatch(ids);
+			return jsonResult(true, null, "删除成功");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return jsonResult(false, null, e.getMessage());
 		}
 	}
 }

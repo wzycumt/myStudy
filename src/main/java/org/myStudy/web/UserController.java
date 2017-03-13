@@ -75,4 +75,16 @@ public class UserController extends BaseController {
 			return jsonResult(false, 0, e.getMessage());
 		}
 	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String delete(String ids) {
+		try {
+			userService.deleteBatch(ids);
+			return jsonResult(true, null, "删除成功");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return jsonResult(false, null, e.getMessage());
+		}
+	}
 }
