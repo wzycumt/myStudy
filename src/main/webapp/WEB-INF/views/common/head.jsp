@@ -38,12 +38,12 @@
 <!-- <script src="http://cdn.bootcss.com/layer/3.0.1/layer.min.js"></script> -->
 
 <!-- slimscroll 滚动条 -->
-<!-- <script src="http://cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script> -->
 <script src="resources/plugins/slimscroll-v1.3.8/jquery.slimscroll.min.js"></script>
+<!-- <script src="http://cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script> -->
 
 <!-- pace 加载进度条 -->
-<!-- <script src="resources/plugins/pace-v1.0.0/pace.min.js"></script> -->
-<script src="http://cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<script src="resources/plugins/pace-v1.0.0/pace.min.js"></script>
+<!-- <script src="http://cdn.bootcss.com/pace/1.0.2/pace.min.js"></script> -->
 
 <!-- H+ UI -->
 <link rel="shortcut icon" href="resources/hplus-v4.1.0/favicon.ico">
