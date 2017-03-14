@@ -5,13 +5,6 @@
 <head>
 <title>myStudy</title>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
-<!-- Bootstrap treeView-->
-<!-- <link href="http://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.css" rel="stylesheet"> -->
-<!-- <script src="http://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js"></script> -->
-
-<!-- metisMenu -->
-<link href="http://cdn.bootcss.com/metisMenu/2.7.0/metisMenu.min.css" rel="stylesheet">
-<script src="http://cdn.bootcss.com/metisMenu/2.7.0/metisMenu.min.js"></script>
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg">
   <div id="wrapper">
@@ -27,7 +20,7 @@
               <span><img alt="image" class="img-circle" src="${pageContext.request.contextPath}/resources/hplus-v4.1.0/img/profile_small.jpg" /></span> 
               <a data-toggle="dropdown" class="dropdown-toggle" href="#"> 
               <span class="clear"> 
-                <span class="block m-t-xs"><strong class="font-bold">Beaut-zihan</strong></span> 
+                <span class="block m-t-xs"><strong class="font-bold">Zhaoyu Wen</strong></span> 
                 <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
               </span>
               </a>
