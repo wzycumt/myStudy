@@ -36,7 +36,7 @@ body.body-small .navbar-top-links li:last-child{margin-right:10px}
 .dropdown-alerts li a,.dropdown-messages li a{font-size:12px}
 .dropdown-alerts li em,.dropdown-messages li em{font-size:10px}
 .nav.navbar-top-links .dropdown-alerts a{font-size:12px}
-.nav-header{padding:33px 25px;background:url(patterns/header-profile.png) no-repeat}
+.nav-header{padding:20px 25px;background:url(patterns/header-profile.png) no-repeat}
 .nav>li.active{border-left:4px solid #19aa8d;background:#293846}
 .nav.nav-second-level>li.active{border:none}
 .nav.nav-second-level.collapse[style]{height:auto!important}
@@ -1353,3 +1353,19 @@ body.fixed-sidebar.mini-navbar .navbar-static-side{width:70px}
 @media (min-width:768px){.bs-glyphicons{margin-right:0;margin-left:0}
 .bs-glyphicons li{width:12.5%;font-size:12px}
 }
+
+.sidebar-collapse ul{padding:0;margin:0;list-style:none;}
+.sidebar-collapse .metismenu{background:#2f4050;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;}
+.sidebar-collapse .metismenu ul{background:#293846;}
+/* .sidebar-collapse .metismenu li + li{margin-top:5px;} */
+.sidebar-collapse .metismenu li:first-child{margin-top:5px;}
+.sidebar-collapse .metismenu li:last-child{margin-bottom:5px;}
+.sidebar-collapse .metismenu > li{-webkit-box-flex:1;-ms-flex:1 1 0%;flex:1 1 0%;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;position:relative;}
+.sidebar-collapse .metismenu li a{font-weight:600;}
+.sidebar-collapse .metismenu li a i{margin-right:6px}
+.sidebar-collapse .metismenu a{position:relative;display:block;padding:13px 15px;color:#adb5bd;outline-width:0;transition:all .3s ease-out;}
+.sidebar-collapse .metismenu ul a{padding:10px 15px 10px 30px;}
+.sidebar-collapse .metismenu ul ul a{padding:10px 15px 10px 45px;}
+.sidebar-collapse .metismenu a:hover,.sidebar-collapse .metismenu a:focus,.sidebar-collapse .metismenu a:active{color:#f8f9fa;text-decoration:none;background:#3f5060;/* #0b7285;*/}
+
+

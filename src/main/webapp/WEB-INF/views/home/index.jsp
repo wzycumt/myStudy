@@ -1,3 +1,4 @@
+<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -5,58 +6,47 @@
 <title>myStudy</title>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
 <!-- Bootstrap treeView-->
-<link href="http://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.css" rel="stylesheet">
-<script src="http://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js"></script>
+<!-- <link href="http://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.css" rel="stylesheet"> -->
+<!-- <script src="http://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js"></script> -->
+
+<!-- metisMenu -->
+<link href="http://cdn.bootcss.com/metisMenu/2.7.0/metisMenu.min.css" rel="stylesheet">
+<script src="http://cdn.bootcss.com/metisMenu/2.7.0/metisMenu.min.js"></script>
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg">
   <div id="wrapper">
     <!--左侧导航开始-->
     <nav class="navbar-default navbar-static-side" role="navigation">
-    <div class="nav-close">
-      <i class="fa fa-times-circle"></i>
-    </div>
-    <div class="sidebar-collapse">
-      <ul class="nav" id="side-menu">
-        <li class="nav-header">
-          <div class="dropdown profile-element">
-            <span><img alt="image" class="img-circle" src="${pageContext.request.contextPath}/resources/hplus-v4.1.0/img/profile_small.jpg" /></span> 
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#"> 
-            <span class="clear"> 
-              <span class="block m-t-xs"><strong class="font-bold">Beaut-zihan</strong></span> 
-              <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
-            </span>
-            </a>
-            <ul class="dropdown-menu animated fadeInRight m-t-xs">
-              <li><a class="J_menuItem" href="form_avatar.html">修改头像</a></li>
-              <li><a class="J_menuItem" href="profile.html">个人资料</a></li>
-              <li><a class="J_menuItem" href="contacts.html">联系我们</a></li>
-              <li><a class="J_menuItem" href="mailbox.html">信箱</a></li>
-              <li class="divider"></li>
-              <li><a href="login">安全退出</a></li>
-            </ul>
-          </div>
-          <div class="logo-element">H+</div>
-        </li>
-        <li><a class="J_menuItem" href="home"><i class="fa fa-home"></i><span class="nav-label">主页</span></a></li>
-        <li><a class="J_menuItem" href="user/index"><i class="fa fa-user"></i><span class="nav-label">用户管理</span></a></li>
-        <li><a class="J_menuItem" href="role/index"><i class="fa fa-user-secret"></i><span class="nav-label">权限管理</span></a></li>
-        <li><a class="J_menuItem" href="menu/index"><i class="fa fa-reorder"></i><span class="nav-label">菜单管理</span></a></li>
-        <li><a class="J_menuItem" href="nav/fileUpload"><i class="fa fa-upload"></i><span class="nav-label">文件上传</span></a></li>
-        <li>
-          <a href="#"><i class="fa fa-home"></i><span class="nav-label">主页</span><span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level">
-            <li><a class="J_menuItem" href="index_v1.html" data-index="0">主页示例一</a></li>
-            <li><a class="J_menuItem" href="index_v2.html">主页示例二</a></li>
-            <li><a class="J_menuItem" href="index_v3.html">主页示例三</a></li>
-            <li><a class="J_menuItem" href="index_v4.html">主页示例四</a></li>
-            <li><a href="index_v5.html" target="_blank">主页示例五</a></li>
+      <div class="nav-close">
+        <i class="fa fa-times-circle"></i>
+      </div>
+      <div class="sidebar-collapse">
+        <ul class="nav">
+          <li class="nav-header">
+            <div class="dropdown profile-element">
+              <span><img alt="image" class="img-circle" src="${pageContext.request.contextPath}/resources/hplus-v4.1.0/img/profile_small.jpg" /></span> 
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#"> 
+              <span class="clear"> 
+                <span class="block m-t-xs"><strong class="font-bold">Beaut-zihan</strong></span> 
+                <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
+              </span>
+              </a>
+              <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                <li><a class="J_menuItem" href="form_avatar.html">修改头像</a></li>
+                <li><a class="J_menuItem" href="profile.html">个人资料</a></li>
+                <li><a class="J_menuItem" href="contacts.html">联系我们</a></li>
+                <li><a class="J_menuItem" href="mailbox.html">信箱</a></li>
+                <li class="divider"></li>
+                <li><a href="login">安全退出</a></li>
+              </ul>
+            </div>
+            <div class="logo-element">H+</div>
+          </li>
+        </ul>
+          <ul class="metismenu" id="side-menu">
+            <%@include file="menuTree.jsp" %>
           </ul>
-        </li>
-        <li>
-        	<div id="tree"></div>
-        </li>
-      </ul>
-    </div>
+      </div>
     </nav>
     <!--左侧导航结束-->
     <!--右侧部分开始-->
@@ -170,57 +160,5 @@
     </div>
     <!--右侧部分结束-->
   </div>
-<script type="text/javascript">
-	$(document).ready(function() {
-		
-		var tree = [ {
-			text : "系统设置",
-			icon : 'fa fa-cogs',
-			nodes : [ {
-				text : "用户管理",
-				nodes : [ {
-					text : "Grandchild 1"
-				}, {
-					text : "Grandchild 2"
-				} ]
-			}, {
-				text : "菜单管理"
-			}, {
-				text : "权限管理"
-			} ]
-		}, {
-			text : "文件上传"
-		}, {
-			text : "Parent 3",
-			nodes : [ {
-				text : "Child 1"
-			}, {
-				text : "Child 2"
-			} ]
-		}, {
-			text : "Parent 4"
-		} ];
-		$('#tree').treeview({
-			text : "Node 1",
-			//icon : "glyphicon glyphicon-stop",
-			//selectedIcon : "glyphicon glyphicon-stop",
-			//color : "#000000",
-			//backColor : "#FFFFFF",
-			levels : 0,
-			showIcon : false,
-			expandIcon : "",
-			href : "#node-1",
-			selectable : true,
-			state : {
-				checked : true,
-				disabled : true,
-				//expanded : true,
-				selected : true
-			},
-			tags : [ 'available' ],
-			data : tree
-		});
-	})
-</script>
 </body>
 </html>

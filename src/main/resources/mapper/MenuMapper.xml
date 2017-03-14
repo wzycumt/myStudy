@@ -121,4 +121,12 @@
 		</set>
 		where ID = #{id,jdbcType=INTEGER}
 	</update>
+
+	<select id="getChildrenByParentId" parameterType="Integer" resultType="org.myStudy.entity.Menu">
+		select
+		<include refid="Base_Column_List" />
+		from t_menu
+		where PARENT_ID = #{_parameter}
+		order by SERIAL_NUM
+	</select>
 </mapper>

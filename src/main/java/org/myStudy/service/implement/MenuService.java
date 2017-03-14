@@ -91,4 +91,13 @@ public class MenuService implements IMenuService {
 		return menuDao.editSelective(entity);
 	}
 
+
+	public List<Menu> getMenuTreeByParentId(int id) {
+		List<Menu> rootMenus = menuDao.getChildrenByParentId(id);
+		for(Menu menu : rootMenus){
+			List<Menu> children = this.getMenuTreeByParentId(menu.getId());
+			menu.setChildren(children);
+		}
+		return rootMenus;
+	}
 }

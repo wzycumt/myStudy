@@ -1,5 +1,7 @@
 package org.myStudy.service;
 
+import java.util.List;
+
 import org.myStudy.entity.Menu;
 
 /**
@@ -7,5 +9,7 @@ import org.myStudy.entity.Menu;
  * @author WZY
  */
 public interface IMenuService extends IBaseService<Menu> {
-
+	
+	List<Menu> getMenuTreeByParentId(int parentId);
+	
 }

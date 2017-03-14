@@ -1,5 +1,7 @@
 package org.myStudy.entity;
 
+import java.util.List;
+
 import org.myStudy.enums.BaseStatusEnum;
 
 /**
@@ -15,6 +17,9 @@ public class Menu extends BaseEntity {
     private int serialNum;
     private BaseStatusEnum status;
     private String remark;
+
+	private Menu parent;
+    private List<Menu> children;
     
     public String getName() {
         return name;
@@ -78,5 +83,21 @@ public class Menu extends BaseEntity {
 	//扩展
 	public String getStatusDes() {
 		return getStatus().getDescription();
+	}
+
+	public Menu getParent() {
+		return parent;
+	}
+
+	public void setParent(Menu parent) {
+		this.parent = parent;
+	}
+
+	public List<Menu> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Menu> children) {
+		this.children = children;
 	}
 }
