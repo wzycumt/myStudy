@@ -74,6 +74,12 @@ public class Query {
 		sortColumns.add(new SortColumn(columnName, isDescend));
 	}
 
+	public void addSortColumn(String columnName, boolean isDescend, boolean camelCaseToUnderscore) {
+		if (sortColumns == null)
+			sortColumns = new ArrayList<SortColumn>();
+		sortColumns.add(new SortColumn(columnName, isDescend, camelCaseToUnderscore));
+	}
+
 	/**
 	 * 查询条件过滤类
 	 * @author WZY
@@ -122,9 +128,23 @@ public class Query {
 	public class SortColumn {
 
 		private String columnName;
-		private boolean isDescend;
+		private boolean isDescend = false;
+		private boolean camelCaseToUnderscore = false;
+
+		public SortColumn(String columnName, boolean isDescend) {
+			this.columnName = columnName;
+			this.isDescend = isDescend;
+		}
+
+		public SortColumn(String columnName, boolean isDescend, boolean camelCaseToUnderscore) {
+			this.columnName = columnName;
+			this.isDescend = isDescend;
+			this.camelCaseToUnderscore = camelCaseToUnderscore;
+		}
 
 		public String getColumnName() {
+			if (camelCaseToUnderscore)
+				return toUnderscoreName(columnName);
 			return columnName;
 		}
 
@@ -140,9 +160,39 @@ public class Query {
 			this.isDescend = isDescend;
 		}
 
-		public SortColumn(String columnName, boolean isDescend) {
-			this.columnName = columnName;
-			this.isDescend = isDescend;
+		public boolean isCamelCaseToUnderScore() {
+			return camelCaseToUnderscore;
+		}
+
+		public void setCamelCaseToUnderScore(boolean camelCaseToUnderscore) {
+			this.camelCaseToUnderscore = camelCaseToUnderscore;
+		}
+		
+		/**
+		 * 将驼峰式命名的字符串转换为下划线大写方式。如果传入null，则返回null。</br>
+		 * 例如：helloWorld->HELLO_WORLD
+		 * @param name 转换前的驼峰式命名的字符串
+		 * @return 转换后下划线大写方式命名的字符串
+		 */
+		private String toUnderscoreName(String name) {
+			if (name == null)
+				return null;
+		    StringBuilder result = new StringBuilder();
+		    if (name.length() > 0) {
+		        // 将第一个字符处理成大写
+		        result.append(name.substring(0, 1).toUpperCase());
+		        // 循环处理其余字符
+		        for (int i = 1; i < name.length(); i++) {
+		            String s = name.substring(i, i + 1);
+		            // 在大写字母前添加下划线
+		            if (s.equals(s.toUpperCase()) && !Character.isDigit(s.charAt(0))) {
+		                result.append("_");
+		            }
+		            // 其他字符直接转成大写
+		            result.append(s.toUpperCase());
+		        }
+		    }
+		    return result.toString();
 		}
 	}
 

@@ -5,6 +5,10 @@
 <head>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
 <title>登录</title>
+<script language="JavaScript"> 
+	if (window != top)
+		top.location.href = location.href;
+</script>
 </head>
 <body class="gray-bg">
   <div class="middle-box text-center loginscreen  animated fadeInDown">

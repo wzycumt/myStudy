@@ -59,11 +59,14 @@ public class PageQuery {
 	public Query toQuery() {
 		Query query = new Query();
 		if (sort != null && !sort.isEmpty()) {
-			boolean isDescend = order == "desc";
-			query.addSortColumn(sort, isDescend);
+			boolean isDescend = "desc".equals(order);
+			query.addSortColumn(sort, isDescend, true);
 		}
-		query.setOffset(offset);
-		query.setLimit(limit);
+		if (offset != 0 && limit != 0) {
+			query.setPaged(true);
+			query.setOffset(offset);
+			query.setLimit(limit);
+		}
 		return query;
 	}
 }
