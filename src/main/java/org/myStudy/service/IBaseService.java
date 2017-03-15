@@ -2,7 +2,6 @@ package org.myStudy.service;
 
 import java.util.List;
 
-import org.myStudy.dto.PageQuery;
 import org.myStudy.dto.Query;
 
 /**
@@ -18,21 +17,18 @@ public interface IBaseService<T> {
 	 * @return
 	 */
 	T getById(Integer id);
-	
-	/**
-	 * 获取所有
-	 * @return
-	 * @throws Exception 
-	 */
-	List<T> getAll();
+
+    /**
+     * 获取所有
+     * @return
+     */
+    List<T> getAll();
 
 	/**
-	 * 获取分页列表
+	 * 获取List
 	 * @param query
 	 * @return
 	 */
-	List<T> getPageList(PageQuery query);
-	
 	List<T> getList(Query query);
 	
 	/**
@@ -40,7 +36,7 @@ public interface IBaseService<T> {
 	 * @param query
 	 * @return
 	 */
-	int getPageListTotal(PageQuery query);
+	int getListTotal(Query query);
 	
 	/**
 	 * 删除

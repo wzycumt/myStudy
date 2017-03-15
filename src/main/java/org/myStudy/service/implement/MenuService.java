@@ -3,7 +3,6 @@ package org.myStudy.service.implement;
 import java.util.List;
 
 import org.myStudy.dao.IMenuDao;
-import org.myStudy.dto.PageQuery;
 import org.myStudy.dto.Query;
 import org.myStudy.entity.Menu;
 import org.myStudy.service.IMenuService;
@@ -28,16 +27,12 @@ public class MenuService implements IMenuService {
 		return menuDao.getAll();
 	}
 
-	public List<Menu> getPageList(PageQuery query) {
-		return menuDao.getPageList(query);
-	}
-
 	public List<Menu> getList(Query query) {
 		return menuDao.getList(query);
 	}
 
-	public int getPageListTotal(PageQuery query) {
-		return menuDao.getPageListTotal(query);
+	public int getListTotal(Query query) {
+		return menuDao.getListTotal(query);
 	}
 
 	public int deleteById(Integer id) throws Exception {

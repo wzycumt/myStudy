@@ -40,7 +40,7 @@ public class RoleController extends BaseController {
 		List<Role> list = roleService.getList(pageQuery.toQuery());
 		BootstrapTable<Role> table = new BootstrapTable<Role>();
 		table.setRows(list);
-		table.setTotal(roleService.getPageListTotal(pageQuery));
+		table.setTotal(roleService.getListTotal(pageQuery.toQuery()));
 		return table.toJsonString();
 	}
 

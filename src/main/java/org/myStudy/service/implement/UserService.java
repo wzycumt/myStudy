@@ -3,7 +3,6 @@ package org.myStudy.service.implement;
 import java.util.List;
 
 import org.myStudy.dao.IUserDao;
-import org.myStudy.dto.PageQuery;
 import org.myStudy.dto.Query;
 import org.myStudy.dto.Query.OperatorEnum;
 import org.myStudy.entity.User;
@@ -29,17 +28,13 @@ public class UserService implements IUserService {
 	public List<User> getAll() {
 		return userDao.getAll();
 	}
-
-	public List<User> getPageList(PageQuery query) {
-		return userDao.getPageList(query);
-	}
 	
 	public List<User> getList(Query query) {
 		return userDao.getList(query);
 	}
 
-	public int getPageListTotal(PageQuery query) {
-		return userDao.getPageListTotal(query);
+	public int getListTotal(Query query) {
+		return userDao.getListTotal(query);
 	}
 
 	public int deleteById(Integer id) throws Exception {

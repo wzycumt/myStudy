@@ -36,11 +36,11 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/pageList", produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String pageList(PageQuery query) {
-		List<User> list = userService.getPageList(query);
+	public String pageList(PageQuery pageQuery) {
+		List<User> list = userService.getList(pageQuery.toQuery());
 		BootstrapTable<User> table = new BootstrapTable<User>();
 		table.setRows(list);
-		table.setTotal(userService.getPageListTotal(query));
+		table.setTotal(userService.getListTotal(pageQuery.toQuery()));
 		return table.toJsonString();
 	}
 

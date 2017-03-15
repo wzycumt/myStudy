@@ -4,53 +4,43 @@
 	<sql id="Base_Column_List">
 		ID, NAME, PARENT_ID, URL, ICON, SERIAL_NUM, STATUS, REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION
 	</sql>
+	<sql id="Base_Table">t_menu</sql>
 
 	<select id="getById" parameterType="Integer" resultType="org.myStudy.entity.Menu">
-		select
-		<include refid="Base_Column_List" />
-		from t_menu
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
 		where ID = #{id,jdbcType=INTEGER}
 	</select>
 
 	<select id="getAll" resultType="org.myStudy.entity.Menu">
-		select
-		<include refid="Base_Column_List" />
-		from t_menu
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
 	</select>
 
-	<!-- 获取分页列表 -->
-	<select id="getPageList" parameterType="org.myStudy.dto.PageQuery" resultType="org.myStudy.entity.Menu">
-		select
-		<include refid="Base_Column_List" />
-		from t_menu t
-		<where>
-			<if test="search != null and !search.trim().equals('')">
-        		(t.NAME like CONCAT('%', #{search}, '%'))
-			</if>
-		</where>
-		<if test="sort != null and !sort.equals('')">
-			order by ${sort} ${order}
-		</if>
-		limit ${offset},${limit}
+	<!-- 获取集合 -->
+	<select id="getList" parameterType="org.myStudy.dto.Query" resultType="org.myStudy.entity.Menu">
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
+		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
+		<include refid="org.myStudy.dao.BaseMapper.Sort" />
+		<include refid="org.myStudy.dao.BaseMapper.Pagination" />
 	</select>
 	
 	<!-- 获取分页查询结果的总数 -->
-	<select id="getPageListTotal" parameterType="org.myStudy.dto.PageQuery" resultType="int">
-		select count(1) from t_menu t
-        <where>
-        	<if test="search != null and !search.trim().equals('')">
-				(t.NAME like CONCAT('%', #{search}, '%'))
-        	</if>
-        </where>
+	<select id="getListTotal" parameterType="org.myStudy.dto.Query" resultType="int">
+        select count(1)
+    	from <include refid="Base_Table" />
+		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
 	</select>
 
 	<delete id="deleteById" parameterType="Integer">
-		delete from t_menu
+		delete from <include refid="Base_Table" />
 		where ID = #{id,jdbcType=INTEGER}
 	</delete>
 	
 	<insert id="add" parameterType="org.myStudy.entity.Menu" useGeneratedKeys="true" keyProperty="id">
-		insert into t_menu (NAME, PARENT_ID, URL, ICON, SERIAL_NUM, STATUS,
+		insert into <include refid="Base_Table" />
+			(NAME, PARENT_ID, URL, ICON, SERIAL_NUM, STATUS,
 			REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION)
 		values (#{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER},#{url,jdbcType=VARCHAR}, 
 			#{icon,jdbcType=VARCHAR}, #{serialNum,jdbcType=INTEGER}, #{status,jdbcType=TINYINT},
@@ -59,7 +49,7 @@
 	</insert>
 	
 	<insert id="addSelective" parameterType="org.myStudy.entity.Menu" useGeneratedKeys="true" keyProperty="id">
-		insert into t_menu
+		insert into <include refid="Base_Table" />
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="name != null">NAME,</if>
 			PARENT_ID,
@@ -91,7 +81,7 @@
 	</insert>
 	
 	<update id="edit" parameterType="org.myStudy.entity.Menu">
-		update t_menu
+		update <include refid="Base_Table" />
 		set NAME = #{name,jdbcType=VARCHAR},
 			PARENT_ID = #{parentId,jdbcType=INTEGER},
 			URL = #{url,jdbcType=VARCHAR},
@@ -106,7 +96,7 @@
 	</update>
 	
 	<update id="editSelective" parameterType="org.myStudy.entity.Menu">
-		update t_menu
+		update <include refid="Base_Table" />
 		<set>
 			<if test="name != null">NAME = #{name,jdbcType=VARCHAR},</if>
 			<if test="parentId != null">PARENT_ID = #{parentId,jdbcType=INTEGER},</if>
@@ -123,9 +113,8 @@
 	</update>
 
 	<select id="getChildrenByParentId" parameterType="Integer" resultType="org.myStudy.entity.Menu">
-		select
-		<include refid="Base_Column_List" />
-		from t_menu
+		select <include refid="Base_Column_List" />
+		from <include refid="Base_Table" />
 		where PARENT_ID = #{_parameter}
 		order by SERIAL_NUM
 	</select>

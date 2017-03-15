@@ -3,7 +3,6 @@ package org.myStudy.service.implement;
 import java.util.List;
 
 import org.myStudy.dao.IRoleDao;
-import org.myStudy.dto.PageQuery;
 import org.myStudy.dto.Query;
 import org.myStudy.entity.Role;
 import org.myStudy.service.IRoleService;
@@ -27,17 +26,15 @@ public class RoleService implements IRoleService {
 	public List<Role> getAll() {
 		return roleDao.getAll();
 	}
-
-	public List<Role> getPageList(PageQuery query) {
-		return roleDao.getPageList(query);
-	}
 	
 	public List<Role> getList(Query query) {
+		if (query == null)
+			return null;
 		return roleDao.getList(query);
 	}
 
-	public int getPageListTotal(PageQuery query) {
-		return roleDao.getPageListTotal(query);
+	public int getListTotal(Query query) {
+		return roleDao.getListTotal(query);
 	}
 
 	public int deleteById(Integer id) throws Exception {

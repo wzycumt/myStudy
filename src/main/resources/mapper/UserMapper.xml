@@ -8,38 +8,18 @@
 	<sql id="Base_Table">t_user</sql>
 
 	<select id="getById" parameterType="Integer" resultType="org.myStudy.entity.User">
-		select
-		<include refid="Base_Column_List" />
-		from t_user
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
 		where ID = #{id,jdbcType=INTEGER}
 	</select>
 
 	<select id="getAll" resultType="org.myStudy.entity.User">
-		select
-		<include refid="Base_Column_List" />
-		from t_user
-	</select>
-	
-	<!-- 获取分页列表 -->
-	<select id="getPageList" parameterType="org.myStudy.dto.PageQuery" resultType="org.myStudy.entity.User">  
-        select 
-		<include refid="Base_Column_List" />
-    	from t_user t 
-        <where>
-        	<if test="search != null and !search.trim().equals('')">
-        		(t.user_name like CONCAT('%', #{search}, '%') or
-        		 t.nickname like CONCAT('%', #{search}, '%') or
-        		 t.real_name like CONCAT('%', #{search}, '%'))
-        	</if>
-        </where>
-        <if test="sort != null and !sort.equals('')">
-        	order by ${sort} ${order}
-        </if>
-        limit ${offset},${limit}
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
 	</select>
 	
 	<!-- 获取集合 -->
-	<select id="getList" parameterType="org.myStudy.dto.Query" resultType="org.myStudy.entity.User">  
+	<select id="getList" parameterType="org.myStudy.dto.Query" resultType="org.myStudy.entity.User">
         select <include refid="Base_Column_List" />
     	from <include refid="Base_Table" />
 		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
@@ -48,24 +28,20 @@
 	</select>
 	
 	<!-- 获取分页查询结果的总数 -->
-	<select id="getPageListTotal" parameterType="org.myStudy.dto.PageQuery" resultType="int">
-		select count(1) from t_user t
-        <where>
-        	<if test="search != null and !search.trim().equals('')">
-        		(t.user_name like CONCAT('%', #{search}, '%') or
-        		 t.nickname like CONCAT('%', #{search}, '%') or
-        		 t.real_name like CONCAT('%', #{search}, '%'))
-        	</if>
-        </where>
+	<select id="getListTotal" parameterType="org.myStudy.dto.Query" resultType="int">
+        select count(1)
+    	from <include refid="Base_Table" />
+		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
 	</select>
 	
 	<delete id="deleteById" parameterType="int">
-		delete from t_user
+		delete from <include refid="Base_Table" />
 		where ID = #{id,jdbcType=INTEGER}
 	</delete>
 	
 	<insert id="add" parameterType="org.myStudy.entity.User" useGeneratedKeys="true" keyProperty="id">
-		insert into t_user (USER_NAME, PASSWORD, NICKNAME, REAL_NAME, PHONE, EMAIL, STATUS, REMARK,
+		insert into <include refid="Base_Table" />
+			(USER_NAME, PASSWORD, NICKNAME, REAL_NAME, PHONE, EMAIL, STATUS, REMARK,
 			CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION)
 		values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
 			#{nickname,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
@@ -74,7 +50,7 @@
 	</insert>
 	
 	<insert id="addSelective" parameterType="org.myStudy.entity.User" useGeneratedKeys="true" keyProperty="id">
-		insert into t_user
+		insert into <include refid="Base_Table" />
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="userName != null">USER_NAME,</if>
 			<if test="password != null">PASSWORD,</if>
@@ -108,7 +84,7 @@
 	</insert>
 	
 	<update id="edit" parameterType="org.myStudy.entity.User">
-		update t_user
+		update <include refid="Base_Table" />
 		set USER_NAME = #{userName,jdbcType=VARCHAR},
 			PASSWORD = #{password,jdbcType=VARCHAR},
 			NICKNAME = #{nickname,jdbcType=VARCHAR},
@@ -124,7 +100,7 @@
 	</update>
 	
 	<update id="editSelective" parameterType="org.myStudy.entity.User">
-		update t_user
+		update <include refid="Base_Table" />
 		<set>
 			<if test="userName != null">USER_NAME = #{userName,jdbcType=VARCHAR},</if>
 			<if test="password != null">PASSWORD = #{password,jdbcType=VARCHAR},</if>

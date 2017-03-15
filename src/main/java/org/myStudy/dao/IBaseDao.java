@@ -2,22 +2,23 @@ package org.myStudy.dao;
 
 import java.util.List;
 
-import org.myStudy.dto.PageQuery;
 import org.myStudy.dto.Query;
 
 public interface IBaseDao<T> {
 
     T getById(Integer id);
 
+    /**
+     * 获取所有
+     * @return
+     */
     List<T> getAll();
 
 	/**
-	 * 获取分页列表
+	 * 获取List
 	 * @param query
 	 * @return
 	 */
-	List<T> getPageList(PageQuery query);
-
 	List<T> getList(Query query);
 	
 	/**
@@ -25,7 +26,7 @@ public interface IBaseDao<T> {
 	 * @param query
 	 * @return
 	 */
-	int getPageListTotal(PageQuery query);
+	int getListTotal(Query query);
     
     int deleteById(Integer id);
 

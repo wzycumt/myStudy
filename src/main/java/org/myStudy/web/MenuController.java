@@ -2,8 +2,6 @@ package org.myStudy.web;
 
 import java.util.List;
 
-import org.myStudy.dto.BootstrapTable;
-import org.myStudy.dto.PageQuery;
 import org.myStudy.entity.Menu;
 import org.myStudy.service.IMenuService;
 import org.myStudy.web.common.BaseController;
@@ -48,16 +46,6 @@ public class MenuController extends BaseController {
 			e.printStackTrace();
 			return e.getMessage();
 		}
-	}
-
-	@RequestMapping(value = "/pageList", produces = "text/json;charset=UTF-8")
-	@ResponseBody
-	public String pageList(PageQuery query) {
-		List<Menu> list = menuService.getPageList(query);
-		BootstrapTable<Menu> table = new BootstrapTable<Menu>();
-		table.setRows(list);
-		table.setTotal(menuService.getPageListTotal(query));
-		return table.toJsonString();
 	}
 
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
