@@ -3,6 +3,7 @@ package org.myStudy.dao;
 import java.util.List;
 
 import org.myStudy.dto.PageQuery;
+import org.myStudy.dto.Query;
 
 public interface IBaseDao<T> {
 
@@ -16,6 +17,8 @@ public interface IBaseDao<T> {
 	 * @return
 	 */
 	List<T> getPageList(PageQuery query);
+
+	List<T> getList(Query query);
 	
 	/**
 	 * 获取分页查询结果的总数

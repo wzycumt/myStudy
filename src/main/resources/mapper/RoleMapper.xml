@@ -2,62 +2,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.myStudy.dao.IRoleDao">
 	<sql id="Base_Column_List">
-		ID, NAME, STATUS, REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON,
-		UPDATE_TIME, VERSION
+		ID, NAME, STATUS, REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION
 	</sql>
+	<sql id="Base_Table">t_role</sql>
 
 	<select id="getById" parameterType="Integer" resultType="org.myStudy.entity.Role">
-		select
-		<include refid="Base_Column_List" />
-		from t_role
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
 		where ID = #{id,jdbcType=INTEGER}
 	</select>
 
 	<select id="getAll" resultType="org.myStudy.entity.Role">
-		select
-		<include refid="Base_Column_List" />
-		from t_role
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
 	</select>
 	
-	<!-- 获取分页列表 -->
-	<select id="getPageList" parameterType="org.myStudy.dto.PageQuery" resultType="org.myStudy.entity.Role">  
-        select 
-		<include refid="Base_Column_List" />
-    	from t_role t 
-        <where>
-        	<if test="search != null and !search.trim().equals('')">
-        		(t.NAME like CONCAT('%', #{search}, '%'))
-        	</if>
-        </where>
-        <if test="sort != null and !sort.equals('')">
-        	order by ${sort} ${order}
-        </if>
-        limit ${offset},${limit}
+	<!-- 获取集合 -->
+	<select id="getList" parameterType="org.myStudy.dto.Query" resultType="org.myStudy.entity.Role">  
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
+		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
+		<include refid="org.myStudy.dao.BaseMapper.Sort" />
+		<include refid="org.myStudy.dao.BaseMapper.Pagination" />
 	</select>
 	
 	<!-- 获取分页查询结果的总数 -->
-	<select id="getPageListTotal" parameterType="org.myStudy.dto.PageQuery" resultType="int">
-		select count(1) from t_role t
-        <where>
-        	<if test="search != null and !search.trim().equals('')">
-        		(t.NAME like CONCAT('%', #{search}, '%'))
-        	</if>
-        </where>
+	<select id="getPageListTotal" parameterType="org.myStudy.dto.Query" resultType="int">
+		select count(1)
+    	from <include refid="Base_Table" />
+		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
 	</select>
 
 	<delete id="deleteById" parameterType="int">
-		delete from t_role
+		delete from <include refid="Base_Table" />
 		where ID = #{id,jdbcType=INTEGER}
 	</delete>
 
 	<insert id="add" parameterType="org.myStudy.entity.Role" useGeneratedKeys="true" keyProperty="id">
-		insert into t_role (NAME, STATUS, REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION)
+		insert into <include refid="Base_Table" />
+			(NAME, STATUS, REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION)
 		values (#{name,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, 
 			#{creator,jdbcType=INTEGER}, now(), #{updatePerson,jdbcType=INTEGER}, now(), 0)
 	</insert>
 	
 	<insert id="addSelective" parameterType="org.myStudy.entity.Role" useGeneratedKeys="true" keyProperty="id">
-		insert into t_role
+		insert into <include refid="Base_Table" />
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="name != null">
 				NAME,
@@ -89,7 +78,7 @@
 	</insert>
 	
 	<update id="edit" parameterType="org.myStudy.entity.Role">
-		update t_role
+		update <include refid="Base_Table" />
 			set NAME = #{name,jdbcType=VARCHAR},
 			STATUS = #{status,jdbcType=TINYINT},
 			REMARK = #{remark,jdbcType=VARCHAR},
@@ -100,7 +89,7 @@
 	</update>
 	
 	<update id="editSelective" parameterType="org.myStudy.entity.Role">
-		update t_role
+		update <include refid="Base_Table" />
 		<set>
 			<if test="name != null">
 				NAME = #{name,jdbcType=VARCHAR},

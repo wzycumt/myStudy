@@ -1,5 +1,9 @@
 package org.myStudy.entity;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.myStudy.enums.BaseStatusEnum;
 
 /**
@@ -16,6 +20,9 @@ public class User extends BaseEntity {
 	private String email;
 	private BaseStatusEnum status;
 	private String remark;
+	
+	//用户权限
+	private List<Role> roles;
 
 	public String getUserName() {
 		return userName;
@@ -87,5 +94,25 @@ public class User extends BaseEntity {
 	//扩展
 	public String getStatusDes() {
 		return getStatus().getDescription();
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+	
+	//获取用户的角色名称
+	public Set<String> getRolesName() {
+		List<Role> roles = getRoles();
+		Set<String> set = new HashSet<String>();
+		if (roles != null && !roles.isEmpty()) {
+			for (Role role : roles) {
+				set.add(role.getName());
+			}
+		}
+		return set;
 	}
 }

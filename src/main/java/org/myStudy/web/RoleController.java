@@ -36,11 +36,11 @@ public class RoleController extends BaseController {
 
 	@RequestMapping(value = "/pageList", produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String pageList(PageQuery query) {
-		List<Role> list = roleService.getPageList(query);
+	public String pageList(PageQuery pageQuery) {
+		List<Role> list = roleService.getList(pageQuery.toQuery());
 		BootstrapTable<Role> table = new BootstrapTable<Role>();
 		table.setRows(list);
-		table.setTotal(roleService.getPageListTotal(query));
+		table.setTotal(roleService.getPageListTotal(pageQuery));
 		return table.toJsonString();
 	}
 

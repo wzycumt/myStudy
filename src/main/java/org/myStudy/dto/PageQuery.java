@@ -51,5 +51,19 @@ public class PageQuery {
 	public void setSearch(String search) {
 		this.search = search;
 	}
-
+	
+	/**
+	 * 转为SQL查询过滤、排序组合对象
+	 * @return
+	 */
+	public Query toQuery() {
+		Query query = new Query();
+		if (sort != null && !sort.isEmpty()) {
+			boolean isDescend = order == "desc";
+			query.addSortColumn(sort, isDescend);
+		}
+		query.setOffset(offset);
+		query.setLimit(limit);
+		return query;
+	}
 }

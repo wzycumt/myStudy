@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
-<title>菜单管理</title>
+<title>登录</title>
 </head>
 <body class="gray-bg">
   <div class="middle-box text-center loginscreen  animated fadeInDown">
@@ -20,6 +20,9 @@
         </div>
         <div class="form-group">
           <input type="password" class="form-control" name="password" placeholder="密码" required="">
+        </div>
+        <div class="form-group">
+          <span class="text-danger">${message}</span>
         </div>
         <button type="submit" class="btn btn-success block full-width m-b">登 录</button>
         <p class="text-muted text-center">

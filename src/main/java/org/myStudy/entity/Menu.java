@@ -20,6 +20,8 @@ public class Menu extends BaseEntity {
 
 	private Menu parent;
     private List<Menu> children;
+    //菜单对应访问权限
+    private List<Role> roles;
     
     public String getName() {
         return name;
@@ -99,5 +101,13 @@ public class Menu extends BaseEntity {
 
 	public void setChildren(List<Menu> children) {
 		this.children = children;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 }

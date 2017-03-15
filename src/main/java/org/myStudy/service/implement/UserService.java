@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.myStudy.dao.IUserDao;
 import org.myStudy.dto.PageQuery;
+import org.myStudy.dto.Query;
+import org.myStudy.dto.Query.OperatorEnum;
 import org.myStudy.entity.User;
 import org.myStudy.enums.BaseStatusEnum;
 import org.myStudy.service.IUserService;
@@ -30,6 +32,10 @@ public class UserService implements IUserService {
 
 	public List<User> getPageList(PageQuery query) {
 		return userDao.getPageList(query);
+	}
+	
+	public List<User> getList(Query query) {
+		return userDao.getList(query);
 	}
 
 	public int getPageListTotal(PageQuery query) {
@@ -99,6 +105,15 @@ public class UserService implements IUserService {
 
 	public int editSelective(User entity) throws Exception {
 		return userDao.editSelective(entity);
+	}
+
+	public User getByUserName(String loginName) {
+		Query query = new Query();
+		query.addQueryFilter("user_name", OperatorEnum.EQUAL, loginName);
+		List<User> list = userDao.getList(query);
+		if (list != null && !list.isEmpty())
+			return list.get(0);
+		return null;
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.myStudy.dao.IMenuDao;
 import org.myStudy.dto.PageQuery;
+import org.myStudy.dto.Query;
 import org.myStudy.entity.Menu;
 import org.myStudy.service.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class MenuService implements IMenuService {
 
 	public List<Menu> getPageList(PageQuery query) {
 		return menuDao.getPageList(query);
+	}
+
+	public List<Menu> getList(Query query) {
+		return menuDao.getList(query);
 	}
 
 	public int getPageListTotal(PageQuery query) {

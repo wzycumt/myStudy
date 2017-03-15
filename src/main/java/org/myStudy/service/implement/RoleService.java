@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.myStudy.dao.IRoleDao;
 import org.myStudy.dto.PageQuery;
+import org.myStudy.dto.Query;
 import org.myStudy.entity.Role;
 import org.myStudy.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class RoleService implements IRoleService {
 
 	public List<Role> getPageList(PageQuery query) {
 		return roleDao.getPageList(query);
+	}
+	
+	public List<Role> getList(Query query) {
+		return roleDao.getList(query);
 	}
 
 	public int getPageListTotal(PageQuery query) {

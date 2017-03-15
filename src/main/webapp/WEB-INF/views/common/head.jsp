@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="renderer" content="webkit">
 
-<base href="${pageContext.request.contextPath}/">
+<%-- <base href="${pageContext.request.contextPath}/"> --%>
+<base href="/myStudy/">
 
 <!-- jQuery.js -->
 <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>

@@ -1,5 +1,7 @@
 package org.myStudy.entity;
 
+import java.util.List;
+
 import org.myStudy.enums.BaseStatusEnum;
 
 /**
@@ -12,7 +14,10 @@ public class Role extends BaseEntity {
     private BaseStatusEnum status;
     private String remark;
     
-    public String getName() {
+    private List<User> users;
+    private List<Menu> menus;
+
+	public String getName() {
     	if (name != null)
     		return name.trim();
     	return name;
@@ -44,5 +49,21 @@ public class Role extends BaseEntity {
 	//扩展
 	public String getStatusDes() {
 		return getStatus().getDescription();
+	}
+    
+    public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	public List<Menu> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
 	}
 }

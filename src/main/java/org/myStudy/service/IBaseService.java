@@ -3,6 +3,7 @@ package org.myStudy.service;
 import java.util.List;
 
 import org.myStudy.dto.PageQuery;
+import org.myStudy.dto.Query;
 
 /**
  * 服务层基础接口
@@ -31,6 +32,8 @@ public interface IBaseService<T> {
 	 * @return
 	 */
 	List<T> getPageList(PageQuery query);
+	
+	List<T> getList(Query query);
 	
 	/**
 	 * 获取分页查询结果的总数
