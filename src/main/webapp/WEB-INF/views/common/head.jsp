@@ -18,6 +18,7 @@
 <link href="resources/plugins/bootstrap-table-v1.11.0/bootstrap-table.min.css" rel="stylesheet">
 <script src="resources/plugins/bootstrap-table-v1.11.0/bootstrap-table.min.js"></script>
 <script src="resources/plugins/bootstrap-table-v1.11.0/bootstrap-table-zh-CN.min.js"></script>
+<script src="resources/plugins/bootstrap-table-v1.11.0/bootstrap-table-toolbar.js"></script>
 <!-- <link href="http://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet"> -->
 <!-- <script src="http://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script> -->
 <!-- <script src="http://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script> -->

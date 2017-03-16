@@ -28,6 +28,9 @@
           data-click-to-select="true"
           data-toolbar="#toolbar"
           data-id-field="id"
+          data-query-params="bootstrapTable.queryParams"
+          data-advanced-search="true"
+          data-id-table="advancedTable"
           data-url="user/pageList">
           <thead>
             <tr>

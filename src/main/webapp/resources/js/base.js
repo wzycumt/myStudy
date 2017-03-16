@@ -179,3 +179,12 @@ function layerClose() {
 	var index = parent.layer.getFrameIndex(window.name);
 	parent.layer.close(index);
 }
+
+var bootstrapTable = {
+	queryParams : function(params) {
+		debugger
+		console.log(params);
+		return params;
+	}
+}
+
