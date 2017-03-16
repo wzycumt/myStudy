@@ -3,6 +3,7 @@ package org.myStudy.web;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.myStudy.web.common.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,14 +20,18 @@ public class LoginController extends BaseController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(RedirectAttributes redirectAttributes) {
+		Subject subject = SecurityUtils.getSubject();
+		if (subject.isRemembered() || subject.isAuthenticated())
+			return "redirect:/";
 		return "login/login";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@RequestParam("userName") String userName, @RequestParam("password") String password, RedirectAttributes redirectAttributes) {
+	public String login(@RequestParam("userName") String userName, @RequestParam("password") String password, 
+			@RequestParam(value = "rememberMe", required = false) boolean rememberMe, RedirectAttributes redirectAttributes) {
 		try {
 			// 使用权限工具进行用户登录，登录成功后跳到shiro配置的successUrl中，与下面的return没什么关系！
-			SecurityUtils.getSubject().login(new UsernamePasswordToken(userName, password));
+			SecurityUtils.getSubject().login(new UsernamePasswordToken(userName, password, rememberMe));
 			return "redirect:/";
 		} catch (AuthenticationException e) {
 			redirectAttributes.addFlashAttribute("message", "用户名或密码错误");

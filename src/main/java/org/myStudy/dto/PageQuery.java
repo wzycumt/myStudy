@@ -62,7 +62,7 @@ public class PageQuery {
 			boolean isDescend = "desc".equals(order);
 			query.addSortColumn(sort, isDescend, true);
 		}
-		if (offset != 0 && limit != 0) {
+		if (offset != 0 || limit != 0) {
 			query.setPaged(true);
 			query.setOffset(offset);
 			query.setLimit(limit);

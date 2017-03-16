@@ -7,8 +7,6 @@ import org.myStudy.dto.PageQuery;
 import org.myStudy.entity.Role;
 import org.myStudy.service.IRoleService;
 import org.myStudy.web.common.BaseController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/role")
 public class RoleController extends BaseController {
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private IRoleService roleService;

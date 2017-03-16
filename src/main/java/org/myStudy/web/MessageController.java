@@ -13,8 +13,6 @@ import org.myStudy.enums.OrderEnum;
 import org.myStudy.service.IMessageService;
 import org.myStudy.utility.VerifyCodeUtility;
 import org.myStudy.web.common.BaseController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/message")
 public class MessageController extends BaseController {
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private IMessageService messageService;
