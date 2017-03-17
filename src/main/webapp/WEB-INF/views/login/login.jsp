@@ -25,8 +25,15 @@
         <div class="form-group">
           <input type="password" class="form-control" name="password" placeholder="密码" required="">
         </div>
-        <div class="form-group">
-          <span class="text-danger">${message}</span>
+        <div class="form-group row">
+          <div class="col-xs-5 text-left">
+            <div class="i-checks">
+              <input type="checkbox" id="rememberMe" name="rememberMe"><label for="rememberMe">记住我</label>
+            </div>
+          </div>
+          <div class="col-xs-7 text-right">
+            <span class="text-danger">${message}</span>
+          </div>
         </div>
         <button type="submit" class="btn btn-success block full-width m-b">登 录</button>
         <p class="text-muted text-center">

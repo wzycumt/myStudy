@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.myStudy.dao.IRoleDao">
 	<sql id="Base_Column_List">
-		ID, NAME, STATUS, REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION
+		ID, NAME, STATUS, REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION,
+		IF(STATUS=1,'有效','无效') AS STATUS_DES
 	</sql>
 	<sql id="Base_Table">t_role</sql>
 

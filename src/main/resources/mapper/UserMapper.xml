@@ -3,7 +3,8 @@
 <mapper namespace="org.myStudy.dao.IUserDao">
 	<sql id="Base_Column_List">
 		ID, USER_NAME, PASSWORD, NICKNAME, REAL_NAME, PHONE, EMAIL, STATUS,
-		REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION
+		REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION,
+		IF(STATUS=1,'有效','无效') AS STATUS_DES
 	</sql>
 	<sql id="Base_Table">t_user</sql>
 

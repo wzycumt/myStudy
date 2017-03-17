@@ -140,7 +140,7 @@ public class MybatisInterceptor implements Interceptor {
 	 */
 	private String getCountSql(String sql) {
 		int index = sql.indexOf("from");
-		return "select count(*) " + sql.substring(index);
+		return "select count(1) " + sql.substring(index);
 	}
 
 	/**

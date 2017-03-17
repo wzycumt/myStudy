@@ -19,21 +19,9 @@
 	<typeHandlers>
 		<typeHandler handler="org.myStudy.enums.EnumHandler" jdbcType="TINYINT" javaType="org.myStudy.enums.BaseStatusEnum" />
 	</typeHandlers>
-<!-- 
-  <typeAliases>
-    <typeAlias alias="UserAlias" type="org.apache.ibatis.submitted.complex_property.User"/>
-  </typeAliases> -->
-  <!-- <environments default="development">
-    <environment id="development">
-      <transactionManager type="JDBC">
-        <property name="" value=""/>
-      </transactionManager>
-      <dataSource type="UNPOOLED">
-        <property name="driver" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/myStudy"/>
-        <property name="username" value="root"/>
-      </dataSource>
-    </environment>
-  </environments> -->
+	
+	<plugins>
+       <plugin interceptor="org.myStudy.Interceptor.MybatisInterceptor" />
+    </plugins>
 
 </configuration>

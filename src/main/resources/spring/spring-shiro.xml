@@ -14,8 +14,31 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		<property name="realm" ref="ShiroRealm" />
 		<!-- 使用下面配置的缓存管理器 -->
 		<property name="cacheManager" ref="cacheManager" />
+		<property name="rememberMeManager" ref="rememberMeManager"/>
 	</bean>
 
+	<!-- 会话Cookie模板 -->
+	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="sid" />
+		<property name="httpOnly" value="true" />
+		<property name="maxAge" value="-1" />
+	</bean>
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="rememberMe" />
+		<property name="httpOnly" value="true" />
+		<property name="maxAge" value="864000" /><!-- 3600*24*10=10天 -->
+	</bean>
+	
+	<!-- rememberMe管理器 -->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}" />
+		<property name="cookie" ref="rememberMeCookie" />
+	</bean>
+	
+	<bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+		<property name="rememberMeParam" value="rememberMe" />
+	</bean>
+	
 	<!-- 配置shiro的过滤器工厂类，id- shiroFilter要和我们在web.xml中配置的过滤器一致 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<!-- 调用我们配置的权限管理器 -->
@@ -30,16 +53,22 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		<property name="filterChainDefinitions">
 			<value>
 				/resources/**=anon
-				/index=anon
+				/login.jsp = authc
 				/logout = logout
 				<!-- anon表示此地址不需要任何权限即可访问 -->
 				<!--所有的请求(除去配置的静态资源请求或请求地址为anon的请求)都要通过登录验证,如果未登录则跳到/login -->
-				/** = authc
+				/** = user,userSession
 			</value>
+		</property>
+		<property name="filters">
+			<map>
+				<entry key="userSession" value-ref="userSessionFilter" />
+			</map>
 		</property>
 	</bean>
 
 	<bean id="ShiroRealm" class="org.myStudy.authority.ShiroRealm" />
+	<bean id="userSessionFilter" class="org.myStudy.filter.UserSessionFilter" />
 	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 
