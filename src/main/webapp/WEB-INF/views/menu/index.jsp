@@ -4,16 +4,16 @@
 <html>
 <head>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
-<link href="${pageContext.request.contextPath}/resources/jqxtreegrid/jqx.base.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/jqxtreegrid/jqx.bootstrap.css" rel="stylesheet">
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqxtreegrid/jqxcore.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqxtreegrid/jqxdata.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqxtreegrid/jqxbuttons.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqxtreegrid/jqxscrollbar.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqxtreegrid/jqxlistbox.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqxtreegrid/jqxdropdownlist.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqxtreegrid/jqxdatatable.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqxtreegrid/jqxtreegrid.js"></script>
+<link href="${pageContext.request.contextPath}/resources/plugins/jqxtreegrid/jqx.base.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/plugins/jqxtreegrid/jqx.bootstrap.css" rel="stylesheet">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/jqxtreegrid/jqxcore.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/jqxtreegrid/jqxdata.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/jqxtreegrid/jqxbuttons.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/jqxtreegrid/jqxscrollbar.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/jqxtreegrid/jqxlistbox.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/jqxtreegrid/jqxdropdownlist.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/jqxtreegrid/jqxdatatable.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/jqxtreegrid/jqxtreegrid.js"></script>
 <title>菜单管理</title>
 </head>
 <body class="fixed-sidebar">

@@ -10,10 +10,47 @@
     <div class="panel panel-default">
       <div class="panel-heading">用户信息</div>
       <div class="panel-body">
+        
+        <form class="form-horizontal" id="formSearch_" method="post">
+          <div class="form-group row">
+            <label class="col-xs-3 control-label">用户名</label>
+            <div class="col-xs-9">
+              <input type="text" class="form-control" name="message.name" placeholder="用户名" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-xs-3 control-label">状态</label>
+            <div class="col-xs-9">
+              <select class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-xs-3 control-label">创建时间</label>
+            <div class="col-xs-9">
+              <input class="form-control layer-date" id="start" placeholder="开始日期">
+              <input class="form-control layer-date" id="end" placeholder="结束日期">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-xs-12">
+              <input type="button" class="btn btn-default" id="btnSubmit" value="提交" />
+            </div>
+          </div>
+        </form>
+        
         <div class="btn-group" id="toolbar">
           <button type="button" class="btn btn-success" id="btnAdd"><i class="fa fa-plus"></i>&nbsp;添加</button>
           <button type="button" class="btn btn-primary" id="btnEdit"><i class="fa fa-edit"></i>&nbsp;编辑</button>
           <button type="button" class="btn btn-danger" id="btnRemove"><i class="fa fa-remove"></i>&nbsp;删除</button>
+          <button type="button" class="btn btn-default" id="btnSearch" title="search">
+            <i class="fa fa-search"></i>&nbsp;<span class="caret"></span>
+          </button>
         </div>
         <table id="table" 
           data-toggle="table"
@@ -22,15 +59,12 @@
           data-side-pagination="server"
           data-pagination-loop="false"
           data-page-list="[10, 20, 100, ALL]"
-          data-search="true"
-          data-search-on-enter-key="true"
           data-show-columns="true"
+          data-show-refresh="true"
           data-click-to-select="true"
           data-toolbar="#toolbar"
           data-id-field="id"
-          data-query-params="bootstrapTable.queryParams"
-          data-advanced-search="true"
-          data-id-table="advancedTable"
+          data-search-code="11"
           data-url="user/pageList">
           <thead>
             <tr>
@@ -69,6 +103,60 @@
 		$('#btnRemove').click(function() {
 			operateGird(grid, '删除', 'user/delete');
 		})
+
+		$('#btnSearch').popover({
+  			title : '选择头像',
+  			placement : 'right',
+  			container : '.fixed-table-container',
+  			trigger : 'manual',
+  			html : true,
+  			content : function() {
+  				var avatar = '<div class="row" style="padding:0px 5px;">';
+  				for (var i = 0; i < 8; i++) {
+  					avatar += '<div class="col-xs-3 col-md-2" style="padding:0px;">';
+  					avatar += '<a href="javascript:void(0)" class="thumbnail avatar">';
+  					avatar += '<img src="${pageContext.request.contextPath}/resources/images/avatar-collection/boy-' + i + '.png" alt="boy-' + i + '.png">';
+  					avatar += '</a>';
+  					avatar += '</div>';
+  				}
+  				for (var i = 0; i < 8; i++) {
+  					avatar += '<div class="col-xs-3 col-md-2" style="padding:0px;">';
+  					avatar += '<a href="javascript:void(0)" class="thumbnail avatar">';
+  					avatar += '<img src="${pageContext.request.contextPath}/resources/images/avatar-collection/girl-' + i + '.png" alt="girl-' + i + '.png">';
+  					avatar += '</a>';
+  					avatar += '</div>';
+  				}
+  				avatar += '</div>';
+  				var html = $('#formSearch_').get(0).outerHTML;
+  				return html;
+  			}
+  		});
+		$('#btnSearch').click(function() {
+			$('#btnSearch').popover('toggle');
+		});
+		$('#btnSubmit').click(function() {
+			$('#btnSearch').popover('toggle');
+		});
+
+		var start = {
+			elem : "#start",
+			format : "YYYY-MM-DD",
+			istoday : true,
+			choose : function(datas) {
+				end.min = datas;
+				end.start = datas
+			}
+		};
+		var end = {
+			elem : "#end",
+			format : "YYYY-MM-DD",
+			istoday : true,
+			choose : function(datas) {
+				start.max = datas
+			}
+		};
+		laydate(start);
+		laydate(end);
 	})
 </script>
 </body>

@@ -5,12 +5,12 @@
 <head>
 <title>myStudy</title>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/uploadify/uploadify.css" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/uploadify/jquery.uploadify.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/plugins/uploadify-v3.2.1/uploadify.css" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/uploadify-v3.2.1/jquery.uploadify.min.js"></script>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/webuploader/webuploader.css" />
-<script src="${pageContext.request.contextPath}/resources/webuploader/webuploader.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/webuploader/myWebuploader.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/plugins/webuploader-v0.1.5/webuploader.css" />
+<script src="${pageContext.request.contextPath}/resources/plugins/webuploader-v0.1.5/webuploader.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/webuploader-v0.1.5/myWebuploader.js"></script>
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg">
   <div class="wrapper wrapper-content animated fadeInRight">

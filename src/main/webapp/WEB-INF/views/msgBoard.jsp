@@ -39,7 +39,7 @@
             </a>
           </div>
           <div class="col-xs-2">
-            <input type="button" class="btn btn-primary" id="btnSubmit" value="提交" />
+            <input type="button" class="btn btn-success" id="btnSubmit" value="提交" />
           </div>
         </div>
       </form>

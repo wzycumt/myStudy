@@ -182,7 +182,6 @@ function layerClose() {
 
 var bootstrapTable = {
 	queryParams : function(params) {
-		debugger
 		console.log(params);
 		return params;
 	}

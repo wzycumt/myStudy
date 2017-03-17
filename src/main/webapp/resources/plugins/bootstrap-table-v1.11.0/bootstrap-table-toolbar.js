@@ -6,7 +6,7 @@
  */
 
 !function($) {
-    'use strict';
+//    'use strict';
 
     var firstLoad = false;
 
@@ -79,31 +79,32 @@
     };
 
     $.extend($.fn.bootstrapTable.defaults, {
-        advancedSearch: false,
-        idForm: 'advancedSearch',
-        actionForm: '',
-        idTable: undefined,
-        onColumnAdvancedSearch: function (field, text) {
-            return false;
-        }
+    	searchCode: undefined
+//        advancedSearch: false,
+//        idForm: 'advancedSearch',
+//        actionForm: '',
+//        idTable: undefined,
+//        onColumnAdvancedSearch: function (field, text) {
+//            return false;
+//        }
     });
 
-    $.extend($.fn.bootstrapTable.defaults.icons, {
-        advancedSearchIcon: 'glyphicon-chevron-down'
-    });
+//    $.extend($.fn.bootstrapTable.defaults.icons, {
+//        advancedSearchIcon: 'glyphicon-chevron-down'
+//    });
+//
+//    $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+//        'column-advanced-search.bs.table': 'onColumnAdvancedSearch'
+//    });
 
-    $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
-        'column-advanced-search.bs.table': 'onColumnAdvancedSearch'
-    });
-
-    $.extend($.fn.bootstrapTable.locales, {
-        formatAdvancedSearch: function() {
-            return 'Advanced search';
-        },
-        formatAdvancedCloseButton: function() {
-            return "Close";
-        }
-    });
+//    $.extend($.fn.bootstrapTable.locales, {
+//        formatAdvancedSearch: function() {
+//            return 'Advanced search';
+//        },
+//        formatAdvancedCloseButton: function() {
+//            return "Close";
+//        }
+//    });
 
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 
@@ -115,52 +116,70 @@
     BootstrapTable.prototype.initToolbar = function() {
         _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
 
-        if (!this.options.search) {
+        if (!this.options.searchCode) {
             return;
         }
 
-        if (!this.options.advancedSearch) {
-            return;
+        var rightbar = this.$toolbar.find('.columns-right').last();
+        if (rightbar.length == 0) {
+        	rightbar = $('<div class="columns columns-right btn-group pull-right" role="group"></div>');
+        	this.$toolbar.prepend(rightbar);
         }
-
-        if (!this.options.idTable) {
-            return;
-        }
-
-        var that = this,
-            html = [];
-
-        html.push(sprintf('<div class="columns columns-%s btn-group pull-%s" role="group">', this.options.buttonsAlign, this.options.buttonsAlign));
-        html.push(sprintf('<button class="btn btn-default%s' + '" type="button" name="advancedSearch" aria-label="advanced search" title="%s">', that.options.iconSize === undefined ? '' : ' btn-' + that.options.iconSize, that.options.formatAdvancedSearch()));
-        html.push(sprintf('<i class="%s %s"></i>', that.options.iconsPrefix, that.options.icons.advancedSearchIcon))
-        html.push('</button></div>');
-
-        that.$toolbar.prepend(html.join(''));
-
-        that.$toolbar.find('button[name="advancedSearch"]')
-            .off('click').on('click', function() {
-                showAvdSearch(that.columns, that.options.formatAdvancedSearch(), that.options.formatAdvancedCloseButton(), that);
-            });
+    	var html = '<button type="button" class="btn btn-default" id="btnSearch_' + this.options.searchCode + '">';
+    	html += '<i class="fa fa-search"></i>&nbsp;<span class="caret"></span>';
+    	html += '</button>';
+    	rightbar.append(html);
+    	
+    	var that = this;
+    	that.$toolbar.find('#btnSearch_' + that.options.searchCode).popover({
+			placement : 'bottom',
+			container : that.$tableContainer,
+			trigger : 'click',
+			html : true,
+			content : function () {
+				var avatar = '<div class="row" style="padding:0px 5px;">';
+				for (var i = 0; i < 8; i++) {
+					avatar += '<div class="col-xs-3 col-md-2" style="padding:0px;">';
+					avatar += '<a href="javascript:void(0)" class="thumbnail avatar">';
+					avatar += '</a>';
+					avatar += '</div>';
+				}
+				for (var i = 0; i < 8; i++) {
+					avatar += '<div class="col-xs-3 col-md-2" style="padding:0px;">';
+					avatar += '<a href="javascript:void(0)" class="thumbnail avatar">';
+					avatar += '</a>';
+					avatar += '</div>';
+				}
+				avatar += '</div>';
+				return avatar;
+			}
+		});
+//    	that.$toolbar.find('#btnSearch_' + that.options.searchCode)
+//            .off('click')
+//            .on('click', function() {
+//                showAvdSearch(that.columns, '', 'Close', that);
+//                layer.tips('<i class="fa fa-search">只想提示地精准些', this, {tips: 3, time: 0});
+//            });
     };
 
-    BootstrapTable.prototype.load = function(data) {
-        _load.apply(this, Array.prototype.slice.apply(arguments));
-
-        if (!this.options.advancedSearch) {
-            return;
-        }
-
-        if (typeof this.options.idTable === 'undefined') {
-            return;
-        } else {
-            if (!firstLoad) {
-                var height = parseInt($(".bootstrap-table").height());
-                height += 10;
-                $("#" + this.options.idTable).bootstrapTable("resetView", {height: height});
-                firstLoad = true;
-            }
-        }
-    };
+//    BootstrapTable.prototype.load = function(data) {
+//        _load.apply(this, Array.prototype.slice.apply(arguments));
+//
+//        if (!this.options.advancedSearch) {
+//            return;
+//        }
+//
+//        if (typeof this.options.idTable === 'undefined') {
+//            return;
+//        } else {
+//            if (!firstLoad) {
+//                var height = parseInt($(".bootstrap-table").height());
+//                height += 10;
+//                $("#" + this.options.idTable).bootstrapTable("resetView", {height: height});
+//                firstLoad = true;
+//            }
+//        }
+//    };
 
     BootstrapTable.prototype.initSearch = function () {
         _initSearch.apply(this, Array.prototype.slice.apply(arguments));
@@ -190,22 +209,22 @@
         }) : this.data;
     };
 
-    BootstrapTable.prototype.onColumnAdvancedSearch = function (event) {
-        var text = $.trim($(event.currentTarget).val());
-        var $field = $(event.currentTarget)[0].id;
-
-        if ($.isEmptyObject(this.filterColumnsPartial)) {
-            this.filterColumnsPartial = {};
-        }
-        if (text) {
-            this.filterColumnsPartial[$field] = text;
-        } else {
-            delete this.filterColumnsPartial[$field];
-        }
-
-        this.options.pageNumber = 1;
-        this.onSearch(event);
-        this.updatePagination();
-        this.trigger('column-advanced-search', $field, text);
-    };
+//    BootstrapTable.prototype.onColumnAdvancedSearch = function (event) {
+//        var text = $.trim($(event.currentTarget).val());
+//        var $field = $(event.currentTarget)[0].id;
+//
+//        if ($.isEmptyObject(this.filterColumnsPartial)) {
+//            this.filterColumnsPartial = {};
+//        }
+//        if (text) {
+//            this.filterColumnsPartial[$field] = text;
+//        } else {
+//            delete this.filterColumnsPartial[$field];
+//        }
+//
+//        this.options.pageNumber = 1;
+//        this.onSearch(event);
+//        this.updatePagination();
+//        this.trigger('column-advanced-search', $field, text);
+//    };
 }(jQuery);

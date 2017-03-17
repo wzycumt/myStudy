@@ -39,6 +39,9 @@
 <script src="resources/plugins/layer-v3.0.3/layer.js"></script>
 <!-- <script src="http://cdn.bootcss.com/layer/3.0.1/layer.min.js"></script> -->
 
+<!-- laydate 日期选择 -->
+<script src="resources/plugins/laydate-v1.1/laydate.js"></script>
+
 <!-- slimscroll 滚动条 -->
 <script src="resources/plugins/slimscroll-v1.3.8/jquery.slimscroll.min.js"></script>
 <!-- <script src="http://cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script> -->
@@ -56,4 +59,5 @@
 <script src="resources/hplus-v4.1.0/js/contabs.min.js"></script>
 
 <!-- base.js -->
-<script src="resources/js/base.js"></script>
+<link rel="stylesheet" href="resources/css/base.css">
+<script type="text/javascript" src="resources/js/base.js"></script>
