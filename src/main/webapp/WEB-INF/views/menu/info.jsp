@@ -46,7 +46,7 @@
       <div class="form-group">
         <label class="col-xs-2 control-label">序号</label>
         <div class="col-xs-10">
-          <form:input class="form-control" path="order" />
+          <form:input class="form-control" path="orderNum" />
         </div>
       </div>
       <div class="form-group">
