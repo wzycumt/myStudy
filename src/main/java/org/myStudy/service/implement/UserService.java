@@ -21,7 +21,7 @@ public class UserService implements IUserService {
 	@Autowired
 	private IUserDao userDao;
 
-	public User getById(Integer id) {
+	public User getById(int id) {
 		return userDao.getById(id);
 	}
 
@@ -68,11 +68,6 @@ public class UserService implements IUserService {
 		entity.setPassword(entity.getUserName());
 		entity.setStatus(BaseStatusEnum.VALID);
 		userDao.add(entity);
-		return entity.getId();
-	}
-
-	public int addSelective(User entity) throws Exception {
-		userDao.addSelective(entity);
 		return entity.getId();
 	}
 

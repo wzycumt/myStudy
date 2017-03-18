@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.myStudy.dao.ISearchConfigFieldDao">
+	<sql id="Base_Column_List">
+		ID, SEARCH_CONFIG_ID, DISPLAY_NAME, FIELD_NAME, FIELD_TYPE, FIELD_REFERENCE, IS_DEFAULT, ORDER_NUM,
+		CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION
+	</sql>
+	<sql id="Base_Table">T_SEARCH_CONFIG_FIELD</sql>
+
+	<select id="getById" parameterType="Integer" resultType="org.myStudy.entity.SearchConfigField">
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="getAll" resultType="org.myStudy.entity.SearchConfigField">
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
+	</select>
+	
+	<!-- 获取集合 -->
+	<select id="getList" parameterType="org.myStudy.dto.Query" resultType="org.myStudy.entity.SearchConfigField">
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
+		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
+		<include refid="org.myStudy.dao.BaseMapper.Sort" />
+		<include refid="org.myStudy.dao.BaseMapper.Pagination" />
+	</select>
+	
+	<!-- 获取分页查询结果的总数 -->
+	<select id="getListTotal" parameterType="org.myStudy.dto.Query" resultType="int">
+        select count(1)
+    	from <include refid="Base_Table" />
+		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
+	</select>
+	
+	<delete id="deleteById" parameterType="int">
+		delete from <include refid="Base_Table" />
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="add" parameterType="org.myStudy.entity.SearchConfigField" useGeneratedKeys="true" keyProperty="id">
+		insert into <include refid="Base_Table" />
+			(SEARCH_CONFIG_ID, DISPLAY_NAME, FIELD_NAME, FIELD_TYPE, FIELD_REFERENCE, IS_DEFAULT, ORDER_NUM,
+			CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION)
+		values (#{searchConfigId,jdbcType=INTEGER}, #{displayName,jdbcType=VARCHAR}, #{fieldName,jdbcType=VARCHAR},
+			#{fieldType,jdbcType=TINYINT}, #{fieldReference,jdbcType=VARCHAR}, #{isDefault,jdbcType=TINYINT},
+			#{orderNum,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, now(), #{updatePerson,jdbcType=INTEGER}, now(), 0)
+	</insert>
+	
+	<update id="edit" parameterType="org.myStudy.entity.SearchConfigField">
+		update <include refid="Base_Table" />
+		set SEARCH_CONFIG_ID = #{searchConfigId,jdbcType=INTEGER},
+			DISPLAY_NAME = #{displayName,jdbcType=VARCHAR},
+			FIELD_NAME = #{fieldName,jdbcType=VARCHAR},
+			FIELD_TYPE = #{fieldType,jdbcType=TINYINT},
+			FIELD_REFERENCE = #{fieldReference,jdbcType=VARCHAR},
+			IS_DEFAULT = #{isDefault,jdbcType=TINYINT},
+			ORDER_NUM = #{orderNum,jdbcType=INTEGER},
+			UPDATE_PERSON = #{updatePerson,jdbcType=INTEGER},
+			UPDATE_TIME = now(),
+			VERSION = VERSION + 1
+			where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<update id="editSelective" parameterType="org.myStudy.entity.SearchConfigField">
+		update <include refid="Base_Table" />
+		<set>
+			<if test="searchConfigId != null">SEARCH_CONFIG_ID = #{searchConfigId,jdbcType=INTEGER},</if>
+			<if test="displayName != null">DISPLAY_NAME = #{displayName,jdbcType=VARCHAR},</if>
+			<if test="fieldName != null">FIELD_NAME = #{fieldName,jdbcType=VARCHAR},</if>
+			<if test="fieldType != null">FIELD_TYPE = #{fieldType,jdbcType=TINYINT},</if>
+			<if test="fieldReference != null">FIELD_REFERENCE = #{fieldReference,jdbcType=VARCHAR},</if>
+			<if test="isDefault != null">IS_DEFAULT = #{isDefault,jdbcType=TINYINT},</if>
+			<if test="orderNum != null">ORDER_NUM = #{orderNum,jdbcType=TINYINT},</if>
+			UPDATE_PERSON = #{updatePerson,jdbcType=INTEGER},
+			UPDATE_TIME = now(),
+			VERSION = VERSION + 1,
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

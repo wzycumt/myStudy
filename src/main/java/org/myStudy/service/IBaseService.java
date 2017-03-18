@@ -16,7 +16,7 @@ public interface IBaseService<T> {
 	 * @param id
 	 * @return
 	 */
-	T getById(Integer id);
+	T getById(int id);
 
     /**
      * 获取所有
@@ -61,8 +61,6 @@ public interface IBaseService<T> {
 	 * @throws Exception 
 	 */
 	int add(T entity) throws Exception;
-	
-	int addSelective(T entity) throws Exception;
 	
 	/**
 	 * 编辑

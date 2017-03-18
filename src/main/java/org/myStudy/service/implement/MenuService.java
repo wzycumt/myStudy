@@ -19,7 +19,7 @@ public class MenuService implements IMenuService {
 	@Autowired
 	private IMenuDao menuDao;
 
-	public Menu getById(Integer id) {
+	public Menu getById(int id) {
 		return menuDao.getById(id);
 	}
 
@@ -60,14 +60,6 @@ public class MenuService implements IMenuService {
 			throw new Exception("名称不能为空");
 		}
 		menuDao.add(entity);
-		return entity.getId();
-	}
-
-	public int addSelective(Menu entity) throws Exception {
-		if (entity.getName() == null || entity.getName().trim().equals("")) {
-			throw new Exception("名称不能为空");
-		}
-		menuDao.addSelective(entity);
 		return entity.getId();
 	}
 

@@ -19,7 +19,7 @@ public class RoleService implements IRoleService {
 	@Autowired
 	private IRoleDao roleDao;
 
-	public Role getById(Integer id) {
+	public Role getById(int id) {
 		return roleDao.getById(id);
 	}
 
@@ -63,11 +63,6 @@ public class RoleService implements IRoleService {
 		if (entity.getName() == null || entity.getName().equals(""))
 			throw new Exception("角色名称不能为空");
 		roleDao.add(entity);
-		return entity.getId();
-	}
-
-	public int addSelective(Role entity) throws Exception {
-		roleDao.addSelective(entity);
 		return entity.getId();
 	}
 

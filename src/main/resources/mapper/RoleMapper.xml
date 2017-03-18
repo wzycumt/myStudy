@@ -5,7 +5,7 @@
 		ID, NAME, STATUS, REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION,
 		IF(STATUS=1,'有效','无效') AS STATUS_DES
 	</sql>
-	<sql id="Base_Table">t_role</sql>
+	<sql id="Base_Table">T_ROLE</sql>
 
 	<select id="getById" parameterType="Integer" resultType="org.myStudy.entity.Role">
         select <include refid="Base_Column_List" />
@@ -46,38 +46,6 @@
 			#{creator,jdbcType=INTEGER}, now(), #{updatePerson,jdbcType=INTEGER}, now(), 0)
 	</insert>
 	
-	<insert id="addSelective" parameterType="org.myStudy.entity.Role" useGeneratedKeys="true" keyProperty="id">
-		insert into <include refid="Base_Table" />
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="name != null">
-				NAME,
-			</if>
-			STATUS,
-			<if test="remark != null">
-				REMARK,
-			</if>
-			CREATOR,
-			CREATE_TIME,
-			UPDATE_PERSON,
-			UPDATE_TIME,
-			VERSION,
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="name != null">
-				#{name,jdbcType=VARCHAR},
-			</if>
-			#{status,jdbcType=TINYINT},
-			<if test="remark != null">
-				#{remark,jdbcType=VARCHAR},
-			</if>
-			#{creator,jdbcType=INTEGER},
-			now(),
-			#{updatePerson,jdbcType=INTEGER},
-			now(),
-			0,
-		</trim>
-	</insert>
-	
 	<update id="edit" parameterType="org.myStudy.entity.Role">
 		update <include refid="Base_Table" />
 			set NAME = #{name,jdbcType=VARCHAR},
@@ -101,9 +69,7 @@
 			<if test="remark != null">
 				REMARK = #{remark,jdbcType=VARCHAR},
 			</if>
-			<if test="updatePerson != null">
-				UPDATE_PERSON = #{updatePerson,jdbcType=INTEGER},
-			</if>
+			UPDATE_PERSON = #{updatePerson,jdbcType=INTEGER},
 			UPDATE_TIME = now(),
 			VERSION = VERSION + 1,
 		</set>

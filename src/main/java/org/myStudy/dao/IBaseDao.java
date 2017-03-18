@@ -32,8 +32,6 @@ public interface IBaseDao<T> {
 
     int add(T entity);
 
-    int addSelective(T entity);
-
     int edit(T entity);
 
     int editSelective(T entity);

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.myStudy.dao.IUserDao">
+<mapper namespace="org.myStudy.dao.ISearchConfigDao">
 	<sql id="Base_Column_List">
-		ID, USER_NAME, PASSWORD, NICKNAME, REAL_NAME, PHONE, EMAIL, STATUS,
-		REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION,
+		ID, CODE, DESCRIPTION, STATUS, REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION,
 		IF(STATUS=1,'有效','无效') AS STATUS_DES
 	</sql>
-	<sql id="Base_Table">T_USER</sql>
+	<sql id="Base_Table">T_SEARCH_CONFIG</sql>
 
 	<select id="getById" parameterType="Integer" resultType="org.myStudy.entity.User">
         select <include refid="Base_Column_List" />
@@ -20,7 +19,7 @@
 	</select>
 	
 	<!-- 获取集合 -->
-	<select id="getList" parameterType="org.myStudy.dto.Query" resultType="org.myStudy.entity.User">
+	<select id="getList" parameterType="org.myStudy.dto.Query" resultType="org.myStudy.entity.SearchConfig">
         select <include refid="Base_Column_List" />
     	from <include refid="Base_Table" />
 		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
@@ -40,24 +39,17 @@
 		where ID = #{id,jdbcType=INTEGER}
 	</delete>
 	
-	<insert id="add" parameterType="org.myStudy.entity.User" useGeneratedKeys="true" keyProperty="id">
+	<insert id="add" parameterType="org.myStudy.entity.SearchConfig" useGeneratedKeys="true" keyProperty="id">
 		insert into <include refid="Base_Table" />
-			(USER_NAME, PASSWORD, NICKNAME, REAL_NAME, PHONE, EMAIL, STATUS, REMARK,
-			CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION)
-		values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-			#{nickname,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
-			#{email,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR},
+			(CODE, DESCRIPTION, STATUS, REMARK, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION)
+		values (#{code,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR},
 			#{creator,jdbcType=INTEGER}, now(), #{updatePerson,jdbcType=INTEGER}, now(), 0)
 	</insert>
 	
-	<update id="edit" parameterType="org.myStudy.entity.User">
+	<update id="edit" parameterType="org.myStudy.entity.SearchConfig">
 		update <include refid="Base_Table" />
-		set USER_NAME = #{userName,jdbcType=VARCHAR},
-			PASSWORD = #{password,jdbcType=VARCHAR},
-			NICKNAME = #{nickname,jdbcType=VARCHAR},
-			REAL_NAME = #{realName,jdbcType=VARCHAR},
-			PHONE = #{phone,jdbcType=VARCHAR},
-			EMAIL = #{email,jdbcType=VARCHAR},
+		set CODE = #{code,jdbcType=VARCHAR},
+			DESCRIPTION = #{description,jdbcType=VARCHAR},
 			STATUS = #{status,jdbcType=TINYINT},
 			REMARK = #{remark,jdbcType=VARCHAR},
 			UPDATE_PERSON = #{updatePerson,jdbcType=INTEGER},
@@ -66,15 +58,11 @@
 			where ID = #{id,jdbcType=INTEGER}
 	</update>
 	
-	<update id="editSelective" parameterType="org.myStudy.entity.User">
+	<update id="editSelective" parameterType="org.myStudy.entity.SearchConfig">
 		update <include refid="Base_Table" />
 		<set>
-			<if test="userName != null">USER_NAME = #{userName,jdbcType=VARCHAR},</if>
-			<if test="password != null">PASSWORD = #{password,jdbcType=VARCHAR},</if>
-			<if test="nickname != null">NICKNAME = #{nickname,jdbcType=VARCHAR},</if>
-			<if test="realName != null">REAL_NAME = #{realName,jdbcType=VARCHAR},</if>
-			<if test="phone != null">PHONE = #{phone,jdbcType=VARCHAR},</if>
-			<if test="email != null">EMAIL = #{email,jdbcType=VARCHAR},</if>
+			<if test="code != null">CODE = #{code,jdbcType=VARCHAR},</if>
+			<if test="description != null">DESCRIPTION = #{description,jdbcType=VARCHAR},</if>
 			<if test="status != null">STATUS = #{status,jdbcType=TINYINT},</if>
 			<if test="remark != null">REMARK = #{remark,jdbcType=VARCHAR},</if>
 			UPDATE_PERSON = #{updatePerson,jdbcType=INTEGER},
