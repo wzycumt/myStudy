@@ -60,7 +60,7 @@ public class PageQuery {
 		Query query = new Query();
 		if (sort != null && !sort.isEmpty()) {
 			boolean isDescend = "desc".equals(order);
-			query.addSortColumn(sort, isDescend, true);
+			query.addSortColumn(sort, isDescend);
 		}
 		if (offset != 0 || limit != 0) {
 			query.setPaged(true);

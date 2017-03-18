@@ -44,7 +44,7 @@ public interface IBaseService<T> {
 	 * @return
 	 * @throws Exception TODO
 	 */
-	int deleteById(Integer id) throws Exception;
+	int deleteById(int id) throws Exception;
 	
 	/**
 	 * 批量删除

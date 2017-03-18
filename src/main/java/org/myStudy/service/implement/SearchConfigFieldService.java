@@ -9,7 +9,13 @@ import org.myStudy.entity.SearchConfigField;
 import org.myStudy.service.ISearchConfigFieldService;
 import org.myStudy.utility.ValidateUtility;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+/**
+ * 查询配置字段服务层
+ * @author WZY
+ */
+@Service
 public class SearchConfigFieldService implements ISearchConfigFieldService {
 	
 	@Autowired
@@ -36,7 +42,7 @@ public class SearchConfigFieldService implements ISearchConfigFieldService {
 	}
 
 	@Override
-	public int deleteById(Integer id) throws Exception {
+	public int deleteById(int id) throws Exception {
 		return searchConfigFieldDao.deleteById(id);
 	}
 

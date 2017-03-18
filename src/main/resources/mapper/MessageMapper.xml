@@ -3,45 +3,84 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.myStudy.dao.IMessageDao">
-	
-	<!-- 为DAO接口方法提供sql语句配置 -->
-    <select id="getById" parameterType="java.lang.Long" resultType="org.myStudy.entity.Message">
-		select id, name, content, avatar, status, create_time, update_time, version
-		from message
-		where id = #{id}
+	<sql id="Base_Column_List">
+		ID, NAME, CONTENT, AVATAR, STATUS, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION,
+		IF(STATUS=1,'有效','无效') AS STATUS_DES
+	</sql>
+	<sql id="Base_Table">T_MESSAGE</sql>
+
+	<select id="getById" parameterType="Integer" resultType="org.myStudy.entity.User">
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="getAll" resultType="org.myStudy.entity.Message">
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
 	</select>
 	
-    <select id="getAll" resultType="org.myStudy.entity.Message">
-    	select t.rownum, t.id, t.name, t.content, t.avatar, t.status, t.create_time, t.update_time, t.version 
-    	from (select (@i:=@i+1) as rownum, m.id, m.name, m.content, m.avatar, m.status, m.create_time, m.update_time, m.version 
-    		  from message m,(select @i:=0) as row
-    	) t 
-		<if test="sort != null"> order by ${sort}</if>
-		<if test="sort != null and order != null"> ${order}</if>
-		limit #{offset}, #{limit}
+	<!-- 获取集合 -->
+	<select id="getList" parameterType="org.myStudy.dto.Query" resultType="org.myStudy.entity.Message">
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
+		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
+		<include refid="org.myStudy.dao.BaseMapper.Sort" />
+		<include refid="org.myStudy.dao.BaseMapper.Pagination" />
 	</select>
+	
+	<select id="getListWithNum" parameterType="org.myStudy.dto.Query" resultType="org.myStudy.entity.Message">
+		select rownum, <include refid="Base_Column_List" />
+		from (select (@i:=@i+1) as rownum, <include refid="Base_Column_List" />
+			  from <include refid="Base_Table" /> m,(select @i:=0) as row 
+	  	) t 
+		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
+		<include refid="org.myStudy.dao.BaseMapper.Sort" />
+		<include refid="org.myStudy.dao.BaseMapper.Pagination" />
+	</select>
+	
+	<!-- 获取分页查询结果的总数 -->
+	<select id="getListTotal" parameterType="org.myStudy.dto.Query" resultType="int">
+        select count(1)
+    	from <include refid="Base_Table" />
+		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
+	</select>
+	
+	<delete id="deleteById" parameterType="int">
+		delete from <include refid="Base_Table" />
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
 	
 	<insert id="add" parameterType="org.myStudy.entity.Message" useGeneratedKeys="true" keyProperty="id">
-		insert into message (name, content, avatar, status, create_time, update_time, version)
-		values (#{name}, #{content}, #{avatar}, #{status}, #{createTime}, #{updateTime}, #{version})
+		insert into <include refid="Base_Table" />
+			(NAME, CONTENT, AVATAR, STATUS, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION)
+		values (#{name,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT},
+			#{creator,jdbcType=INTEGER}, now(), #{updatePerson,jdbcType=INTEGER}, now(), 0)
 	</insert>
 	
 	<update id="edit" parameterType="org.myStudy.entity.Message">
-		update message set
-			name = #{name},
-			content = #{content},
-			avatar = #{avatar},
-			status = #{status},
-			update_time = #{updateTime},
-			version = version + 1
-		where id = #{id}
+		update <include refid="Base_Table" />
+		set NAME = #{name,jdbcType=VARCHAR},
+			CONTENT = #{content,jdbcType=VARCHAR},
+			AVATAR = #{avatar,jdbcType=VARCHAR},
+			STATUS = #{status,jdbcType=TINYINT},
+			UPDATE_PERSON = #{updatePerson,jdbcType=INTEGER},
+			UPDATE_TIME = now(),
+			VERSION = VERSION + 1
+			where ID = #{id,jdbcType=INTEGER}
 	</update>
 	
-	<delete id="delete" parameterType="long">
-		delete from message where id = #{_prarmeter}
-	</delete>
-	
-	<delete id="deleteAll" parameterType="java.lang.String">
-		delete from message where id in(#{_prarmeter})
-	</delete>
+	<update id="editSelective" parameterType="org.myStudy.entity.Message">
+		update <include refid="Base_Table" />
+		<set>
+			<if test="name != null">NAME = #{name,jdbcType=VARCHAR},</if>
+			<if test="content != null">CONTENT = #{content,jdbcType=VARCHAR},</if>
+			<if test="avatar != null">AVATAR = #{avatar,jdbcType=VARCHAR},</if>
+			<if test="status != null">STATUS = #{status,jdbcType=TINYINT},</if>
+			UPDATE_PERSON = #{updatePerson,jdbcType=INTEGER},
+			UPDATE_TIME = now(),
+			VERSION = VERSION + 1,
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
 </mapper>

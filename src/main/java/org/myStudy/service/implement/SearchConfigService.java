@@ -4,13 +4,20 @@ import java.util.List;
 
 import org.myStudy.dao.ISearchConfigDao;
 import org.myStudy.dto.Query;
+import org.myStudy.dto.Query.OperatorEnum;
 import org.myStudy.entity.SearchConfig;
 import org.myStudy.enums.BaseStatusEnum;
 import org.myStudy.service.ISearchConfigFieldService;
 import org.myStudy.service.ISearchConfigService;
 import org.myStudy.utility.ValidateUtility;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+/**
+ * 查询配置服务层
+ * @author WZY
+ */
+@Service
 public class SearchConfigService implements ISearchConfigService {
 	
 	@Autowired
@@ -39,7 +46,7 @@ public class SearchConfigService implements ISearchConfigService {
 	}
 
 	@Override
-	public int deleteById(Integer id) throws Exception {
+	public int deleteById(int id) throws Exception {
 		return searchConfigDao.deleteById(id);
 	}
 
@@ -93,16 +100,30 @@ public class SearchConfigService implements ISearchConfigService {
 		return searchConfigDao.editSelective(entity);
 	}
 
-	/**
-	 * 根据ID获取查询配置及字段信息
-	 * @param id
-	 * @return
-	 */
 	public SearchConfig getByIdWithChildren(int id) {
 		SearchConfig entity = searchConfigDao.getById(id);
 		if (entity != null) {
 			entity.setFields(searchConfigFieldService.getBySearchConfigId(id));
 		}
 		return searchConfigDao.getById(id);
+	}
+
+	public SearchConfig getByCode(String code) {
+		if (!ValidateUtility.isNullOrEmpty(code)) {
+			Query query = new Query();
+			query.addQueryFilter("code", OperatorEnum.EQUAL, code);
+			List<SearchConfig> list = getList(query);
+			if (list != null && !list.isEmpty())
+				return list.get(0);
+		}
+		return null;
+	}
+
+	public SearchConfig getByCodeWithChildren(String code) {
+		SearchConfig entity = getByCode(code);
+		if (entity != null) {
+			entity.setFields(searchConfigFieldService.getBySearchConfigId(entity.getId()));
+		}
+		return entity;
 	}
 }

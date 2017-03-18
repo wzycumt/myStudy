@@ -8,49 +8,12 @@
 <body class="fixed-sidebar">
   <div class="wrapper wrapper-content animated fadeInRight">
     <div class="panel panel-default">
-      <div class="panel-heading">用户信息</div>
+      <div class="panel-heading">用户列表</div>
       <div class="panel-body">
-        
-        <form class="form-horizontal" id="formSearch_" method="post">
-          <div class="form-group row">
-            <label class="col-xs-3 control-label">用户名</label>
-            <div class="col-xs-9">
-              <input type="text" class="form-control" name="message.name" placeholder="用户名" />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-xs-3 control-label">状态</label>
-            <div class="col-xs-9">
-              <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-xs-3 control-label">创建时间</label>
-            <div class="col-xs-9">
-              <input class="form-control layer-date" id="start" placeholder="开始日期">
-              <input class="form-control layer-date" id="end" placeholder="结束日期">
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-xs-12">
-              <input type="button" class="btn btn-default" id="btnSubmit" value="提交" />
-            </div>
-          </div>
-        </form>
-        
         <div class="btn-group" id="toolbar">
           <button type="button" class="btn btn-success" id="btnAdd"><i class="fa fa-plus"></i>&nbsp;添加</button>
           <button type="button" class="btn btn-primary" id="btnEdit"><i class="fa fa-edit"></i>&nbsp;编辑</button>
           <button type="button" class="btn btn-danger" id="btnRemove"><i class="fa fa-remove"></i>&nbsp;删除</button>
-          <button type="button" class="btn btn-default" id="btnSearch" title="search">
-            <i class="fa fa-search"></i>&nbsp;<span class="caret"></span>
-          </button>
         </div>
         <table id="table" 
           data-toggle="table"
@@ -60,7 +23,6 @@
           data-pagination-loop="false"
           data-page-list="[10, 20, 100, ALL]"
           data-show-columns="true"
-          data-show-refresh="true"
           data-click-to-select="true"
           data-toolbar="#toolbar"
           data-id-field="id"
@@ -142,6 +104,7 @@
 			elem : "#start",
 			format : "YYYY-MM-DD",
 			istoday : true,
+			fixed : false,
 			choose : function(datas) {
 				end.min = datas;
 				end.start = datas
@@ -151,6 +114,7 @@
 			elem : "#end",
 			format : "YYYY-MM-DD",
 			istoday : true,
+			fixed : false,
 			choose : function(datas) {
 				start.max = datas
 			}

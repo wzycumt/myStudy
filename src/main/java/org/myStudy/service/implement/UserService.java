@@ -37,7 +37,7 @@ public class UserService implements IUserService {
 		return userDao.getListTotal(query);
 	}
 
-	public int deleteById(Integer id) throws Exception {
+	public int deleteById(int id) throws Exception {
 		return userDao.deleteById(id);
 	}
 

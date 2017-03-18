@@ -4,9 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.myStudy.dao.IMessageDao;
+import org.myStudy.dto.Query;
 import org.myStudy.entity.Message;
 import org.myStudy.enums.BaseStatusEnum;
-import org.myStudy.enums.OrderEnum;
 import org.myStudy.service.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,44 +17,65 @@ public class MessageService implements IMessageService {
 	@Autowired
 	private IMessageDao messageDao;
 
-	public Message getById(Long id) {
+	public Message getById(int id) {
 		return messageDao.getById(id);
 	}
 
-	public List<Message> getAll(int page, int pageSize, String sort, OrderEnum order) throws Exception {
-		try {
-			return messageDao.getAll(page * pageSize, pageSize, sort, order);
-		} catch (Exception e) {
-			throw e;
-		}
+	public List<Message> getAll() {
+		return messageDao.getAll();
+	}
+	
+	public List<Message> getList(Query query) {
+		return messageDao.getList(query);
+	}
+	
+	public List<Message> getListWithNum(Query query) {
+		return messageDao.getListWithNum(query);
 	}
 
-	public long add(Message message) throws Exception {
-		if (message.getName() == null || message.getName().trim().isEmpty())
+	public int getListTotal(Query query) {
+		return messageDao.getListTotal(query);
+	}
+
+	public int deleteById(int id) throws Exception {
+		return messageDao.deleteById(id);
+	}
+
+	public String deleteBatch(String ids) throws Exception {
+		StringBuilder sBuilder = new StringBuilder();
+		if (ids == null || ids.length() == 0) {
+			throw new Exception("ID不能为空");
+		}
+		String[] idArray = ids.split(",");
+		for (String id : idArray) {
+			try {
+				deleteById(Integer.parseInt(id));
+			} catch (Exception e) {
+				sBuilder.append(e.getMessage());
+			}
+		}
+		return sBuilder.toString();
+	}
+
+	public int add(Message entity) throws Exception {
+		if (entity.getName() == null || entity.getName().trim().isEmpty())
 			throw new Exception("留言人不能为空");
-		if (message.getContent() == null || message.getContent().trim().isEmpty())
+		if (entity.getContent() == null || entity.getContent().trim().isEmpty())
 			throw new Exception("留言内容不能为空");
-		message.setStatus(BaseStatusEnum.VALID);
-		message.setCreateTime(new Date());
-		message.setUpdateTime(message.getCreateTime());
-		message.setVersion(0);
-		try {
-			messageDao.add(message);
-			return message.getId();
-		} catch (Exception e) {
-			throw e;
-		}
+		entity.setStatus(BaseStatusEnum.VALID);
+		entity.setCreateTime(new Date());
+		entity.setUpdateTime(entity.getCreateTime());
+		entity.setVersion(0);
+		messageDao.add(entity);
+		return entity.getId();
 	}
 
-	public int edit(Message message) {
-		return messageDao.edit(message);
+	public int edit(Message entity) throws Exception {
+		return messageDao.edit(entity);
 	}
 
-	public int delete(Long id) {
-		return messageDao.delete(id);
+	public int editSelective(Message entity) throws Exception {
+		return messageDao.editSelective(entity);
 	}
 
-	public int deleteAll(String ids) {
-		return messageDao.deleteAll(ids);
-	}
 }

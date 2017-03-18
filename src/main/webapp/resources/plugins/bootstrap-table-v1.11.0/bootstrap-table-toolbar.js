@@ -53,31 +53,6 @@
         }
     };
 
-    var createFormAvd = function(pColumns, searchText, that) {
-        var htmlForm = [];
-        htmlForm.push(sprintf('<form class="form-horizontal" id="%s" action="%s" >', that.options.idForm, that.options.actionForm));
-        for (var i in pColumns) {
-            var vObjCol = pColumns[i];
-            if (!vObjCol.checkbox && vObjCol.visible && vObjCol.searchable) {
-                htmlForm.push('<div class="form-group">');
-                htmlForm.push(sprintf('<label class="col-sm-4 control-label">%s</label>', vObjCol.title));
-                htmlForm.push('<div class="col-sm-6">');
-                htmlForm.push(sprintf('<input type="text" class="form-control input-md" name="%s" placeholder="%s" id="%s">', vObjCol.field, vObjCol.title, vObjCol.field));
-                htmlForm.push('</div>');
-                htmlForm.push('</div>');
-            }
-        }
-
-        htmlForm.push('<div class="form-group">');
-        htmlForm.push('<div class="col-sm-offset-9 col-sm-3">');
-        htmlForm.push(sprintf('<button type="button" id="btnCloseAvd%s" class="btn btn-default" >%s</button>', "_" + that.options.idTable, searchText));
-        htmlForm.push('</div>');
-        htmlForm.push('</div>');
-        htmlForm.push('</form>');
-
-        return htmlForm;
-    };
-
     $.extend($.fn.bootstrapTable.defaults, {
     	searchCode: undefined
 //        advancedSearch: false,
@@ -129,31 +104,44 @@
     	html += '<i class="fa fa-search"></i>&nbsp;<span class="caret"></span>';
     	html += '</button>';
     	rightbar.append(html);
-    	
-    	var that = this;
-    	that.$toolbar.find('#btnSearch_' + that.options.searchCode).popover({
-			placement : 'bottom',
-			container : that.$tableContainer,
-			trigger : 'click',
-			html : true,
-			content : function () {
-				var avatar = '<div class="row" style="padding:0px 5px;">';
-				for (var i = 0; i < 8; i++) {
-					avatar += '<div class="col-xs-3 col-md-2" style="padding:0px;">';
-					avatar += '<a href="javascript:void(0)" class="thumbnail avatar">';
-					avatar += '</a>';
-					avatar += '</div>';
-				}
-				for (var i = 0; i < 8; i++) {
-					avatar += '<div class="col-xs-3 col-md-2" style="padding:0px;">';
-					avatar += '<a href="javascript:void(0)" class="thumbnail avatar">';
-					avatar += '</a>';
-					avatar += '</div>';
-				}
-				avatar += '</div>';
-				return avatar;
+
+    	var grid = this;
+		$.get('searchConfig/' + this.options.searchCode, null, function(data) {
+			if (data.result) {
+				grid.$toolbar.find('#btnSearch_' + grid.options.searchCode).popover({
+					placement : 'bottom',
+					container : grid.$tableContainer,
+					trigger : 'click',
+					html : true,
+					content : function () {
+						var fields = data.value.fields;
+						html = '';
+						html += '<form class="form-horizontal" id="formSearch_" method="post">';
+						for (var i = 0; i < fields.length; i++) {
+							html += '<div class="form-group row">';
+							html += '<label class="col-xs-3 control-label">' + fields[i].displayName + '</label>';
+							html += '<div class="col-xs-9">';
+							
+							html += '<input type="text" class="form-control" name="' + fields[i].fieldName + '" placeholder="' + fields[i].displayName + '" />';
+							
+							html += '</div>';
+							html += '</div>';
+						}
+						html += '<div class="form-group text-center">';
+						html += '<input type="button" class="btn btn-default" id="btnSubmit" value="查询" />';
+						html += '<input type="button" class="btn btn-default" id="btnReset" value="重置" />';
+						html += '<input type="button" class="btn btn-default" id="btnCancel" value="取消" />';
+						html += '</div>';
+						html += '</form>';
+						return html;
+					}
+				});
+			} else {
+				grid.$toolbar.find('#btnSearch_' + grid.options.searchCode).click(function() {
+					layer.tips(data.des, '#btnSearch_' + grid.options.searchCode);
+				})
 			}
-		});
+		}, 'json')
 //    	that.$toolbar.find('#btnSearch_' + that.options.searchCode)
 //            .off('click')
 //            .on('click', function() {

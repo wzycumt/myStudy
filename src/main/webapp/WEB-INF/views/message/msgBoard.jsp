@@ -139,7 +139,7 @@
           <small class="text-muted">10小时前</small>
         </div>
       </div> */
-		var page = 0;
+		var page = 1;
         $('#more').click(function () {
             $.post('message/list', { page: page}, function (data) {
                 if (data && data.result) {

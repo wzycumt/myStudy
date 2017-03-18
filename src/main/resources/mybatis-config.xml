@@ -18,6 +18,7 @@
 	<!-- 类型处理器 -->
 	<typeHandlers>
 		<typeHandler handler="org.myStudy.enums.EnumHandler" jdbcType="TINYINT" javaType="org.myStudy.enums.BaseStatusEnum" />
+		<typeHandler handler="org.myStudy.enums.EnumHandler" jdbcType="TINYINT" javaType="org.myStudy.enums.FieldTypeEnum" />
 	</typeHandlers>
 	
 	<plugins>

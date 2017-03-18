@@ -35,7 +35,7 @@ public class MenuService implements IMenuService {
 		return menuDao.getListTotal(query);
 	}
 
-	public int deleteById(Integer id) throws Exception {
+	public int deleteById(int id) throws Exception {
 		return menuDao.deleteById(id);
 	}
 

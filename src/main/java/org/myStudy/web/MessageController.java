@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.myStudy.dto.MessageModel;
+import org.myStudy.dto.Query;
 import org.myStudy.entity.Message;
 import org.myStudy.enums.OrderEnum;
 import org.myStudy.service.IMessageService;
@@ -32,8 +33,25 @@ public class MessageController extends BaseController {
 	 * 留言板
 	 */
 	@RequestMapping(value = "/msgBoard", method = RequestMethod.GET)
-	public String msgBoard(HttpServletRequest request, Model model) {
-		return "msgBoard";
+	public String msgBoard() {
+		return "message/msgBoard";
+	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String list(@RequestParam("page") int page) {
+		try {
+			Query query = new Query();
+			query.setPaged(true);
+			query.setOffset((page - 1) * 10);
+			query.setLimit(10);
+			query.addSortColumn("createTime", true);
+			List<Message> list = messageService.getListWithNum(query);
+			return jsonResult(true, list, "");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return jsonResult(false, null, e.getMessage());
+		}
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
@@ -51,29 +69,16 @@ public class MessageController extends BaseController {
 		if (verifyCode == null || verifyCode.equals("")) {
 			return jsonResult(false, null, "验证码已过期，请刷新并重新输入");
 		}
-		logger.info(inputCode + "," + verifyCode);
 		if (!inputCode.toLowerCase().equals(verifyCode)) {
 			return jsonResult(false, null, "验证码错误");
 		}
 
 		try {
-			long res = messageService.add(model.getMessage());
+			int res = messageService.add(model.getMessage());
 			return jsonResult(true, res, "");
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			return jsonResult(false, 0, e.getMessage());
-		}
-	}
-
-	@RequestMapping(value = "/list", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
-	@ResponseBody
-	public String list(@RequestParam("page") int page) {
-		try {
-			List<Message> list = messageService.getAll(page, 10, "CREATE_TIME", OrderEnum.DESC);
-			return jsonResult(true, list, "");
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			return jsonResult(false, null, e.getMessage());
 		}
 	}
 
