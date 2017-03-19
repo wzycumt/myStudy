@@ -14,7 +14,7 @@ public class Menu extends BaseEntity {
     private int parentId;
     private String url;
 	private String icon;
-    private int order;
+    private int orderNum;
     private BaseStatusEnum status;
     private String remark;
 
@@ -55,12 +55,12 @@ public class Menu extends BaseEntity {
 		this.icon = icon;
 	}
 
-    public int getSerialNum() {
-        return order;
+    public int getOrderNum() {
+        return orderNum;
     }
 
-    public void setSerialNum(int serialNum) {
-        this.order = serialNum;
+    public void setOrderNum(int orderNum) {
+        this.orderNum = orderNum;
     }
 
 	public BaseStatusEnum getStatus() {

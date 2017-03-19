@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.16, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: myStudy
+-- Host: localhost    Database: mystudy
 -- ------------------------------------------------------
--- Server version	5.7.16
+-- Server version	5.7.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -41,7 +41,6 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
-INSERT INTO `message` VALUES (1,'admin','第一条留言','boy-5.png',1,'2017-02-24 22:07:06','2017-02-24 22:07:06',0),(3,'admin','第二条留言','boy-5.png',1,'2017-02-25 14:13:38','2017-02-25 14:13:38',0),(4,'bootstrap','Bootstrap （当前版本 v3.3.7）提供以下几种方式帮你快速上手，每一种方式针对具有不同技能等级的开发者和不同的使用场景。继续阅读下面的内容，看看哪种方式适合你的需求吧。','boy-5.png',1,'2017-02-25 18:06:50','2017-02-25 18:06:50',0),(5,'匿名','Bootstrap （当前版本 v3.3.7）提供以下几种方式帮你快速上手，每一种方式针对具有不同技能等级的开发者和不同的使用场景。继续阅读下面的内容，看看哪种方式适合你的需求吧。','boy-5.png',1,'2017-02-25 18:08:51','2017-02-25 18:08:51',0),(6,'匿名','验证码测试','boy-5.png',1,'2017-02-25 18:23:52','2017-02-25 18:23:52',0),(7,'留言人','留言板测试','boy-5.png',1,'2017-02-25 18:40:29','2017-02-25 18:40:29',0),(8,'admin','spring MVC参数绑定','boy-5.png',1,'2017-02-25 19:25:28','2017-02-25 19:25:28',0),(9,'站长','spring MVC 参数传递方式','boy-5.png',1,'2017-02-25 19:28:44','2017-02-25 19:28:44',0),(10,'留言','留言板测试','boy-5.png',1,'2017-02-25 19:32:20','2017-02-25 19:32:20',0),(11,'头像','选择头像测试','girl-6.png',1,'2017-02-26 16:59:32','2017-02-26 16:59:32',0),(12,'头像','选择头像测试','boy-4.png',1,'2017-02-26 17:01:48','2017-02-26 17:01:48',0),(13,'匿名','枚举类型测试','boy-0.png',1,'2017-03-01 16:06:12','2017-03-01 16:06:12',0),(14,'匿名','UI优化','girl-4.png',1,'2017-03-06 17:41:26','2017-03-06 17:41:26',0),(15,'匿名','H+ ui','boy-5.png',1,'2017-03-06 17:45:48','2017-03-06 17:45:48',0);
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -58,7 +57,7 @@ CREATE TABLE `t_menu` (
   `PARENT_ID` int(11) NOT NULL COMMENT '父级ID',
   `URL` varchar(200) DEFAULT NULL COMMENT '路径',
   `ICON` varchar(200) DEFAULT NULL COMMENT '图标',
-  `SERIAL_NUM` int(11) NOT NULL COMMENT '序号',
+  `ORDER_NUM` int(11) NOT NULL COMMENT '序号',
   `STATUS` tinyint(4) NOT NULL COMMENT '状态 0-无效 1-有效',
   `REMARK` varchar(2000) DEFAULT NULL COMMENT '备注',
   `CREATOR` int(11) NOT NULL COMMENT '创建人',
@@ -99,7 +98,7 @@ CREATE TABLE `t_message` (
   `UPDATE_TIME` datetime NOT NULL COMMENT '更新时间',
   `VERSION` smallint(6) NOT NULL COMMENT '版本',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='留言表';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='留言表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,6 +107,7 @@ CREATE TABLE `t_message` (
 
 LOCK TABLES `t_message` WRITE;
 /*!40000 ALTER TABLE `t_message` DISABLE KEYS */;
+INSERT INTO `t_message` VALUES (1,'admin','第一条留言','boy-5.png',1,0,'2017-02-24 22:07:06',0,'2017-02-24 22:07:06',0),(2,'admin','第二条留言','boy-5.png',1,0,'2017-02-25 14:13:38',0,'2017-02-25 14:13:38',0),(3,'bootstrap','Bootstrap （当前版本 v3.3.7）提供以下几种方式帮你快速上手，每一种方式针对具有不同技能等级的开发者和不同的使用场景。继续阅读下面的内容，看看哪种方式适合你的需求吧。','boy-5.png',1,0,'2017-02-25 18:06:50',0,'2017-02-25 18:06:50',0),(4,'匿名','Bootstrap （当前版本 v3.3.7）提供以下几种方式帮你快速上手，每一种方式针对具有不同技能等级的开发者和不同的使用场景。继续阅读下面的内容，看看哪种方式适合你的需求吧。','boy-5.png',1,0,'2017-02-25 18:08:51',0,'2017-02-25 18:08:51',0),(5,'匿名','验证码测试','boy-5.png',1,0,'2017-02-25 18:23:52',0,'2017-02-25 18:23:52',0),(6,'留言人','留言板测试','boy-5.png',1,0,'2017-02-25 18:40:29',0,'2017-02-25 18:40:29',0),(7,'admin','spring MVC参数绑定','boy-5.png',1,0,'2017-02-25 19:25:28',0,'2017-02-25 19:25:28',0),(8,'站长','spring MVC 参数传递方式','boy-5.png',1,0,'2017-02-25 19:28:44',0,'2017-02-25 19:28:44',0),(9,'留言','留言板测试','boy-5.png',1,0,'2017-02-25 19:32:20',0,'2017-02-25 19:32:20',0),(10,'头像','选择头像测试','girl-6.png',1,0,'2017-02-26 16:59:32',0,'2017-02-26 16:59:32',0),(11,'头像','选择头像测试','boy-4.png',1,0,'2017-02-26 17:01:48',0,'2017-02-26 17:01:48',0),(12,'匿名','枚举类型测试','boy-0.png',1,0,'2017-03-01 16:06:12',0,'2017-03-01 16:06:12',0),(13,'匿名','UI优化','girl-4.png',1,0,'2017-03-06 17:41:26',0,'2017-03-06 17:41:26',0),(14,'匿名','H+ ui','boy-5.png',1,0,'2017-03-06 17:45:48',0,'2017-03-06 17:45:48',0);
 /*!40000 ALTER TABLE `t_message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,7 +219,7 @@ CREATE TABLE `t_search_config` (
   `UPDATE_TIME` datetime NOT NULL COMMENT '更新时间',
   `VERSION` smallint(6) NOT NULL COMMENT '版本',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='查询配置表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='查询配置表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,6 +228,7 @@ CREATE TABLE `t_search_config` (
 
 LOCK TABLES `t_search_config` WRITE;
 /*!40000 ALTER TABLE `t_search_config` DISABLE KEYS */;
+INSERT INTO `t_search_config` VALUES (1,'11','用户查询',1,NULL,0,'2017-03-18 19:42:43',0,'2017-03-18 19:42:43',0);
 /*!40000 ALTER TABLE `t_search_config` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -245,8 +246,8 @@ CREATE TABLE `t_search_config_field` (
   `FIELD_NAME` varchar(50) DEFAULT NULL COMMENT '字段名称',
   `FIELD_TYPE` tinyint(4) NOT NULL COMMENT '字段类型',
   `FIELD_REFERENCE` varchar(200) DEFAULT NULL COMMENT '字段引用',
-  `ID_DEFAULT` tinyint(1) NOT NULL COMMENT '是否默认',
-  `ORDER` int(11) NOT NULL COMMENT '序号',
+  `IS_DEFAULT` tinyint(1) NOT NULL COMMENT '是否默认',
+  `ORDER_NUM` int(11) NOT NULL COMMENT '序号',
   `CREATOR` int(11) NOT NULL COMMENT '创建人',
   `CREATE_TIME` datetime NOT NULL COMMENT '创建时间',
   `UPDATE_PERSON` int(11) NOT NULL COMMENT '更新人',
@@ -262,6 +263,7 @@ CREATE TABLE `t_search_config_field` (
 
 LOCK TABLES `t_search_config_field` WRITE;
 /*!40000 ALTER TABLE `t_search_config_field` DISABLE KEYS */;
+INSERT INTO `t_search_config_field` VALUES (1,1,'用户名','userName',0,NULL,1,0,0,'2017-03-18 19:47:05',0,'2017-03-18 19:47:05',0),(2,1,'昵称','nickname',0,NULL,1,1,0,'2017-03-18 19:47:05',0,'2017-03-18 19:47:05',0);
 /*!40000 ALTER TABLE `t_search_config_field` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -310,4 +312,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-18 14:54:23
+-- Dump completed on 2017-03-19 17:30:22
