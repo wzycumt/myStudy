@@ -13,6 +13,7 @@
         <div class="btn-group" id="toolbar">
           <button type="button" class="btn btn-success" id="btnAdd"><i class="fa fa-plus"></i>&nbsp;添加</button>
           <button type="button" class="btn btn-primary" id="btnEdit"><i class="fa fa-edit"></i>&nbsp;编辑</button>
+          <button type="button" class="btn btn-primary" id="btnAuthorize"><i class="fa fa-user-secret"></i>&nbsp;授权</button>
           <button type="button" class="btn btn-danger" id="btnRemove"><i class="fa fa-remove"></i>&nbsp;删除</button>
         </div>
         <table id="table" 
@@ -61,66 +62,16 @@
 			layerEdit(grid, '编辑', 'user/info', '80%', '90%');
 		})
 		
+		//授权
+		$('#btnAuthorize').click(function() {
+			layerEdit(grid, '授权', 'user/info', '80%', '90%');
+		})
+		
 		//删除
 		$('#btnRemove').click(function() {
 			operateGird(grid, '删除', 'user/delete');
 		})
 
-		$('#btnSearch').popover({
-  			title : '选择头像',
-  			placement : 'right',
-  			container : '.fixed-table-container',
-  			trigger : 'manual',
-  			html : true,
-  			content : function() {
-  				var avatar = '<div class="row" style="padding:0px 5px;">';
-  				for (var i = 0; i < 8; i++) {
-  					avatar += '<div class="col-xs-3 col-md-2" style="padding:0px;">';
-  					avatar += '<a href="javascript:void(0)" class="thumbnail avatar">';
-  					avatar += '<img src="${pageContext.request.contextPath}/resources/images/avatar-collection/boy-' + i + '.png" alt="boy-' + i + '.png">';
-  					avatar += '</a>';
-  					avatar += '</div>';
-  				}
-  				for (var i = 0; i < 8; i++) {
-  					avatar += '<div class="col-xs-3 col-md-2" style="padding:0px;">';
-  					avatar += '<a href="javascript:void(0)" class="thumbnail avatar">';
-  					avatar += '<img src="${pageContext.request.contextPath}/resources/images/avatar-collection/girl-' + i + '.png" alt="girl-' + i + '.png">';
-  					avatar += '</a>';
-  					avatar += '</div>';
-  				}
-  				avatar += '</div>';
-  				var html = $('#formSearch_').get(0).outerHTML;
-  				return html;
-  			}
-  		});
-		$('#btnSearch').click(function() {
-			$('#btnSearch').popover('toggle');
-		});
-		$('#btnSubmit').click(function() {
-			$('#btnSearch').popover('toggle');
-		});
-
-		var start = {
-			elem : "#start",
-			format : "YYYY-MM-DD",
-			istoday : true,
-			fixed : false,
-			choose : function(datas) {
-				end.min = datas;
-				end.start = datas
-			}
-		};
-		var end = {
-			elem : "#end",
-			format : "YYYY-MM-DD",
-			istoday : true,
-			fixed : false,
-			choose : function(datas) {
-				start.max = datas
-			}
-		};
-		laydate(start);
-		laydate(end);
 	})
 </script>
 </body>

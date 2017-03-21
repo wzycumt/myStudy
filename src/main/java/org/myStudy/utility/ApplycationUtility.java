@@ -3,7 +3,7 @@ package org.myStudy.utility;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.myStudy.Constant.Constant;
+import org.myStudy.constant.Constant;
 import org.myStudy.entity.User;
 
 /**

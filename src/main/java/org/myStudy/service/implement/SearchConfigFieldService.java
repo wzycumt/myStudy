@@ -7,7 +7,7 @@ import org.myStudy.dto.Query;
 import org.myStudy.dto.Query.OperatorEnum;
 import org.myStudy.entity.SearchConfigField;
 import org.myStudy.service.ISearchConfigFieldService;
-import org.myStudy.utility.ValidateUtility;
+import org.myStudy.utility.StringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,9 +68,9 @@ public class SearchConfigFieldService implements ISearchConfigFieldService {
 		//校验
 		if (entity.getSearchConfigId() == 0) 
 			throw new Exception("查询配置ID不能为0");
-		if (ValidateUtility.isNullOrEmpty(entity.getDisplayName()))
+		if (StringUtility.isNullOrEmpty(entity.getDisplayName()))
 			throw new Exception("显示名称不能为空");
-		if (ValidateUtility.isNullOrEmpty(entity.getFieldName()))
+		if (StringUtility.isNullOrEmpty(entity.getFieldName()))
 			throw new Exception("字段名称不能为空");
 		searchConfigFieldDao.add(entity);
 		return entity.getId();
@@ -81,9 +81,9 @@ public class SearchConfigFieldService implements ISearchConfigFieldService {
 		//校验
 		if (entity.getSearchConfigId() == 0) 
 			throw new Exception("查询配置ID不能为0");
-		if (ValidateUtility.isNullOrEmpty(entity.getDisplayName()))
+		if (StringUtility.isNullOrEmpty(entity.getDisplayName()))
 			throw new Exception("显示名称不能为空");
-		if (ValidateUtility.isNullOrEmpty(entity.getFieldName()))
+		if (StringUtility.isNullOrEmpty(entity.getFieldName()))
 			throw new Exception("字段名称不能为空");
 		SearchConfigField dbEntity = searchConfigFieldDao.getById(entity.getId());
 		if (dbEntity == null) {

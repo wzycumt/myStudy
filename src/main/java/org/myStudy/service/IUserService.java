@@ -1,5 +1,7 @@
 package org.myStudy.service;
 
+import java.util.List;
+
 import org.myStudy.entity.User;
 
 /**
@@ -14,5 +16,19 @@ public interface IUserService extends IBaseService<User> {
 	 * @return
 	 */
 	User getByUserName(String loginName);
+
+	/**
+	 * 添加用户及用户角色关系
+	 * @return
+	 * @throws Exception 
+	 */
+	int add(User user, List<Integer> roleIds) throws Exception;
+
+	/**
+	 * 编辑用户及用户角色关系
+	 * @return
+	 * @throws Exception 
+	 */
+	int edit(User user, List<Integer> roleIds) throws Exception;
 
 }

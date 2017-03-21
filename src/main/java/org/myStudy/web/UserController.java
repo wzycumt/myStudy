@@ -1,10 +1,16 @@
 package org.myStudy.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.myStudy.dto.BootstrapTable;
 import org.myStudy.dto.PageQuery;
+import org.myStudy.dto.UserModel;
+import org.myStudy.entity.Role;
 import org.myStudy.entity.User;
+import org.myStudy.service.IRoleService;
 import org.myStudy.service.IUserService;
 import org.myStudy.web.common.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +31,8 @@ public class UserController extends BaseController {
 
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private IRoleService roleService;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
@@ -43,30 +51,34 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public String info(@RequestParam(value = "id", required = false) Integer id, Model model) {
-		User user;
-		if (id == null || id == 0) {
-			user = new User();
-		} else {
-			user = userService.getById(id);
+		UserModel userModel = new UserModel(); 
+		if (id != null && id != 0) {
+			userModel.setUser(userService.getById(id));
 		}
-		model.addAttribute(user);
+		List<Role> roleList = roleService.getAll();
+		Map<Integer, String> dicRoleList = new HashMap<Integer, String>();
+		dicRoleList.put(0, "--请选择--");
+		dicRoleList.putAll(roleList.stream().collect(Collectors.toMap(Role::getId, Role::getName)));
+		userModel.setDicRoleList(dicRoleList);;
+		model.addAttribute(userModel);
 		return "user/info";
 	}
 
 	@RequestMapping(value = "/info", produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String info(User user) {
-		if (user == null) {
+	public String info(UserModel userModel) {
+		if (userModel == null || userModel.getUser() == null) {
 			return jsonResult(false, null, "model is null");
 		}
+		logger.info(userModel.toString());
 		try {
-			int res;
-			if (user.getId() == 0) {
-				res = userService.add(user);
+			if (userModel.getUser().getId() == 0) {
+				int res = userService.add(userModel.getUser(), userModel.getRoleIds());
+				return jsonResult(true, res, "添加成功");
 			} else {
-				res = userService.edit(user);
+				int res = userService.edit(userModel.getUser(), userModel.getRoleIds());
+				return jsonResult(true, res, "保存成功");
 			}
-			return jsonResult(true, res, "");
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return jsonResult(false, 0, e.getMessage());

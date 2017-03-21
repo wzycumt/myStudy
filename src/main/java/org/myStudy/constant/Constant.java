@@ -1,4 +1,4 @@
-package org.myStudy.Constant;
+package org.myStudy.constant;
 
 /**
  * 系统全局常量

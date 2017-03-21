@@ -73,7 +73,7 @@ public class MenuService implements IMenuService {
 		}
 		dbEntity.setName(entity.getName());
 		dbEntity.setUrl(entity.getUrl());
-		dbEntity.setSerialNum(entity.getSerialNum());
+		dbEntity.setOrderNum(entity.getOrderNum());
 		dbEntity.setStatus(entity.getStatus());
 		dbEntity.setRemark(entity.getRemark());
 		return menuDao.edit(entity);

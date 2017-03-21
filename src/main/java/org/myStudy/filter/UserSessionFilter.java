@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
-import org.myStudy.Constant.Constant;
+import org.myStudy.constant.Constant;
 import org.myStudy.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 

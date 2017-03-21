@@ -5,3 +5,9 @@
 .layer-date-sm {
 	width:120px;
 }
+.label-item {
+	margin-right:7px;
+	padding-top:7px;
+	padding-bottom:7px;
+	cursor:default;
+}

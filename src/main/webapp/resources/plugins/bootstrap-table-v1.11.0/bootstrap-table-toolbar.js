@@ -129,7 +129,7 @@
 						}
 						html += '<div class="form-group text-center">';
 						html += '<input type="button" class="btn btn-default" id="btnSubmit" value="查询" />';
-						html += '<input type="button" class="btn btn-default" id="btnReset" value="重置" />';
+						html += '<input type="reset" class="btn btn-default" id="btnReset" value="重置" />';
 						html += '<input type="button" class="btn btn-default" id="btnCancel" value="取消" />';
 						html += '</div>';
 						html += '</form>';

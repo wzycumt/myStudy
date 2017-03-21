@@ -9,7 +9,7 @@ import org.myStudy.entity.SearchConfig;
 import org.myStudy.enums.BaseStatusEnum;
 import org.myStudy.service.ISearchConfigFieldService;
 import org.myStudy.service.ISearchConfigService;
-import org.myStudy.utility.ValidateUtility;
+import org.myStudy.utility.StringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,7 +70,7 @@ public class SearchConfigService implements ISearchConfigService {
 	@Override
 	public int add(SearchConfig entity) throws Exception {
 		//校验
-		if (ValidateUtility.isNullOrEmpty(entity.getCode())) {
+		if (StringUtility.isNullOrEmpty(entity.getCode())) {
 			throw new Exception("编码不能为空");
 		}
 		entity.setStatus(BaseStatusEnum.VALID);
@@ -81,7 +81,7 @@ public class SearchConfigService implements ISearchConfigService {
 	@Override
 	public int edit(SearchConfig entity) throws Exception {
 		//校验
-		if (ValidateUtility.isNullOrEmpty(entity.getCode())) {
+		if (StringUtility.isNullOrEmpty(entity.getCode())) {
 			throw new Exception("编码不能为空");
 		}
 		SearchConfig dbEntity = searchConfigDao.getById(entity.getId());
@@ -109,7 +109,7 @@ public class SearchConfigService implements ISearchConfigService {
 	}
 
 	public SearchConfig getByCode(String code) {
-		if (!ValidateUtility.isNullOrEmpty(code)) {
+		if (!StringUtility.isNullOrEmpty(code)) {
 			Query query = new Query();
 			query.addQueryFilter("code", OperatorEnum.EQUAL, code);
 			List<SearchConfig> list = getList(query);

@@ -55,13 +55,13 @@ function layerAdd(grid, title, url, w, h) {
 		  			if (src.indexOf('?id=') == -1)
 		  				src = src + '?id=' + data.value;
 		  			layero.find('iframe').attr('src', src);
+					grid.bootstrapTable('refresh');
 				} else {
 		  			layer.alert(data.des, { icon: 0 });
 				}
 			}, 'json');
 		},
 		end : function() {
-			grid.bootstrapTable('refresh');
 		}
 	});
 }
@@ -110,13 +110,11 @@ function layerEdit(grid, title, url, w, h) {
 				if (data.result) {
 		  			layer.msg(data.des, { time: 2000 });
 					layero.find('iframe').attr('src', layero.find('iframe').attr('src')); //刷新页面
+					grid.bootstrapTable('refresh');
 				} else {
 		  			layer.alert(data.des, { icon: 0 });
 				}
 			}, 'json');
-		},
-		end : function() {
-			grid.bootstrapTable('refresh');
 		}
 	});
 }

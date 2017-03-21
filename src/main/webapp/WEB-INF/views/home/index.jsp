@@ -17,7 +17,7 @@
         <ul class="nav">
           <li class="nav-header">
             <div class="dropdown profile-element">
-              <span><img alt="image" class="img-circle" src="${pageContext.request.contextPath}/resources/hplus-v4.1.0/img/profile_small.jpg" /></span> 
+              <span><img alt="image" class="img-circle" src="${pageContext.request.contextPath}/resources/hplus-v4.1.0/img/admin_avatar.jpg" width="64px" /></span> 
               <a data-toggle="dropdown" class="dropdown-toggle" href="#"> 
               <span class="clear"> 
                 <span class="block m-t-xs"><strong class="font-bold">Zhaoyu Wen</strong></span> 

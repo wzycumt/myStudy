@@ -8,8 +8,10 @@ import org.myStudy.dto.Query.OperatorEnum;
 import org.myStudy.entity.User;
 import org.myStudy.enums.BaseStatusEnum;
 import org.myStudy.service.IUserService;
+import org.myStudy.utility.StringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 用户服务实现层
@@ -56,26 +58,37 @@ public class UserService implements IUserService {
 		}
 		return sBuilder.toString();
 	}
-
+	
 	public int add(User entity) throws Exception {
 		//校验
-		if (entity.getUserName() == null || entity.getUserName().trim().equals("")) {
+		if (entity.getUserName() == null || entity.getUserName().trim().equals(""))
 			throw new Exception("用户名不能为空");
-		}
+		if (getByUserName(entity.getUserName()) != null)
+			throw new Exception("用户名重复，请选择其他用户名");
 		if (entity.getNickname() == null || entity.getNickname().trim().equals("")) {
 			entity.setNickname(entity.getUserName());
 		}
 		entity.setPassword(entity.getUserName());
 		entity.setStatus(BaseStatusEnum.VALID);
-		userDao.add(entity);
+		return entity.getId();
+	}
+	
+	@Transactional
+	public int add(User entity, List<Integer> roleIds) throws Exception {
+		add(entity);
+		if (roleIds != null && !roleIds.isEmpty()) {
+			userDao.addUserRole(entity.getId(), roleIds);
+		}
 		return entity.getId();
 	}
 
 	public int edit(User entity) throws Exception {
 		//校验
-		if (entity.getUserName() == null || entity.getUserName().trim().equals("")) {
+		if (entity.getUserName() == null || entity.getUserName().trim().equals(""))
 			throw new Exception("用户名不能为空");
-		}
+		User user = getByUserName(entity.getUserName());
+		if (user != null && user.getId() != entity.getId())
+			throw new Exception("用户名重复，请选择其他用户名");
 		if (entity.getNickname() == null || entity.getNickname().trim().equals("")) {
 			entity.setNickname(entity.getUserName());
 		}
@@ -91,6 +104,18 @@ public class UserService implements IUserService {
 		dbEntity.setStatus(entity.getStatus());
 		dbEntity.setRemark(entity.getRemark());
 		return userDao.edit(dbEntity);
+	}
+	
+	@Transactional
+	public int edit(User entity, List<Integer> roleIds) throws Exception {
+		int res = edit(entity);
+		Query query = new Query();
+		query.addQueryFilter("roleId", OperatorEnum.NOT_IN, StringUtility.join(roleIds, ","));
+		userDao.deleteUserRole(entity.getId(), query);
+		if (roleIds != null && !roleIds.isEmpty()) {
+			userDao.addUserRole(entity.getId(), roleIds);
+		}
+		return res;
 	}
 
 	public int editSelective(User entity) throws Exception {
