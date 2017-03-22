@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.myStudy.dto.BootstrapTable;
 import org.myStudy.dto.PageQuery;
+import org.myStudy.entity.Menu;
 import org.myStudy.entity.Role;
+import org.myStudy.service.IMenuService;
 import org.myStudy.service.IRoleService;
 import org.myStudy.web.common.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class RoleController extends BaseController {
 
 	@Autowired
 	private IRoleService roleService;
+	@Autowired
+	private IMenuService menuService;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
@@ -51,6 +55,13 @@ public class RoleController extends BaseController {
 		}
 		model.addAttribute(role);
 		return "role/info";
+	}
+
+	@RequestMapping(value = "/menuTree", produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String menuTree() {
+		List<Menu> menuTree = menuService.getAll();
+		return jsonResult(true, menuTree, "");
 	}
 
 	@RequestMapping(value = "/info", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")

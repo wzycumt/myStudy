@@ -1,7 +1,5 @@
 package org.myStudy.service;
 
-import java.util.List;
-
 import org.myStudy.entity.User;
 
 /**
@@ -9,6 +7,8 @@ import org.myStudy.entity.User;
  * @author WZY
  */
 public interface IUserService extends IBaseService<User> {
+	
+	User getById(int id, boolean withRoles);
 
 	/**
 	 * 根据用户名获取用户
@@ -22,13 +22,13 @@ public interface IUserService extends IBaseService<User> {
 	 * @return
 	 * @throws Exception 
 	 */
-	int add(User user, List<Integer> roleIds) throws Exception;
+	int addWithRoles(User user) throws Exception;
 
 	/**
 	 * 编辑用户及用户角色关系
 	 * @return
 	 * @throws Exception 
 	 */
-	int edit(User user, List<Integer> roleIds) throws Exception;
+	int editWithRoles(User user) throws Exception;
 
 }

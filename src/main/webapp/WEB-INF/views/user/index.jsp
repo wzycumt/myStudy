@@ -13,7 +13,6 @@
         <div class="btn-group" id="toolbar">
           <button type="button" class="btn btn-success" id="btnAdd"><i class="fa fa-plus"></i>&nbsp;添加</button>
           <button type="button" class="btn btn-primary" id="btnEdit"><i class="fa fa-edit"></i>&nbsp;编辑</button>
-          <button type="button" class="btn btn-primary" id="btnAuthorize"><i class="fa fa-user-secret"></i>&nbsp;授权</button>
           <button type="button" class="btn btn-danger" id="btnRemove"><i class="fa fa-remove"></i>&nbsp;删除</button>
         </div>
         <table id="table" 
@@ -60,11 +59,6 @@
 		//编辑
 		$('#btnEdit').click(function() {
 			layerEdit(grid, '编辑', 'user/info', '80%', '90%');
-		})
-		
-		//授权
-		$('#btnAuthorize').click(function() {
-			layerEdit(grid, '授权', 'user/info', '80%', '90%');
 		})
 		
 		//删除

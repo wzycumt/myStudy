@@ -66,4 +66,10 @@ public class Role extends BaseEntity {
 	public void setMenus(List<Menu> menus) {
 		this.menus = menus;
 	}
+
+	@Override
+	public String toString() {
+		return "Role [name=" + name + ", status=" + status + ", remark=" + remark + ", users=" + users + ", menus=" + menus + "]";
+	}
+	
 }

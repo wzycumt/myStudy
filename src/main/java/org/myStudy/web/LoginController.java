@@ -46,9 +46,4 @@ public class LoginController extends BaseController {
 		redirectAttributes.addFlashAttribute("message", "您已安全退出");
 		return "redirect:/login";
 	}
-
-	@RequestMapping("/403")
-	public String unauthorizedRole() {
-		return "/exception/403";
-	}
 }

@@ -106,7 +106,6 @@ public class User extends BaseEntity {
 	
 	//获取用户的角色名称
 	public Set<String> getRolesName() {
-		List<Role> roles = getRoles();
 		Set<String> set = new HashSet<String>();
 		if (roles != null && !roles.isEmpty()) {
 			for (Role role : roles) {
@@ -115,4 +114,11 @@ public class User extends BaseEntity {
 		}
 		return set;
 	}
+
+	@Override
+	public String toString() {
+		return "User [userName=" + userName + ", password=" + password + ", nickname=" + nickname + ", realName=" + realName + ", phone=" + phone
+				+ ", email=" + email + ", status=" + status + ", remark=" + remark + ", roles=" + roles + "]";
+	}
+	
 }

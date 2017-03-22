@@ -7,6 +7,10 @@
 <html>
 <head>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/plugins/jstree-v3.3.3/themes/default/style.min.css" />
+<script src="${pageContext.request.contextPath}/resources/plugins/jstree-v3.3.3/jstree.min.js"></script>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" /> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script> -->
 <title>用户信息</title>
 </head>
 <body class="fixed-sidebar">
@@ -41,7 +45,30 @@
           <form:textarea class="form-control" rows="3" path="remark"/>
         </div>
       </div>
+      <div id="menuTree"></div>
     </form:form>
   </div>
+<script type="text/javascript">
+$(document).ready(function() {
+	$.getJSON('role/menuTree', function(data) {
+		if (data && data.result) {
+			var menus = data.value;
+			var arr = [];
+			for (var i = 0; i < menus.length; i++) {
+				arr.push({
+					id: menus[i].id,
+					parent: menus[i].parentId == 0 ? "#" : menus[i].parentId,
+					text: menus[i].name,
+					icon: menus[i].icon
+				})
+			}
+			$('#menuTree').jstree({
+				'core' : { 'data' : arr },
+	            'plugins' : [ "wholerow", "checkbox" ]
+			});
+		}
+	});
+})
+</script>
 </body>
 </html>

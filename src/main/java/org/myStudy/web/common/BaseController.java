@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.ui.Model;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,6 +35,10 @@ public class BaseController {
 			e.printStackTrace();
 			return e.getMessage();
 		}
+	}
+	
+	protected void addModelMessage(Model model, String message) {
+		model.addAttribute("message", message);
 	}
 	
 }

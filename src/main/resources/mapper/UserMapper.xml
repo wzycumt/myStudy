@@ -7,11 +7,51 @@
 		IF(STATUS=1,'有效','无效') AS STATUS_DES
 	</sql>
 	<sql id="Base_Table">T_USER</sql>
+	
+	<resultMap type="org.myStudy.entity.User" id="UserWithRoles">
+        <id column="ID" property="id" />
+        <result column="USER_NAME" property="userName" />
+        <result column="PASSWORD" property="password" />
+        <result column="NICKNAME" property="nickname" />
+        <result column="REAL_NAME" property="realName" />
+        <result column="PHONE" property="phone" />
+        <result column="EMAIL" property="email" />
+        <result column="STATUS" property="status" />
+        <result column="REMARK" property="remark" />
+        <result column="CREATOR" property="creator" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATE_PERSON" property="updatePerson" />
+        <result column="UPDATE_TIME" property="updateTime" />
+        <result column="VERSION" property="version" />
+        <collection property="roles" ofType="org.myStudy.entity.Role">
+            <id column="ROLE_ID" property="id" />
+            <result column="ROLE_NAME" property="name" />
+            <result column="ROLE_STATUS" property="status" />
+            <result column="ROLE_REMARK" property="remark" />
+            <result column="ROLE_CREATOR" property="creator" />
+            <result column="ROLE_CREATE_TIME" property="createTime" />
+            <result column="ROLE_UPDATE_PERSON" property="updatePerson" />
+            <result column="ROLE_UPDATE_TIME" property="updateTime" />
+            <result column="ROLE_VERSION" property="version" />
+        </collection>
+    </resultMap>
 
 	<select id="getById" parameterType="Integer" resultType="org.myStudy.entity.User">
         select <include refid="Base_Column_List" />
     	from <include refid="Base_Table" />
 		where ID = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="getByIdWithRoles" parameterType="Integer" resultMap="UserWithRoles">
+        select t.ID, t.USER_NAME, t.PASSWORD, t.NICKNAME, t.REAL_NAME, t.PHONE, t.EMAIL, t.STATUS, t.REMARK,
+			t.CREATOR, t.CREATE_TIME, t.UPDATE_PERSON, t.UPDATE_TIME, t.VERSION, IF(t.STATUS=1,'有效','无效') AS STATUS_DES,
+			role.ID as ROLE_ID, role.NAME as ROLE_NAME, role.STATUS as ROLE_STATUS, role.REMARK as ROLE_REMARK,
+			role.CREATOR as ROLE_CREATOR, role.CREATE_TIME as ROLE_CREATE_TIME, role.UPDATE_PERSON as ROLE_UPDATE_PERSON,
+			role.UPDATE_TIME as ROLE_UPDATE_TIME, role.VERSION as ROLE_VERSION
+    	from <include refid="Base_Table" /> t
+    	left join T_REL_USER_ROLE rel on rel.USER_ID = t.id
+    	left join T_ROLE role on role.ID = rel.ROLE_ID
+		where t.ID = #{id,jdbcType=INTEGER}
 	</select>
 
 	<select id="getAll" resultType="org.myStudy.entity.User">
@@ -63,7 +103,7 @@
 			UPDATE_PERSON = #{updatePerson,jdbcType=INTEGER},
 			UPDATE_TIME = now(),
 			VERSION = VERSION + 1
-			where ID = #{id,jdbcType=INTEGER}
+		where ID = #{id,jdbcType=INTEGER}
 	</update>
 	
 	<update id="editSelective" parameterType="org.myStudy.entity.User">
@@ -83,38 +123,4 @@
 		</set>
 		where ID = #{id,jdbcType=INTEGER}
 	</update>
-	
-	<!-- 添加用户角色关系 -->
-	<insert id="addUserRole">
-		insert ignore into T_REL_USER_ROLE
-			(USER_ID, ROLE_ID, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION)
-		values 
-		<foreach collection="roles" item="role" open="(" close=")" separator=",">
-			#{userId,jdbcType=INTEGER}, #{role.id,jdbcType=INTEGER},
-			#{creator,jdbcType=INTEGER}, now(), #{updatePerson,jdbcType=INTEGER}, now(), 0
-		</foreach>
-	</insert>
-	
-	<!-- 删除用户角色关系 -->
-	<delete id="deleteUserRole">
-		delete from T_REL_USER_ROLE
-		where ID = #{userId,jdbcType=INTEGER}
-		<if test="query != null and query.queryFilters != null">
-    		<foreach collection="query.queryFilters" item="queryFilter" open=" and " separator=" and ">
-    			<choose>
-    				<when test="queryFilter.operator.value == 0">${queryFilter.columnName} like CONCAT('%', #{queryFilter.value}, '%')</when>
-    				<when test="queryFilter.operator.value == 1">${queryFilter.columnName} = #{queryFilter.value}</when>
-    				<when test="queryFilter.operator.value == 2">${queryFilter.columnName} <![CDATA[<>]]> #{queryFilter.value}</when>
-    				<when test="queryFilter.operator.value == 3">${queryFilter.columnName} <![CDATA[<]]> #{queryFilter.value}</when>
-    				<when test="queryFilter.operator.value == 4">${queryFilter.columnName} <![CDATA[<=]]> #{queryFilter.value}</when>
-    				<when test="queryFilter.operator.value == 5">${queryFilter.columnName} > #{queryFilter.value}</when>
-    				<when test="queryFilter.operator.value == 6">${queryFilter.columnName} >= #{queryFilter.value}</when>
-    				<when test="queryFilter.operator.value == 7">${queryFilter.columnName} in #{queryFilter.value}</when>
-    				<when test="queryFilter.operator.value == 8">${queryFilter.columnName} not in #{queryFilter.value}</when>
-    				<when test="queryFilter.operator.value == 9">${queryFilter.columnName} is null</when>
-    				<when test="queryFilter.operator.value == 10">${queryFilter.columnName} is not null</when>
-    			</choose>
-    		</foreach>
-        </if>
-	</delete>
 </mapper>

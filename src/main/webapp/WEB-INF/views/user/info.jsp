@@ -61,11 +61,11 @@
         <label class="col-xs-2 control-label">角色</label>
         <div class="col-xs-10">
 <!--           <div class="radio i-checks"> -->
-<%--             <form:checkboxes path="roleIds" items="${userModel.dicRoleList}"/> --%>
+<%--             <form:checkboxes path="user.roleIds" items="${userModel.dicRoleList}"/> --%>
 <!--           </div> -->
-<%--           <form:select path="" class="form-control" items="${userModel.dicRoleList}"></form:select> --%>
+          <form:select path="user.roles[0].id" class="form-control" items="${userModel.dicRoleList}"></form:select>
 <!--           <a class="btn btn-default" id="btnSelectRole">选择</a> -->
-<%--           <form:hidden class="form-control" path="roles"/> --%>
+<%--           <form:hidden class="form-control" path="user.roles"/> --%>
 <!--           <span class="label label-default label-item">管理员 -->
 <!--             <a href="javascript:;"><i class="fa fa-remove"></i></a> -->
 <!--           </span> -->

@@ -53,30 +53,30 @@ public class UserController extends BaseController {
 	public String info(@RequestParam(value = "id", required = false) Integer id, Model model) {
 		UserModel userModel = new UserModel(); 
 		if (id != null && id != 0) {
-			userModel.setUser(userService.getById(id));
+			userModel.setUser(userService.getById(id, true));
 		}
 		List<Role> roleList = roleService.getAll();
 		Map<Integer, String> dicRoleList = new HashMap<Integer, String>();
 		dicRoleList.put(0, "--请选择--");
 		dicRoleList.putAll(roleList.stream().collect(Collectors.toMap(Role::getId, Role::getName)));
-		userModel.setDicRoleList(dicRoleList);;
-		model.addAttribute(userModel);
+		userModel.setDicRoleList(dicRoleList);
+		model.addAttribute("userModel", userModel);
 		return "user/info";
 	}
 
 	@RequestMapping(value = "/info", produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String info(UserModel userModel) {
+	public String info(UserModel userModel, Model model) {
 		if (userModel == null || userModel.getUser() == null) {
 			return jsonResult(false, null, "model is null");
 		}
-		logger.info(userModel.toString());
+		System.out.println(userModel.getUser());
 		try {
 			if (userModel.getUser().getId() == 0) {
-				int res = userService.add(userModel.getUser(), userModel.getRoleIds());
+				int res = userService.addWithRoles(userModel.getUser());
 				return jsonResult(true, res, "添加成功");
 			} else {
-				int res = userService.edit(userModel.getUser(), userModel.getRoleIds());
+				int res = userService.editWithRoles(userModel.getUser());
 				return jsonResult(true, res, "保存成功");
 			}
 		} catch (Exception e) {

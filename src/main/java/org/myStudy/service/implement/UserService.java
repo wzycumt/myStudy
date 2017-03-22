@@ -1,10 +1,14 @@
 package org.myStudy.service.implement;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.myStudy.dao.IRelUserRoleDao;
 import org.myStudy.dao.IUserDao;
 import org.myStudy.dto.Query;
 import org.myStudy.dto.Query.OperatorEnum;
+import org.myStudy.entity.RelUserRole;
+import org.myStudy.entity.Role;
 import org.myStudy.entity.User;
 import org.myStudy.enums.BaseStatusEnum;
 import org.myStudy.service.IUserService;
@@ -22,9 +26,19 @@ public class UserService implements IUserService {
 	
 	@Autowired
 	private IUserDao userDao;
+	@Autowired
+	private IRelUserRoleDao relUserRoleDao;
 
 	public User getById(int id) {
 		return userDao.getById(id);
+	}
+
+	public User getById(int id, boolean withRoles) {
+		if (withRoles) {
+			return userDao.getByIdWithRoles(id);
+		} else {
+			return getById(id);
+		}
 	}
 
 	public List<User> getAll() {
@@ -74,10 +88,15 @@ public class UserService implements IUserService {
 	}
 	
 	@Transactional
-	public int add(User entity, List<Integer> roleIds) throws Exception {
+	public int addWithRoles(User entity) throws Exception {
 		add(entity);
-		if (roleIds != null && !roleIds.isEmpty()) {
-			userDao.addUserRole(entity.getId(), roleIds);
+		//再批量插入新的角色关系
+		if (entity.getRoles() != null && !entity.getRoles().isEmpty()) {
+			List<RelUserRole> relList = new ArrayList<RelUserRole>();
+			for (Role role : entity.getRoles()) {
+				relList.add(new RelUserRole(entity.getId(), role.getId()));
+			}
+			relUserRoleDao.addBatch(relList);
 		}
 		return entity.getId();
 	}
@@ -107,13 +126,19 @@ public class UserService implements IUserService {
 	}
 	
 	@Transactional
-	public int edit(User entity, List<Integer> roleIds) throws Exception {
+	public int editWithRoles(User entity) throws Exception {
 		int res = edit(entity);
+		//先删除不在roleIdList之内的角色关系
 		Query query = new Query();
-		query.addQueryFilter("roleId", OperatorEnum.NOT_IN, StringUtility.join(roleIds, ","));
-		userDao.deleteUserRole(entity.getId(), query);
-		if (roleIds != null && !roleIds.isEmpty()) {
-			userDao.addUserRole(entity.getId(), roleIds);
+		query.addQueryFilter("roleId", OperatorEnum.NOT_IN, getRoleIdsFromRoleList(entity.getRoles()));
+		relUserRoleDao.deleteByUserId(entity.getId(), query);
+		//再批量插入新的角色关系
+		if (entity.getRoles() != null && !entity.getRoles().isEmpty()) {
+			List<RelUserRole> relList = new ArrayList<RelUserRole>();
+			for (Role role : entity.getRoles()) {
+				relList.add(new RelUserRole(entity.getId(), role.getId()));
+			}
+			relUserRoleDao.addBatch(relList);
 		}
 		return res;
 	}
@@ -129,6 +154,21 @@ public class UserService implements IUserService {
 		if (list != null && !list.isEmpty())
 			return list.get(0);
 		return null;
+	}
+	
+	/**
+	 * 根据角色集合roleList获取角色id拼接字符串
+	 * @param roleList
+	 * @return
+	 */
+	private String getRoleIdsFromRoleList(List<Role> roleList) {
+		List<Integer> roleIdList = new ArrayList<Integer>();
+		if (roleList == null || roleList.isEmpty())
+			return null;
+		for (Role role : roleList) {
+			roleIdList.add(role.getId());
+		}
+		return StringUtility.join(roleIdList, ",");
 	}
 
 }

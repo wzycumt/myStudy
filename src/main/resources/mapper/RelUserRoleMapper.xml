@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.myStudy.dao.IRelUserRoleDao">
+	<sql id="Base_Column_List">
+		ID, USER_ID, ROLE_ID, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION
+	</sql>
+	<sql id="Base_Table">T_REL_USER_ROLE</sql>
+
+	<select id="getById" parameterType="Integer" resultType="org.myStudy.entity.RelUserRole">
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="getAll" resultType="org.myStudy.entity.RelUserRole">
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
+	</select>
+	
+	<!-- 获取集合 -->
+	<select id="getList" parameterType="org.myStudy.dto.Query" resultType="org.myStudy.entity.RelUserRole">
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" />
+		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
+		<include refid="org.myStudy.dao.BaseMapper.Sort" />
+		<include refid="org.myStudy.dao.BaseMapper.Pagination" />
+	</select>
+	
+	<!-- 获取分页查询结果的总数 -->
+	<select id="getListTotal" parameterType="org.myStudy.dto.Query" resultType="int">
+        select count(1)
+    	from <include refid="Base_Table" />
+		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
+	</select>
+	
+	<delete id="deleteById" parameterType="int">
+		delete from <include refid="Base_Table" />
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="add" parameterType="org.myStudy.entity.RelUserRole" useGeneratedKeys="true" keyProperty="id">
+		insert into <include refid="Base_Table" />
+			(USER_ID, ROLE_ID, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION)
+		values (#{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER},
+			#{creator,jdbcType=INTEGER}, now(), #{updatePerson,jdbcType=INTEGER}, now(), 0)
+	</insert>
+	
+	<update id="edit" parameterType="org.myStudy.entity.RelUserRole">
+		update <include refid="Base_Table" />
+		set USER_ID = #{userId,jdbcType=INTEGER},
+			ROLE_ID = #{roleId,jdbcType=INTEGER},
+			UPDATE_PERSON = #{updatePerson,jdbcType=INTEGER},
+			UPDATE_TIME = now(),
+			VERSION = VERSION + 1
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 批量添加 -->
+	<insert id="addBatch">
+		insert ignore into <include refid="Base_Table" />
+			(USER_ID, ROLE_ID, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION)
+		values 
+		<foreach collection="entities" item="entity" separator=",">
+			(#{entity.userId,jdbcType=INTEGER}, #{entity.roleId,jdbcType=INTEGER},
+			#{entity.creator,jdbcType=INTEGER}, now(), #{entity.updatePerson,jdbcType=INTEGER}, now(), 0)
+		</foreach>
+	</insert>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteByUserId">
+		delete from <include refid="Base_Table" />
+		where USER_ID = #{userId,jdbcType=INTEGER}
+		<if test="query != null and query.queryFilters != null">
+    		<foreach collection="query.queryFilters" item="queryFilter" open=" and " separator=" and ">
+    			<choose>
+    				<when test="queryFilter.operator.value == 1">${queryFilter.columnName} = #{queryFilter.value}</when>
+    				<when test="queryFilter.operator.value == 7">${queryFilter.columnName} in (${queryFilter.value})</when>
+    				<when test="queryFilter.operator.value == 8">${queryFilter.columnName} not in (${queryFilter.value})</when>
+    			</choose>
+    		</foreach>
+        </if>
+	</delete>
+</mapper>
