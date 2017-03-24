@@ -90,7 +90,7 @@ public class UserService implements IUserService {
 	@Transactional
 	public int addWithRoles(User entity) throws Exception {
 		add(entity);
-		//再批量插入新的角色关系
+		//批量插入角色关系
 		if (entity.getRoles() != null && !entity.getRoles().isEmpty()) {
 			List<RelUserRole> relList = new ArrayList<RelUserRole>();
 			for (Role role : entity.getRoles()) {
@@ -130,7 +130,8 @@ public class UserService implements IUserService {
 		int res = edit(entity);
 		//先删除不在roleIdList之内的角色关系
 		Query query = new Query();
-		query.addQueryFilter("roleId", OperatorEnum.NOT_IN, getRoleIdsFromRoleList(entity.getRoles()));
+		if (entity.getRoles() != null && !entity.getRoles().isEmpty())
+			query.addQueryFilter("roleId", OperatorEnum.NOT_IN, getRoleIdsFromRoleList(entity.getRoles()));
 		relUserRoleDao.deleteByUserId(entity.getId(), query);
 		//再批量插入新的角色关系
 		if (entity.getRoles() != null && !entity.getRoles().isEmpty()) {

@@ -13,6 +13,7 @@
         <div class="btn-group" id="toolbar">
           <button type="button" class="btn btn-success" id="btnAdd"><i class="fa fa-plus"></i>&nbsp;添加</button>
           <button type="button" class="btn btn-primary" id="btnEdit"><i class="fa fa-edit"></i>&nbsp;编辑</button>
+          <button type="button" class="btn btn-primary" id="btnAuthority"><i class="fa fa-user-secret"></i>&nbsp;菜单权限</button>
           <button type="button" class="btn btn-danger" id="btnRemove"><i class="fa fa-remove"></i>&nbsp;删除</button>
         </div>
         <table id="table" 
@@ -56,6 +57,11 @@
 		//编辑
 		$('#btnEdit').click(function() {
 			layerEdit(grid, '编辑', 'role/info', '80%', '90%');
+		})
+		
+		//菜单权限
+		$('#btnAuthority').click(function() {
+			layerEdit(grid, '编辑', 'role/authority', '300px', '80%');
 		})
 		
 		//删除

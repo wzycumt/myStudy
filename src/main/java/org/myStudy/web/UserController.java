@@ -76,8 +76,8 @@ public class UserController extends BaseController {
 				int res = userService.addWithRoles(userModel.getUser());
 				return jsonResult(true, res, "添加成功");
 			} else {
-				int res = userService.editWithRoles(userModel.getUser());
-				return jsonResult(true, res, "保存成功");
+				userService.editWithRoles(userModel.getUser());
+				return jsonResult(true, userModel.getUser().getId(), "保存成功");
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage());

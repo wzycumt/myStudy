@@ -11,3 +11,23 @@
 	padding-bottom:7px;
 	cursor:default;
 }
+.layer-content {
+	height:calc(100% - 44px);
+	overflow:auto;
+}
+.layer-toolbar {
+	text-align: right;
+	background-color: #F8F8F8;
+	padding: 0 10px 10px;
+	pointer-events: auto;
+	user-select: none;
+	-webkit-user-select: none
+}
+.layer-toolbar button {
+	height: 28px;
+	line-height: 28px;
+	margin: 6px 6px 0;
+	padding: 0 15px;
+	cursor: pointer;
+	text-decoration: none
+}

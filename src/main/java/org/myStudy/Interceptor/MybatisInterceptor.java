@@ -5,7 +5,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.ibatis.executor.CachingExecutor;
@@ -15,6 +19,7 @@ import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.mapping.ParameterMap;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.Interceptor;
@@ -167,8 +172,7 @@ public class MybatisInterceptor implements Interceptor {
 		Object[] args = invocation.getArgs();
 		if (args != null && args.length == 2) {
 			Object arg0 = args[0];
-			Object arg1 = args[1];
-			// 根据第一个参数判断是否给“操作属性”赋值。
+			Object arg1 = args[1]; //方法传入的参数
 			if (arg0 instanceof MappedStatement && arg1 instanceof BaseEntity) {
 				MappedStatement ms = (MappedStatement) arg0;
 				BaseEntity entity = (BaseEntity) arg1;
@@ -179,6 +183,29 @@ public class MybatisInterceptor implements Interceptor {
 					entity.setUpdatePerson(currentUserId);
 				} else if (sqlCommandType == SqlCommandType.UPDATE) {
 					entity.setUpdatePerson(currentUserId);
+				}
+			}
+			// 批量操作
+			if (arg0 instanceof MappedStatement && arg1 instanceof HashMap){
+				MappedStatement ms = (MappedStatement) arg0;
+				HashMap map = (HashMap) arg1;
+				Object[] objects = map.values().toArray(); //将传入参数转换为object数组
+				for (int i = 0; i < objects.length; i++) {
+					if (objects[i] instanceof ArrayList) {
+						ArrayList<Object> list = (ArrayList<Object>) objects[i];
+						list.forEach(o -> {
+							if (o instanceof BaseEntity) {
+								BaseEntity entity = (BaseEntity) o;
+								int currentUserId = ApplycationUtility.getCurrentUserId(); //当前登录用户Id
+								if (ms.getSqlCommandType() == SqlCommandType.INSERT) {
+									entity.setCreator(currentUserId);
+									entity.setUpdatePerson(currentUserId);
+								} else if (ms.getSqlCommandType() == SqlCommandType.UPDATE) {
+									entity.setUpdatePerson(currentUserId);
+								}
+							}
+						});
+					}
 				}
 			}
 		}

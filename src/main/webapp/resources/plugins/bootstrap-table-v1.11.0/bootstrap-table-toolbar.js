@@ -11,6 +11,56 @@
     var firstLoad = false;
 
     var sprintf = $.fn.bootstrapTable.utils.sprintf;
+    
+    var showFormSearch = function(grid, fields) {
+    	grid.$toolbar.find('#btnSearch_' + grid.options.searchCode).popover({
+			placement : 'bottom',
+			container : grid.$tableContainer,
+			trigger : 'click',
+			html : true,
+			content : function () {
+				//var fields = data.value.fields;
+				html = '';
+				html += '<form class="form-horizontal" id="formSearch_' + grid.options.searchCode + '" method="post">';
+				for (var i = 0; i < fields.length; i++) {
+					html += '<div class="form-group row">';
+					html += '<label class="col-xs-3 control-label">' + fields[i].displayName + '</label>';
+					html += '<div class="col-xs-9">';
+					
+					html += '<input type="text" class="form-control" name="' + fields[i].fieldName + '" placeholder="' + fields[i].displayName + '" />';
+					
+					html += '</div>';
+					html += '</div>';
+				}
+				html += '<div class="form-group text-center">';
+				html += '<input type="button" class="btn btn-default" id="btnSubmit" value="查询" />';
+				html += '<input type="reset" class="btn btn-default" id="btnReset" value="重置" />';
+				html += '<input type="button" class="btn btn-default" id="btnCancel" value="取消" />';
+				html += '</div>';
+				html += '</form>';
+				return html;
+			}
+		});
+    	
+    	$('#formSearch_' + grid.options.searchCode).find('#btnSubmit').click(function() {
+    		
+    	});
+    	debugger
+    	$('#formSearch_' + grid.options.searchCode).find('#btnCancel').click(function() {
+    		debugger
+    		layer.msg('cancel');
+    		grid.$toolbar.find('#btnSearch_' + grid.options.searchCode).popover('hide');
+    	});
+    	
+    }
+    
+    var searchSubmit = function() {
+		layer.msg('searchSubmit');
+    }
+    
+    var searchCancel = function() {
+		layer.msg('searchCancel');
+    }
 
     var showAvdSearch = function(pColumns, searchTitle, searchText, that) {
         if (!$("#avdSearchModal" + "_" + that.options.idTable).hasClass("modal")) {
@@ -94,7 +144,7 @@
         if (!this.options.searchCode) {
             return;
         }
-
+        //工具栏右侧添加查询按钮
         var rightbar = this.$toolbar.find('.columns-right').last();
         if (rightbar.length == 0) {
         	rightbar = $('<div class="columns columns-right btn-group pull-right" role="group"></div>');
@@ -106,36 +156,9 @@
     	rightbar.append(html);
 
     	var grid = this;
-		$.get('searchConfig/' + this.options.searchCode, null, function(data) {
+		$.get('searchConfig/' + grid.options.searchCode, null, function(data) {
 			if (data.result) {
-				grid.$toolbar.find('#btnSearch_' + grid.options.searchCode).popover({
-					placement : 'bottom',
-					container : grid.$tableContainer,
-					trigger : 'click',
-					html : true,
-					content : function () {
-						var fields = data.value.fields;
-						html = '';
-						html += '<form class="form-horizontal" id="formSearch_" method="post">';
-						for (var i = 0; i < fields.length; i++) {
-							html += '<div class="form-group row">';
-							html += '<label class="col-xs-3 control-label">' + fields[i].displayName + '</label>';
-							html += '<div class="col-xs-9">';
-							
-							html += '<input type="text" class="form-control" name="' + fields[i].fieldName + '" placeholder="' + fields[i].displayName + '" />';
-							
-							html += '</div>';
-							html += '</div>';
-						}
-						html += '<div class="form-group text-center">';
-						html += '<input type="button" class="btn btn-default" id="btnSubmit" value="查询" />';
-						html += '<input type="reset" class="btn btn-default" id="btnReset" value="重置" />';
-						html += '<input type="button" class="btn btn-default" id="btnCancel" value="取消" />';
-						html += '</div>';
-						html += '</form>';
-						return html;
-					}
-				});
+				showFormSearch(grid, data.value.fields);
 			} else {
 				grid.$toolbar.find('#btnSearch_' + grid.options.searchCode).click(function() {
 					layer.tips(data.des, '#btnSearch_' + grid.options.searchCode);

@@ -16,53 +16,26 @@ $(document).ready(function() {
  * @param h 弹出层高度（默认值90%）
  */
 function layerAdd(grid, title, url, w, h) {
-	if (grid == null) {
+	if (grid == null)
 		return false;
-	}
-	if (title == null || title == '') {
+	if (title == null || title == '')
 		title = false;
-	}
-	if (url == null || url == '') {
+	if (url == null || url == '')
 		url = "common/404.html";
-	}
-	if (w == null || w == '') {
+	if (w == null || w == '')
 		w = '80%'; // 默认宽度
-	}
-	if (w.indexOf('%') == -1 && w.indexOf('px') == -1) {
+	if (w.indexOf('%') == -1 && w.indexOf('px') == -1)
 		w = w + 'px';
-	}
-	if (h == null || h == '') {
+	if (h == null || h == '')
 		h = '90%'; // 默认高度
-	}
-	if (h.indexOf('%') == -1 && h.indexOf('px') == -1) {
+	if (h.indexOf('%') == -1 && h.indexOf('px') == -1)
 		h = h + 'px';
-	}
 	layer.open({
 		type : 2,
 		title : title,
 		area : [ w, h ],
 		maxmin : true,
-		content : url,
-		btn : [ '保存', '关闭' ],
-		yes : function(index, layero) {
-			var loading = layer.load(1);
-			var mainForm = layer.getChildFrame('#mainForm', index);
-			$.post(mainForm.attr('action'), mainForm.serialize(), function(data) {
-				layer.close(loading);
-				if (data.result) {
-		  			layer.msg(data.des, { time: 2000 });
-		  			var src = layero.find('iframe').attr('src');
-		  			if (src.indexOf('?id=') == -1)
-		  				src = src + '?id=' + data.value;
-		  			layero.find('iframe').attr('src', src);
-					grid.bootstrapTable('refresh');
-				} else {
-		  			layer.alert(data.des, { icon: 0 });
-				}
-			}, 'json');
-		},
-		end : function() {
-		}
+		content : url
 	});
 }
 
@@ -100,22 +73,7 @@ function layerEdit(grid, title, url, w, h) {
 		title : title,
 		area : [ w, h ],
 		maxmin : true,
-		content : url,
-		btn : [ '保存', '关闭' ],
-		yes : function(index, layero) {
-			var loading = layer.load(1);
-			var mainForm = layer.getChildFrame('#mainForm', index);
-			$.post(mainForm.attr('action'), mainForm.serialize(), function(data) {
-				layer.close(loading);
-				if (data.result) {
-		  			layer.msg(data.des, { time: 2000 });
-					layero.find('iframe').attr('src', layero.find('iframe').attr('src')); //刷新页面
-					grid.bootstrapTable('refresh');
-				} else {
-		  			layer.alert(data.des, { icon: 0 });
-				}
-			}, 'json');
-		}
+		content : url
 	});
 }
 

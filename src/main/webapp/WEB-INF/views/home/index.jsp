@@ -36,14 +36,14 @@
             <div class="logo-element">H+</div>
           </li>
         </ul>
-          <ul class="metismenu" id="side-menu">
-            <%@include file="menuTree.jsp" %>
-          </ul>
+        <ul class="metismenu" id="side-menu">
+          <%@include file="menuTree.jsp" %>
+        </ul>
       </div>
     </nav>
     <!--左侧导航结束-->
     <!--右侧部分开始-->
-    <div id="page-wrapper" class="gray-bg dashbard-1">
+    <div id="page-wrapper" class="gray-bg">
       <div class="row border-bottom">
         <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">

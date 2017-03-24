@@ -8,62 +8,103 @@
 <title>菜单信息</title>
 </head>
 <body class="fixed-sidebar">
-  <div class="container">
-    <form:form class="form-horizontal" modelAttribute="menu" id="mainForm" action="menu/info" method="post">
-      <div class="page-header text-center">
-        <h4>菜单信息</h4>
-        <form:hidden path="id"/>
-        <form:hidden path="creator"/>
-        <form:hidden path="createTime"/>
-        <form:hidden path="updatePerson"/>
-        <form:hidden path="updateTime"/>
-        <form:hidden path="version"/>
-      </div>
-      <div class="form-group">
-        <label class="col-xs-2 control-label">名称</label>
-        <div class="col-xs-10">
-          <form:input class="form-control" path="name" />
+  <div class="layer-content">
+    <div class="container">
+      <form:form class="form-horizontal" modelAttribute="menu" id="mainForm" action="menu/info" method="post">
+        <div class="page-header text-center">
+          <h4>菜单信息</h4>
+          <form:hidden path="id"/>
+          <form:hidden path="creator"/>
+          <form:hidden path="createTime"/>
+          <form:hidden path="updatePerson"/>
+          <form:hidden path="updateTime"/>
+          <form:hidden path="version"/>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-xs-2 control-label">parentId</label>
-        <div class="col-xs-10">
-          <form:input class="form-control" path="parentId" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-xs-2 control-label">路径</label>
-        <div class="col-xs-10">
-          <form:input class="form-control" path="url" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-xs-2 control-label">图标</label>
-        <div class="col-xs-10">
-          <form:input class="form-control" path="icon" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-xs-2 control-label">序号</label>
-        <div class="col-xs-10">
-          <form:input class="form-control" path="orderNum" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-xs-2 control-label">状态</label>
-        <div class="col-xs-10">
-          <div class="radio i-checks">
-            <form:radiobuttons class="form-control" path="status" itemLabel="description" />
+        <div class="form-group">
+          <label class="col-xs-2 control-label">名称</label>
+          <div class="col-xs-10">
+            <form:input class="form-control" path="name" />
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-xs-2 control-label">备注</label>
-        <div class="col-xs-10">
-          <form:textarea class="form-control" rows="3" path="remark"/>
+        <div class="form-group">
+          <label class="col-xs-2 control-label">parentId</label>
+          <div class="col-xs-10">
+            <form:input class="form-control" path="parentId" />
+          </div>
         </div>
-      </div>
-    </form:form>
+        <div class="form-group">
+          <label class="col-xs-2 control-label">路径</label>
+          <div class="col-xs-10">
+            <form:input class="form-control" path="url" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-2 control-label">图标</label>
+          <div class="col-xs-10">
+            <form:input class="form-control" path="icon" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-2 control-label">序号</label>
+          <div class="col-xs-10">
+            <form:input class="form-control" path="orderNum" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-2 control-label">状态</label>
+          <div class="col-xs-10">
+            <div class="radio i-checks">
+              <form:radiobuttons class="form-control" path="status" itemLabel="description" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-2 control-label">备注</label>
+          <div class="col-xs-10">
+            <form:textarea class="form-control" rows="3" path="remark"/>
+          </div>
+        </div>
+      </form:form>
+    </div>
   </div>
+  <div class="layer-toolbar">
+    <button type="button" class="btn btn-success" id="btnSave">保存</button>
+    <button type="button" class="btn btn-default" id="btnClose">关闭</button>
+  </div>
+<script type="text/javascript">
+$(document).ready(function() {
+	//保存
+	$('#btnSave').click(function() {
+		var loading = layer.load(1);
+		$.ajax({
+			url : 'menu/info',
+			type : 'post',
+			dataType : 'json',
+			data : $('#mainForm').serialize(),
+			success : function(data) {
+				layer.close(loading);
+				if (data.result) {
+					parent.layer.msg(data.des, { time : 2000 });
+					window.location.href = 'menu/info?id=' + data.value;
+				} else {
+					layer.alert(data.des, { icon : 0 });
+				}
+			},
+			error : function(xhr, textStatus, error) {
+				layer.close(loading);
+				layer.alert(error, { icon : 2 });
+			}
+		})
+	})
+
+	//关闭
+	$('#btnClose').click(function() {
+		if (window == top)
+			window.close();
+		else
+			window.layerClose();
+	})
+})
+</script>
 </body>
 </html>

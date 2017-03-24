@@ -98,32 +98,17 @@ $(document).ready(function() {
     
 	//添加根节点
 	$('#btnAddRoot').click(function() {
+		layerAdd(grid, '添加根节点', 'menu/info', '80%', '90%');
+	})
+    
+	//添加根节点
+	$('#btnAdd').click(function() {
 		layer.open({
 			type : 2,
 			title : '添加根节点',
 			area : [ '80%', '90%' ],
 			maxmin : true,
-			content : 'menu/info',
-			btn : [ '保存', '关闭' ],
-			yes : function(index, layero) {
-				var loading = layer.load(1);
-				var mainForm = layer.getChildFrame('#mainForm', index);
-				$.post(mainForm.attr('action'), mainForm.serialize(), function(data) {
-					layer.close(loading);
-					if (data.result) {
-			  			layer.msg(data.des, { time: 2000 });
-			  			var src = layero.find('iframe').attr('src');
-			  			if (src.indexOf('?id=') == -1)
-			  				src = src + '?id=' + data.value;
-			  			layero.find('iframe').attr('src', src);
-					} else {
-			  			layer.alert(data.des, { icon: 0 });
-					}
-				}, 'json');
-			},
-			end : function() {
-				grid.jqxTreeGrid('refresh');
-			}
+			content : 'menu/info'
 		});
 	})
     
@@ -139,28 +124,7 @@ $(document).ready(function() {
 			title : '添加子节点',
 			area : [ '80%', '90%' ],
 			maxmin : true,
-			content : 'menu/info?parentId=' + rows[0].id,
-			btn : [ '保存', '关闭' ],
-			yes : function(index, layero) {
-				var loading = layer.load(1);
-				var mainForm = layer.getChildFrame('#mainForm', index);
-				$.post(mainForm.attr('action'), mainForm.serialize(), function(data) {
-					layer.close(loading);
-					if (data.result) {
-			  			layer.msg(data.des, { time: 2000 });
-			  			var src = layero.find('iframe').attr('src');
-			  			if (src.indexOf('id=') == -1)
-			  				src = src + '&id=' + data.value;
-			  			layero.find('iframe').attr('src', src);
-					} else {
-			  			layer.alert(data.des, { icon: 0 });
-					}
-				}, 'json');
-			},
-			end : function() {
-				//grid.jqxTreeGrid('refresh');
-				location.reload();
-			}
+			content : 'menu/info?parentId=' + rows[0].id
 		});
 	})
 
@@ -176,25 +140,7 @@ $(document).ready(function() {
 			title : '编辑',
 			area : [ '80%', '90%' ],
 			maxmin : true,
-			content : 'menu/info?id=' + rows[0].id,
-			btn : [ '保存', '关闭' ],
-			yes : function(index, layero) {
-				var loading = layer.load(1);
-				var mainForm = layer.getChildFrame('#mainForm', index);
-				$.post(mainForm.attr('action'), mainForm.serialize(), function(data) {
-					layer.close(loading);
-					if (data.result) {
-			  			layer.msg("保存成功", { time: 2000 });
-			  			layero.find('iframe').attr('src', layero.find('iframe').attr('src')); //刷新页面
-					} else {
-			  			layer.alert(data.des, { icon: 0 });
-					}
-				}, 'json');
-			},
-			end : function() {
-				//grid.jqxTreeGrid('refresh');
-				location.reload();
-			}
+			content : 'menu/info?id=' + rows[0].id
 		});
 	})
 

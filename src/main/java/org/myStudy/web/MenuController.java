@@ -71,8 +71,8 @@ public class MenuController extends BaseController {
 				int id = menuService.add(menu);
 				return jsonResult(true, id, "添加成功");
 			} else {
-				int id = menuService.edit(menu);
-				return jsonResult(true, id, "保存成功");
+				menuService.edit(menu);
+				return jsonResult(true, menu.getId(), "保存成功");
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage());

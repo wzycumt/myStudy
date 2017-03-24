@@ -12,4 +12,6 @@ public interface IRelUserRoleDao extends IBaseDao<RelUserRole> {
 	
 	public int deleteByUserId(@Param("userId") int userId, @Param("query") Query query);
 	
+	public int deleteByRoleId(@Param("roleId") int roleId, @Param("query") Query query);
+	
 }

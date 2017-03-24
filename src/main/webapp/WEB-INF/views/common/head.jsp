@@ -36,8 +36,8 @@
 <!-- <script src="http://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script> -->
 
 <!-- layer 弹出层 -->
-<script src="resources/plugins/layer-v3.0.3/layer.js"></script>
-<!-- <script src="http://cdn.bootcss.com/layer/3.0.1/layer.min.js"></script> -->
+<!-- <script src="resources/plugins/layer-v3.0.3/layer.js"></script> -->
+<script src="http://cdn.bootcss.com/layer/3.0.1/layer.min.js"></script>
 
 <!-- laydate 日期选择 -->
 <script src="resources/plugins/laydate-v1.1/laydate.js"></script>

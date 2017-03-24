@@ -1,5 +1,9 @@
 package org.myStudy.entity;
 
+/**
+ * 用户角色关系实体
+ * @author WZY
+ */
 public class RelUserRole extends BaseEntity {
 
     private Integer userId;

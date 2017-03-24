@@ -22,7 +22,7 @@
             enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false">
 			<columnOverride column="STATUS" javaType="org.myStudy.enums.BaseStatusEnum" />
 		</table> -->
-		<table schema="myStudy" tableName="T_REL_USER_ROLE" domainObjectName="RelUserRole" enableCountByExample="false"  
+		<table schema="myStudy" tableName="T_REL_ROLE_MENU" domainObjectName="RelRoleMenu" enableCountByExample="false"  
             enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false">
 		</table>
 	</context>

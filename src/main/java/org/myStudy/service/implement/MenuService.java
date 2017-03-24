@@ -83,7 +83,6 @@ public class MenuService implements IMenuService {
 		return menuDao.editSelective(entity);
 	}
 
-
 	public List<Menu> getMenuTreeByParentId(int id) {
 		List<Menu> rootMenus = menuDao.getChildrenByParentId(id);
 		for(Menu menu : rootMenus){
@@ -91,5 +90,9 @@ public class MenuService implements IMenuService {
 			menu.setChildren(children);
 		}
 		return rootMenus;
+	}
+	
+	public List<Menu> getListByRoleId(int roleId) {
+		return menuDao.getListByRoleId(roleId);
 	}
 }

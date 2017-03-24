@@ -57,13 +57,6 @@ public class RoleController extends BaseController {
 		return "role/info";
 	}
 
-	@RequestMapping(value = "/menuTree", produces = "text/json;charset=UTF-8")
-	@ResponseBody
-	public String menuTree() {
-		List<Menu> menuTree = menuService.getAll();
-		return jsonResult(true, menuTree, "");
-	}
-
 	@RequestMapping(value = "/info", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String save(Role role) {
@@ -75,8 +68,8 @@ public class RoleController extends BaseController {
 				int id = roleService.add(role);
 				return jsonResult(true, id, "添加成功");
 			} else {
-				int id = roleService.edit(role);
-				return jsonResult(true, id, "保存成功");
+				roleService.edit(role);
+				return jsonResult(true, role.getId(), "保存成功");
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -90,6 +83,44 @@ public class RoleController extends BaseController {
 		try {
 			roleService.deleteBatch(ids);
 			return jsonResult(true, null, "删除成功");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return jsonResult(false, null, e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "/authority", method = RequestMethod.GET)
+	public String authority(Integer id, Model model) {
+		Role role = roleService.getById(id);
+		model.addAttribute(role);
+		return "role/authority";
+	}
+
+	@RequestMapping(value = "/allMenus", produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String allMenus(Integer id) {
+		List<Menu> allMenus = menuService.getAll();
+		if (id != null && id != 0) {
+			List<Menu> roleMenus = menuService.getListByRoleId(id);
+			if (roleMenus != null) {
+				for (Menu menu : roleMenus) {
+					allMenus.stream()
+						.filter(m -> m.getId() == menu.getId())
+						.findFirst()
+						.get()
+						.setChecked(true);
+				}
+			}
+		}
+		return jsonResult(true, allMenus, "");
+	}
+
+	@RequestMapping(value = "/saveAuthority", produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String saveAuthority(@RequestParam("roleId") Integer roleId, @RequestParam("menuIds") String menuIds) {
+		try {
+			roleService.saveAuthority(roleId, menuIds);
+			return jsonResult(true, null, "保存成功");
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return jsonResult(false, null, e.getMessage());

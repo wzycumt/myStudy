@@ -87,4 +87,14 @@
 		where PARENT_ID = #{_parameter}
 		order by ORDER_NUM
 	</select>
+
+	<select id="getListByRoleId" resultType="org.myStudy.entity.Menu">
+        select <include refid="Base_Column_List" />
+    	from <include refid="Base_Table" /> t
+    	where exists(
+    		select 1 from T_REL_ROLE_MENU rel 
+    		where rel.MENU_ID = t.ID
+    		and rel.ROLE_ID = #{roleId,jdbcType=INTEGER}
+    	)
+	</select>
 </mapper>
