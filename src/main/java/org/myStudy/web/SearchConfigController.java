@@ -3,7 +3,7 @@ package org.myStudy.web;
 import java.util.List;
 
 import org.myStudy.dto.BootstrapTable;
-import org.myStudy.dto.PageQuery;
+import org.myStudy.dto.Query;
 import org.myStudy.entity.SearchConfig;
 import org.myStudy.service.ISearchConfigService;
 import org.myStudy.web.common.BaseController;
@@ -34,11 +34,11 @@ public class SearchConfigController extends BaseController {
 
 	@RequestMapping(value = "/pageList", produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String pageList(PageQuery pageQuery) {
-		List<SearchConfig> list = searchConfigService.getList(pageQuery.toQuery());
+	public String pageList(Query query) {
 		BootstrapTable<SearchConfig> table = new BootstrapTable<SearchConfig>();
+		List<SearchConfig> list = searchConfigService.getList(query);
 		table.setRows(list);
-		table.setTotal(searchConfigService.getListTotal(pageQuery.toQuery()));
+		table.setTotal(searchConfigService.getListTotal(query));
 		return table.toJsonString();
 	}
 

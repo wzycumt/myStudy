@@ -1,8 +1,11 @@
 package org.myStudy.web.common;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.myStudy.dto.Query;
+import org.myStudy.dto.Query.SidePaginationEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
@@ -23,14 +26,32 @@ public class BaseController {
 	 * @return
 	 */
 	protected String jsonResult(boolean result, Object value, String descriptoin) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", result);
-		map.put("value", value);
-		map.put("des", descriptoin);
-		ObjectMapper json = new ObjectMapper();
-		json.setSerializationInclusion(Include.ALWAYS);
 		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("result", result);
+			map.put("value", value);
+			map.put("des", descriptoin);
+			ObjectMapper json = new ObjectMapper();
+			json.setSerializationInclusion(Include.ALWAYS);
 			return json.writeValueAsString(map);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return e.getMessage();
+		}
+	}
+
+	protected String listResult(List<?> list, Query query) {
+		try {
+			ObjectMapper json = new ObjectMapper();
+			json.setSerializationInclusion(Include.ALWAYS);
+			if (query.isPaged()) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("rows", list);
+				map.put("total", query.getTotal());
+				return json.writeValueAsString(map);
+			} else {
+				return json.writeValueAsString(list);
+			}
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 			return e.getMessage();

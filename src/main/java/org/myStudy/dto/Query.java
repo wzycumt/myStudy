@@ -3,6 +3,7 @@ package org.myStudy.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.myStudy.dto.QueryFilter.OperatorEnum;
 import org.myStudy.enums.IEnum;
 
 /**
@@ -12,11 +13,14 @@ import org.myStudy.enums.IEnum;
 public class Query {
 
 	private List<QueryFilter> queryFilters;
-	private List<SortColumn> sortColumns;
+	private List<QuerySort> sortColumns;
 
-	private boolean isPaged; //是否分页
-	private int offset;
-	private int limit;
+//	private SidePaginationEnum sidePagination; //分页方式：server-服务器端分页，client-客户端分页，其他-不分页
+	private boolean paged;
+	private int pageNumber;
+	private int pageSize;
+	
+	private int total; //分页查询的结果总数
 
 	public List<QueryFilter> getQueryFilters() {
 		return queryFilters;
@@ -26,40 +30,56 @@ public class Query {
 		this.queryFilters = queryFilters;
 	}
 
-	public List<SortColumn> getSortColumns() {
+	public List<QuerySort> getSortColumns() {
 		return sortColumns;
 	}
 
-	public void setSortColumns(List<SortColumn> sortColumns) {
+	public void setSortColumns(List<QuerySort> sortColumns) {
 		this.sortColumns = sortColumns;
 	}
 
-	/**
-	 * 是否分页
-	 * @return
-	 */
+//	/**
+//	 * 分页方式：server-服务器端分页，client-客户端分页，其他-不分页
+//	 * @return
+//	 */
+//	public SidePaginationEnum getSidePagination() {
+//		return sidePagination;
+//	}
+//
+//	public void setSidePagination(SidePaginationEnum sidePagination) {
+//		this.sidePagination = sidePagination;
+//	}
+	
 	public boolean isPaged() {
-		return isPaged;
+		return paged;
 	}
 
-	public void setPaged(boolean isPaged) {
-		this.isPaged = isPaged;
+	public void setPaged(boolean paged) {
+		this.paged = paged;
 	}
 
-	public int getOffset() {
-		return offset;
+	public int getPageNumber() {
+		return pageNumber;
 	}
 
-	public void setOffset(int offset) {
-		this.offset = offset;
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 
-	public int getLimit() {
-		return limit;
+	public int getPageSize() {
+		return pageSize;
 	}
 
-	public void setLimit(int limit) {
-		this.limit = limit;
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
 	}
 
 	public void addQueryFilter(String columnName, OperatorEnum operator, Object value) {
@@ -70,142 +90,22 @@ public class Query {
 
 	public void addSortColumn(String columnName, boolean isDescend) {
 		if (sortColumns == null)
-			sortColumns = new ArrayList<SortColumn>();
-		sortColumns.add(new SortColumn(columnName, isDescend));
-	}
-
-	/**
-	 * 将驼峰式命名的字符串转换为下划线大写方式。如果传入null，则返回null。</br>
-	 * 例如：helloWorld->HELLO_WORLD
-	 * @param name 转换前的驼峰式命名的字符串
-	 * @return 转换后下划线大写方式命名的字符串
-	 */
-	private String toUnderscoreName(String name) {
-		if (name == null)
-			return null;
-	    StringBuilder result = new StringBuilder();
-	    if (name.length() > 0) {
-	        // 将第一个字符处理成大写
-	        result.append(name.substring(0, 1).toUpperCase());
-	        // 循环处理其余字符
-	        for (int i = 1; i < name.length(); i++) {
-	            String s = name.substring(i, i + 1);
-	            // 在大写字母前添加下划线
-	            if (s.equals(s.toUpperCase()) && !Character.isDigit(s.charAt(0))) {
-	                result.append("_");
-	            }
-	            // 其他字符直接转成大写
-	            result.append(s.toUpperCase());
-	        }
-	    }
-	    return result.toString();
-	}
-
-	/**
-	 * 查询条件过滤类
-	 * @author WZY
-	 */
-	public class QueryFilter {
-
-		private String columnName;
-		private OperatorEnum operator;
-		private Object value;
-
-		public QueryFilter(String columnName, OperatorEnum operator, Object value) {
-			if (columnName.contains("_"))
-				this.columnName = columnName;
-			else
-				this.columnName = toUnderscoreName(columnName);
-			this.operator = operator;
-			this.value = value;
-		}
-
-		public String getColumnName() {
-			return columnName;
-		}
-
-		public void setColumnName(String columnName) {
-			if (columnName.contains("_"))
-				this.columnName = columnName;
-			else
-				this.columnName = toUnderscoreName(columnName);
-		}
-
-		public OperatorEnum getOperator() {
-			return operator;
-		}
-
-		public void setOperator(OperatorEnum operator) {
-			this.operator = operator;
-		}
-
-		public Object getValue() {
-			return value;
-		}
-
-		public void setValue(Object value) {
-			this.value = value;
-		}
-	}
-
-	/**
-	 * 排序类
-	 * @author WZY
-	 */
-	public class SortColumn {
-
-		private String columnName;
-		private boolean isDescend = false;
-
-		public SortColumn(String columnName, boolean isDescend) {
-			if (columnName.contains("_"))
-				this.columnName = columnName;
-			else
-				this.columnName = toUnderscoreName(columnName);
-			this.isDescend = isDescend;
-		}
-
-		public String getColumnName() {
-			return columnName;
-		}
-
-		public void setColumnName(String columnName) {
-			if (columnName.contains("_"))
-				this.columnName = columnName;
-			else
-				this.columnName = toUnderscoreName(columnName);
-		}
-
-		public boolean isDescend() {
-			return isDescend;
-		}
-
-		public void setDescend(boolean isDescend) {
-			this.isDescend = isDescend;
-		}
+			sortColumns = new ArrayList<QuerySort>();
+		sortColumns.add(new QuerySort(columnName, isDescend));
 	}
 
 	/**
 	 * 运算符枚举
 	 * @author WZY
 	 */
-	public enum OperatorEnum implements IEnum {
-		LIKE(0, "like"),
-		EQUAL(1, "="),
-		UNEQUAL(2, "<>"),
-		LESS_THAN(3, "<"),
-		LESS_THAN_OR_EQUAL(4, "<="),
-		GREATER_THAN(5,">"),
-		GREATER_THAN_OR_EQUAL(6, ">="),
-		IN(7, "in"),
-		NOT_IN(8, "not in"),
-		IS_NULL(9, "is null"),
-		IS_NOT_NULL(10, "is not null");
+	public enum SidePaginationEnum implements IEnum {
+		CLIENT(0, "客户端分页"),
+		SERVER(1, "服务器端分页");
 
 		private int vlaue;
 		private String description;
 
-		private OperatorEnum(int vlaue, String description) {
+		private SidePaginationEnum(int vlaue, String description) {
 			this.vlaue = vlaue;
 			this.description = description;
 		}

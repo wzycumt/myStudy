@@ -3,7 +3,7 @@ package org.myStudy.web;
 import java.util.List;
 
 import org.myStudy.dto.BootstrapTable;
-import org.myStudy.dto.PageQuery;
+import org.myStudy.dto.Query;
 import org.myStudy.entity.Menu;
 import org.myStudy.entity.Role;
 import org.myStudy.service.IMenuService;
@@ -37,11 +37,11 @@ public class RoleController extends BaseController {
 
 	@RequestMapping(value = "/pageList", produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String pageList(PageQuery pageQuery) {
-		List<Role> list = roleService.getList(pageQuery.toQuery());
+	public String pageList(Query query) {
 		BootstrapTable<Role> table = new BootstrapTable<Role>();
+		List<Role> list = roleService.getList(query);
 		table.setRows(list);
-		table.setTotal(roleService.getListTotal(pageQuery.toQuery()));
+		table.setTotal(roleService.getListTotal(query));
 		return table.toJsonString();
 	}
 

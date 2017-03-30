@@ -41,8 +41,8 @@ public class MessageController extends BaseController {
 		try {
 			Query query = new Query();
 			query.setPaged(true);
-			query.setOffset((page - 1) * 10);
-			query.setLimit(10);
+			query.setPageNumber((page - 1) * 10);
+			query.setPageSize(10);
 			query.addSortColumn("createTime", true);
 			List<Message> list = messageService.getListWithNum(query);
 			return jsonResult(true, list, "");

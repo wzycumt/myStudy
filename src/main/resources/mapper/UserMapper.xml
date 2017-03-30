@@ -64,8 +64,8 @@
         select <include refid="Base_Column_List" />
     	from <include refid="Base_Table" />
 		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
-		<include refid="org.myStudy.dao.BaseMapper.Sort" />
-		<include refid="org.myStudy.dao.BaseMapper.Pagination" />
+<!-- 		<include refid="org.myStudy.dao.BaseMapper.Sort" /> -->
+<!-- 		<include refid="org.myStudy.dao.BaseMapper.Pagination" /> -->
 	</select>
 	
 	<!-- 获取分页查询结果的总数 -->

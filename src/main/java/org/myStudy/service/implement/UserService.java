@@ -6,7 +6,7 @@ import java.util.List;
 import org.myStudy.dao.IRelUserRoleDao;
 import org.myStudy.dao.IUserDao;
 import org.myStudy.dto.Query;
-import org.myStudy.dto.Query.OperatorEnum;
+import org.myStudy.dto.QueryFilter.OperatorEnum;
 import org.myStudy.entity.RelUserRole;
 import org.myStudy.entity.Role;
 import org.myStudy.entity.User;
@@ -150,7 +150,7 @@ public class UserService implements IUserService {
 
 	public User getByUserName(String loginName) {
 		Query query = new Query();
-		query.addQueryFilter("user_name", OperatorEnum.EQUAL, loginName);
+		query.addQueryFilter("user_name", OperatorEnum.EQUALS, loginName);
 		List<User> list = userDao.getList(query);
 		if (list != null && !list.isEmpty())
 			return list.get(0);

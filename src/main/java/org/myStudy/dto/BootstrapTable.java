@@ -6,15 +6,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class BootstrapTable<T> {
-	
-	private int total;
-	private List<T> rows;
 
-	public int getTotal() {
-		return total;
+	private List<T> rows;
+	private int total;
+
+	public BootstrapTable() {
+		
 	}
 
-	public void setTotal(int total) {
+	public BootstrapTable(List<T> rows, int total) {
+		this.rows = rows;
 		this.total = total;
 	}
 
@@ -24,6 +25,14 @@ public class BootstrapTable<T> {
 
 	public void setRows(List<T> rows) {
 		this.rows = rows;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
 	}
 
 	public String toJsonString() {

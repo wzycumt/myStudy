@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.myStudy.dto.BootstrapTable;
-import org.myStudy.dto.PageQuery;
+import org.myStudy.dto.Query;
 import org.myStudy.dto.UserModel;
 import org.myStudy.entity.Role;
 import org.myStudy.entity.User;
@@ -41,12 +41,9 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/pageList", produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String pageList(PageQuery pageQuery) {
-		List<User> list = userService.getList(pageQuery.toQuery());
-		BootstrapTable<User> table = new BootstrapTable<User>();
-		table.setRows(list);
-		table.setTotal(userService.getListTotal(pageQuery.toQuery()));
-		return table.toJsonString();
+	public String pageList(Query query) {
+		List<User> list = userService.getList(query);
+		return listResult(list, query);
 	}
 
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
@@ -70,7 +67,6 @@ public class UserController extends BaseController {
 		if (userModel == null || userModel.getUser() == null) {
 			return jsonResult(false, null, "model is null");
 		}
-		System.out.println(userModel.getUser());
 		try {
 			if (userModel.getUser().getId() == 0) {
 				int res = userService.addWithRoles(userModel.getUser());

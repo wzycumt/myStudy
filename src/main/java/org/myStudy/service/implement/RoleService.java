@@ -6,7 +6,7 @@ import java.util.List;
 import org.myStudy.dao.IRelRoleMenuDao;
 import org.myStudy.dao.IRoleDao;
 import org.myStudy.dto.Query;
-import org.myStudy.dto.Query.OperatorEnum;
+import org.myStudy.dto.QueryFilter.OperatorEnum;
 import org.myStudy.entity.RelRoleMenu;
 import org.myStudy.entity.Role;
 import org.myStudy.service.IRoleService;

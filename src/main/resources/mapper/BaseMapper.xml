@@ -7,19 +7,21 @@
 		<if test="queryFilters != null">
 	        <where>
 	    		<foreach collection="queryFilters" item="queryFilter" separator=" and ">
-	    			<choose>
-	    				<when test="queryFilter.operator.value == 0">${queryFilter.columnName} like CONCAT('%', #{queryFilter.value}, '%')</when>
-	    				<when test="queryFilter.operator.value == 1">${queryFilter.columnName} = #{queryFilter.value}</when>
-	    				<when test="queryFilter.operator.value == 2">${queryFilter.columnName} <![CDATA[<>]]> #{queryFilter.value}</when>
-	    				<when test="queryFilter.operator.value == 3">${queryFilter.columnName} <![CDATA[<]]> #{queryFilter.value}</when>
-	    				<when test="queryFilter.operator.value == 4">${queryFilter.columnName} <![CDATA[<=]]> #{queryFilter.value}</when>
-	    				<when test="queryFilter.operator.value == 5">${queryFilter.columnName} > #{queryFilter.value}</when>
-	    				<when test="queryFilter.operator.value == 6">${queryFilter.columnName} >= #{queryFilter.value}</when>
-	    				<when test="queryFilter.operator.value == 7">${queryFilter.columnName} in (${queryFilter.value})</when>
-	    				<when test="queryFilter.operator.value == 8">${queryFilter.columnName} not in (${queryFilter.value})</when>
-	    				<when test="queryFilter.operator.value == 9">${queryFilter.columnName} is null</when>
-	    				<when test="queryFilter.operator.value == 10">${queryFilter.columnName} is not null</when>
-	    			</choose>
+	    			<if test="queryFilter.columnName != null and queryFilter.value != null">
+		    			<choose>
+		    				<when test="queryFilter.operator.value == 0">${queryFilter.columnName} like CONCAT('%', #{queryFilter.value}, '%')</when>
+		    				<when test="queryFilter.operator.value == 1">${queryFilter.columnName} = #{queryFilter.value}</when>
+		    				<when test="queryFilter.operator.value == 2">${queryFilter.columnName} <![CDATA[<>]]> #{queryFilter.value}</when>
+		    				<when test="queryFilter.operator.value == 3">${queryFilter.columnName} <![CDATA[<]]> #{queryFilter.value}</when>
+		    				<when test="queryFilter.operator.value == 4">${queryFilter.columnName} <![CDATA[<=]]> #{queryFilter.value}</when>
+		    				<when test="queryFilter.operator.value == 5">${queryFilter.columnName} > #{queryFilter.value}</when>
+		    				<when test="queryFilter.operator.value == 6">${queryFilter.columnName} >= #{queryFilter.value}</when>
+		    				<when test="queryFilter.operator.value == 7">${queryFilter.columnName} in (${queryFilter.value})</when>
+		    				<when test="queryFilter.operator.value == 8">${queryFilter.columnName} not in (${queryFilter.value})</when>
+		    				<when test="queryFilter.operator.value == 9">${queryFilter.columnName} is null</when>
+		    				<when test="queryFilter.operator.value == 10">${queryFilter.columnName} is not null</when>
+		    			</choose>
+	    			</if>
 	    		</foreach>
 	        </where>
         </if>
@@ -36,8 +38,8 @@
 	
 	<!-- 分页 -->
 	<sql id="Pagination">
-        <if test="isPaged">
-        	limit #{offset},#{limit}
-        </if>
+<!--         <if test="paged"> -->
+<!--         	limit #{pageNumber},#{pageSize} -->
+<!--         </if> -->
 	</sql>
 </mapper>

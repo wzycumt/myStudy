@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.myStudy.dao.ISearchConfigDao;
 import org.myStudy.dto.Query;
-import org.myStudy.dto.Query.OperatorEnum;
+import org.myStudy.dto.QueryFilter.OperatorEnum;
 import org.myStudy.entity.SearchConfig;
 import org.myStudy.enums.BaseStatusEnum;
 import org.myStudy.service.ISearchConfigFieldService;
@@ -111,7 +111,7 @@ public class SearchConfigService implements ISearchConfigService {
 	public SearchConfig getByCode(String code) {
 		if (!StringUtility.isNullOrEmpty(code)) {
 			Query query = new Query();
-			query.addQueryFilter("code", OperatorEnum.EQUAL, code);
+			query.addQueryFilter("code", OperatorEnum.EQUALS, code);
 			List<SearchConfig> list = getList(query);
 			if (list != null && !list.isEmpty())
 				return list.get(0);

@@ -10,6 +10,53 @@
     <div class="panel panel-default">
       <div class="panel-heading">用户列表</div>
       <div class="panel-body">
+        <div style="width:400px;display:none;">
+          <form class="form-horizontal" id="formSearch_" method="post">
+            <div class="form-group row">
+              <label class="col-xs-3 control-label">用户名</label>
+              <div class="col-xs-9">
+                <input type="text" class="form-control" name="userName" placeholder="用户名" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-xs-3 control-label">年龄</label>
+              <div class="col-xs-9">
+                <div class="input-group">
+                  <input type="text" class="form-control input-sm" name="age_Start" placeholder="起"/>
+                  <span class="input-group-addon">-</span>
+                  <input type="text" class="form-control input-sm" name="age_End" placeholder="止"/>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-xs-3 control-label">布尔</label>
+              <div class="col-xs-9">
+                <label class="radio-inline i-checks"><input type="radio" class="form-control" name="bool" value="true">是</label>
+                <label class="radio-inline i-checks"><input type="radio" class="form-control" name="bool" value="false" checked="checked">否</label>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-xs-3 control-label">创建时间</label>
+              <div class="col-xs-9">
+                <div class="input-group">
+                    <input type="text" class="form-control layer-date" name="createTime_Start" value="2014-11-11" />
+                    <span class="input-group-addon">-</span>
+                    <input type="text" class="form-control layer-date" name="createTime_End" value="2014-11-17" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-xs-3 control-label">状态</label>
+              <div class="col-xs-9">
+                <select class="form-control" name="status">
+                  <option value="-1">--请选择--</option>
+                  <option value="0">无效</option>
+                  <option value="1">有效</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
         <div class="btn-group" id="toolbar">
           <button type="button" class="btn btn-success" id="btnAdd"><i class="fa fa-plus"></i>&nbsp;添加</button>
           <button type="button" class="btn btn-primary" id="btnEdit"><i class="fa fa-edit"></i>&nbsp;编辑</button>
@@ -31,7 +78,7 @@
           <thead>
             <tr>
                 <th data-field="isChecked" data-checkbox="true"></th>
-                <th data-field="id" data-visible="false">ID</th>
+                <th data-field="id" data-visible="false" data-switchable="false">ID</th>
                 <th data-field="userName" data-sortable="true">用户名</th>
                 <th data-field="nickname" data-sortable="true">昵称</th>
                 <th data-field="realName" data-sortable="true">真实姓名</th>
@@ -55,12 +102,12 @@
 		$('#btnAdd').click(function() {
 			layerAdd(grid, '添加', 'user/info', '80%', '90%');
 		})
-		
+
 		//编辑
 		$('#btnEdit').click(function() {
 			layerEdit(grid, '编辑', 'user/info', '80%', '90%');
 		})
-		
+
 		//删除
 		$('#btnRemove').click(function() {
 			operateGird(grid, '删除', 'user/delete');

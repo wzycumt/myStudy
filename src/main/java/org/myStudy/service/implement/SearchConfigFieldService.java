@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.myStudy.dao.ISearchConfigFieldDao;
 import org.myStudy.dto.Query;
-import org.myStudy.dto.Query.OperatorEnum;
+import org.myStudy.dto.QueryFilter.OperatorEnum;
 import org.myStudy.entity.SearchConfigField;
 import org.myStudy.service.ISearchConfigFieldService;
 import org.myStudy.utility.StringUtility;
@@ -107,7 +107,7 @@ public class SearchConfigFieldService implements ISearchConfigFieldService {
 	public List<SearchConfigField> getBySearchConfigId(int id) {
 		if (id > 0) {
 			Query query = new Query();
-			query.addQueryFilter("searchConfigId", OperatorEnum.EQUAL, id);
+			query.addQueryFilter("searchConfigId", OperatorEnum.EQUALS, id);
 			return searchConfigFieldDao.getList(query);
 		}
 		return null;
