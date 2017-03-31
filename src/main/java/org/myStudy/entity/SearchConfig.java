@@ -34,6 +34,9 @@ public class SearchConfig extends BaseEntity {
 	}
 
 	public BaseStatusEnum getStatus() {
+    	if (status == null) {
+    		status = BaseStatusEnum.INVALID;
+    	}
 		return status;
 	}
 

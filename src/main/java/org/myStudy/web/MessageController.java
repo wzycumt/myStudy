@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.myStudy.dto.MessageModel;
 import org.myStudy.dto.Query;
+import org.myStudy.dto.QuerySort.SortOrderEnum;
 import org.myStudy.entity.Message;
 import org.myStudy.service.IMessageService;
 import org.myStudy.utility.VerifyCodeUtility;
@@ -41,9 +42,9 @@ public class MessageController extends BaseController {
 		try {
 			Query query = new Query();
 			query.setPaged(true);
-			query.setPageNumber((page - 1) * 10);
+			query.setPageNumber(page);
 			query.setPageSize(10);
-			query.addSortColumn("createTime", true);
+			query.addSortColumn("createTime", SortOrderEnum.DESC);
 			List<Message> list = messageService.getListWithNum(query);
 			return jsonResult(true, list, "");
 		} catch (Exception e) {

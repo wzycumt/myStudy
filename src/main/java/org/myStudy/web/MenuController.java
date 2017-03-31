@@ -35,7 +35,7 @@ public class MenuController extends BaseController {
 	@RequestMapping(value = "/treeList", produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String treeList() {
-		List<Menu> list = menuService.getAll();
+		List<Menu> list = menuService.getList();
 		ObjectMapper json = new ObjectMapper();
 		try {
 			return json.writeValueAsString(list);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.myStudy.dto.QueryFilter.OperatorEnum;
+import org.myStudy.dto.QuerySort.SortOrderEnum;
 import org.myStudy.enums.IEnum;
 
 /**
@@ -38,18 +39,6 @@ public class Query {
 		this.sortColumns = sortColumns;
 	}
 
-//	/**
-//	 * 分页方式：server-服务器端分页，client-客户端分页，其他-不分页
-//	 * @return
-//	 */
-//	public SidePaginationEnum getSidePagination() {
-//		return sidePagination;
-//	}
-//
-//	public void setSidePagination(SidePaginationEnum sidePagination) {
-//		this.sidePagination = sidePagination;
-//	}
-	
 	public boolean isPaged() {
 		return paged;
 	}
@@ -88,10 +77,10 @@ public class Query {
 		queryFilters.add(new QueryFilter(columnName, operator, value));
 	}
 
-	public void addSortColumn(String columnName, boolean isDescend) {
+	public void addSortColumn(String columnName, SortOrderEnum sortOrder) {
 		if (sortColumns == null)
 			sortColumns = new ArrayList<QuerySort>();
-		sortColumns.add(new QuerySort(columnName, isDescend));
+		sortColumns.add(new QuerySort(columnName, sortOrder));
 	}
 
 	/**

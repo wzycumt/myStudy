@@ -2,7 +2,6 @@ package org.myStudy.web;
 
 import java.util.List;
 
-import org.myStudy.dto.BootstrapTable;
 import org.myStudy.dto.Query;
 import org.myStudy.entity.SearchConfig;
 import org.myStudy.service.ISearchConfigService;
@@ -29,17 +28,14 @@ public class SearchConfigController extends BaseController {
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
-		return "user/index";
+		return "searchConfig/index";
 	}
 
 	@RequestMapping(value = "/pageList", produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String pageList(Query query) {
-		BootstrapTable<SearchConfig> table = new BootstrapTable<SearchConfig>();
 		List<SearchConfig> list = searchConfigService.getList(query);
-		table.setRows(list);
-		table.setTotal(searchConfigService.getListTotal(query));
-		return table.toJsonString();
+		return listResult(list, query);
 	}
 
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
@@ -48,10 +44,10 @@ public class SearchConfigController extends BaseController {
 		if (id == null || id == 0) {
 			searchConfig = new SearchConfig();
 		} else {
-			searchConfig = searchConfigService.getById(id);
+			searchConfig = searchConfigService.getByIdWithChildren(id);
 		}
 		model.addAttribute(searchConfig);
-		return "user/info";
+		return "searchConfig/info";
 	}
 
 	@RequestMapping(value = "/info", produces = "text/json;charset=UTF-8")
@@ -61,13 +57,13 @@ public class SearchConfigController extends BaseController {
 			return jsonResult(false, null, "model is null");
 		}
 		try {
-			int res;
 			if (searchConfig.getId() == 0) {
-				res = searchConfigService.add(searchConfig);
+				int id = searchConfigService.add(searchConfig);
+				return jsonResult(true, id, "");
 			} else {
-				res = searchConfigService.edit(searchConfig);
+				searchConfigService.edit(searchConfig);
+				return jsonResult(true, searchConfig.getId(), "");
 			}
-			return jsonResult(true, res, "");
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return jsonResult(false, 0, e.getMessage());

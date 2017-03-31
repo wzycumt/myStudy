@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.myStudy.dto.BootstrapTable;
 import org.myStudy.dto.Query;
 import org.myStudy.dto.UserModel;
 import org.myStudy.entity.Role;
@@ -52,7 +51,7 @@ public class UserController extends BaseController {
 		if (id != null && id != 0) {
 			userModel.setUser(userService.getById(id, true));
 		}
-		List<Role> roleList = roleService.getAll();
+		List<Role> roleList = roleService.getList();
 		Map<Integer, String> dicRoleList = new HashMap<Integer, String>();
 		dicRoleList.put(0, "--请选择--");
 		dicRoleList.putAll(roleList.stream().collect(Collectors.toMap(Role::getId, Role::getName)));

@@ -40,17 +40,13 @@ public class UserService implements IUserService {
 			return getById(id);
 		}
 	}
-
-	public List<User> getAll() {
-		return userDao.getAll();
-	}
 	
 	public List<User> getList(Query query) {
 		return userDao.getList(query);
 	}
-
-	public int getListTotal(Query query) {
-		return userDao.getListTotal(query);
+	
+	public List<User> getList() {
+		return userDao.getList();
 	}
 
 	public int deleteById(int id) throws Exception {

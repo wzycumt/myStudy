@@ -20,21 +20,17 @@ public class MessageService implements IMessageService {
 	public Message getById(int id) {
 		return messageDao.getById(id);
 	}
-
-	public List<Message> getAll() {
-		return messageDao.getAll();
-	}
 	
 	public List<Message> getList(Query query) {
 		return messageDao.getList(query);
 	}
+
+	public List<Message> getList() {
+		return messageDao.getList();
+	}
 	
 	public List<Message> getListWithNum(Query query) {
 		return messageDao.getListWithNum(query);
-	}
-
-	public int getListTotal(Query query) {
-		return messageDao.getListTotal(query);
 	}
 
 	public int deleteById(int id) throws Exception {

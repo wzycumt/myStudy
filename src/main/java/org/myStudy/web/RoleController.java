@@ -2,7 +2,6 @@ package org.myStudy.web;
 
 import java.util.List;
 
-import org.myStudy.dto.BootstrapTable;
 import org.myStudy.dto.Query;
 import org.myStudy.entity.Menu;
 import org.myStudy.entity.Role;
@@ -38,11 +37,8 @@ public class RoleController extends BaseController {
 	@RequestMapping(value = "/pageList", produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String pageList(Query query) {
-		BootstrapTable<Role> table = new BootstrapTable<Role>();
 		List<Role> list = roleService.getList(query);
-		table.setRows(list);
-		table.setTotal(roleService.getListTotal(query));
-		return table.toJsonString();
+		return listResult(list, query);
 	}
 
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
@@ -99,7 +95,7 @@ public class RoleController extends BaseController {
 	@RequestMapping(value = "/allMenus", produces = "text/json;charset=UTF-8")
 	@ResponseBody
 	public String allMenus(Integer id) {
-		List<Menu> allMenus = menuService.getAll();
+		List<Menu> allMenus = menuService.getList();
 		if (id != null && id != 0) {
 			List<Menu> roleMenus = menuService.getListByRoleId(id);
 			if (roleMenus != null) {

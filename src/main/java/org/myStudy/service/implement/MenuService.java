@@ -23,16 +23,12 @@ public class MenuService implements IMenuService {
 		return menuDao.getById(id);
 	}
 
-	public List<Menu> getAll() {
-		return menuDao.getAll();
-	}
-
 	public List<Menu> getList(Query query) {
 		return menuDao.getList(query);
 	}
 
-	public int getListTotal(Query query) {
-		return menuDao.getListTotal(query);
+	public List<Menu> getList() {
+		return menuDao.getList();
 	}
 
 	public int deleteById(int id) throws Exception {

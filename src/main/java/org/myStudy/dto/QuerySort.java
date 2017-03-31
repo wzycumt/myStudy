@@ -10,19 +10,18 @@ import org.myStudy.utility.StringUtility;
 public class QuerySort {
 
 	private String columnName;
-	private boolean isDescend = false;
 	private SortOrderEnum sortOrder;
 
 	public QuerySort() {
 		
 	}
 
-	public QuerySort(String columnName, boolean isDescend) {
+	public QuerySort(String columnName, SortOrderEnum sortOrder) {
 		if (columnName.contains("_"))
 			this.columnName = columnName;
 		else
 			this.columnName = StringUtility.toUnderscoreName(columnName);
-		this.isDescend = isDescend;
+		this.sortOrder = sortOrder;
 	}
 
 	public String getColumnName() {
@@ -34,14 +33,6 @@ public class QuerySort {
 			this.columnName = columnName;
 		else
 			this.columnName = StringUtility.toUnderscoreName(columnName);
-	}
-
-	public boolean isDescend() {
-		return isDescend;
-	}
-
-	public void setDescend(boolean isDescend) {
-		this.isDescend = isDescend;
 	}
 
 	public SortOrderEnum getSortOrder() {

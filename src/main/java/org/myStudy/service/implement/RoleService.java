@@ -28,10 +28,6 @@ public class RoleService implements IRoleService {
 	public Role getById(int id) {
 		return roleDao.getById(id);
 	}
-
-	public List<Role> getAll() {
-		return roleDao.getAll();
-	}
 	
 	public List<Role> getList(Query query) {
 		if (query == null)
@@ -39,8 +35,8 @@ public class RoleService implements IRoleService {
 		return roleDao.getList(query);
 	}
 
-	public int getListTotal(Query query) {
-		return roleDao.getListTotal(query);
+	public List<Role> getList() {
+		return roleDao.getList();
 	}
 
 	public int deleteById(int id) throws Exception {

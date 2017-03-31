@@ -27,18 +27,13 @@ public class SearchConfigFieldService implements ISearchConfigFieldService {
 	}
 
 	@Override
-	public List<SearchConfigField> getAll() {
-		return searchConfigFieldDao.getAll();
-	}
-
-	@Override
 	public List<SearchConfigField> getList(Query query) {
 		return searchConfigFieldDao.getList(query);
 	}
 
 	@Override
-	public int getListTotal(Query query) {
-		return searchConfigFieldDao.getListTotal(query);
+	public List<SearchConfigField> getList() {
+		return searchConfigFieldDao.getList();
 	}
 
 	@Override

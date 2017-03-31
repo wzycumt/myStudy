@@ -31,18 +31,13 @@ public class SearchConfigService implements ISearchConfigService {
 	}
 
 	@Override
-	public List<SearchConfig> getAll() {
-		return searchConfigDao.getAll();
-	}
-
-	@Override
 	public List<SearchConfig> getList(Query query) {
 		return searchConfigDao.getList(query);
 	}
 
 	@Override
-	public int getListTotal(Query query) {
-		return searchConfigDao.getListTotal(query);
+	public List<SearchConfig> getList() {
+		return searchConfigDao.getList();
 	}
 
 	@Override
@@ -105,7 +100,7 @@ public class SearchConfigService implements ISearchConfigService {
 		if (entity != null) {
 			entity.setFields(searchConfigFieldService.getBySearchConfigId(id));
 		}
-		return searchConfigDao.getById(id);
+		return entity;
 	}
 
 	public SearchConfig getByCode(String code) {

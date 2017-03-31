@@ -11,24 +11,10 @@
     	from <include refid="Base_Table" />
 		where ID = #{id,jdbcType=INTEGER}
 	</select>
-
-	<select id="getAll" resultType="org.myStudy.entity.RelUserRole">
-        select <include refid="Base_Column_List" />
-    	from <include refid="Base_Table" />
-	</select>
 	
 	<!-- 获取集合 -->
 	<select id="getList" parameterType="org.myStudy.dto.Query" resultType="org.myStudy.entity.RelUserRole">
         select <include refid="Base_Column_List" />
-    	from <include refid="Base_Table" />
-		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
-		<include refid="org.myStudy.dao.BaseMapper.Sort" />
-		<include refid="org.myStudy.dao.BaseMapper.Pagination" />
-	</select>
-	
-	<!-- 获取分页查询结果的总数 -->
-	<select id="getListTotal" parameterType="org.myStudy.dto.Query" resultType="int">
-        select count(1)
     	from <include refid="Base_Table" />
 		<include refid="org.myStudy.dao.BaseMapper.Query_Filter" />
 	</select>
