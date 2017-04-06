@@ -6,12 +6,13 @@ import org.myStudy.dao.ISearchConfigDao;
 import org.myStudy.dto.Query;
 import org.myStudy.dto.QueryFilter.OperatorEnum;
 import org.myStudy.entity.SearchConfig;
-import org.myStudy.enums.BaseStatusEnum;
+import org.myStudy.entity.SearchConfigField;
 import org.myStudy.service.ISearchConfigFieldService;
 import org.myStudy.service.ISearchConfigService;
 import org.myStudy.utility.StringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 查询配置服务层
@@ -63,31 +64,61 @@ public class SearchConfigService implements ISearchConfigService {
 	}
 
 	@Override
+	@Transactional
 	public int add(SearchConfig entity) throws Exception {
 		//校验
-		if (StringUtility.isNullOrEmpty(entity.getCode())) {
+		if (StringUtility.isNullOrEmpty(entity.getCode()))
 			throw new Exception("编码不能为空");
+		SearchConfig searchConfig = getByCode(entity.getCode());
+		if (searchConfig != null)
+			throw new Exception("编码重复");
+		for (SearchConfigField field : entity.getFields()) {
+			if (StringUtility.isNullOrEmpty(field.getDisplayName()))
+				throw new Exception("显示名称不能为空");
+			if (StringUtility.isNullOrEmpty(field.getFieldName()))
+				throw new Exception("字段名称不能为空");
 		}
-		entity.setStatus(BaseStatusEnum.VALID);
 		searchConfigDao.add(entity);
+		if (entity.getFields() != null && !entity.getFields().isEmpty()) {
+			entity.getFields().forEach(o -> {o.setSearchConfigId(entity.getId());});
+			searchConfigFieldService.addBatch(entity.getFields());
+		}
 		return entity.getId();
 	}
 
 	@Override
+	@Transactional
 	public int edit(SearchConfig entity) throws Exception {
 		//校验
 		if (StringUtility.isNullOrEmpty(entity.getCode())) {
 			throw new Exception("编码不能为空");
 		}
+		SearchConfig searchConfig = getByCode(entity.getCode());
+		if (searchConfig != null && searchConfig.getId() != entity.getId())
+			throw new Exception("编码重复");
+		for (SearchConfigField field : entity.getFields()) {
+			if (StringUtility.isNullOrEmpty(field.getDisplayName()))
+				throw new Exception("显示名称不能为空");
+			if (StringUtility.isNullOrEmpty(field.getFieldName()))
+				throw new Exception("字段名称不能为空");
+		}
 		SearchConfig dbEntity = searchConfigDao.getById(entity.getId());
 		if (dbEntity == null) {
 			throw new Exception("实体不存在");
 		}
+		
 		dbEntity.setCode(entity.getCode());
 		dbEntity.setDescription(entity.getDescription());
 		dbEntity.setStatus(entity.getStatus());
 		dbEntity.setRemark(entity.getRemark());
-		return searchConfigDao.edit(dbEntity);
+		int res = searchConfigDao.edit(dbEntity);
+		//先删除再批量插入
+		searchConfigFieldService.deleteByConfigId(entity.getId(), null);
+		if (entity.getFields() != null && !entity.getFields().isEmpty()) {
+			entity.getFields().forEach(o -> {o.setSearchConfigId(entity.getId());});
+			searchConfigFieldService.addBatch(entity.getFields());
+		}
+		return res;
 	}
 
 	@Override

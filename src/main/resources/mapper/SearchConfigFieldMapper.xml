@@ -25,6 +25,21 @@
 		where ID = #{id,jdbcType=INTEGER}
 	</delete>
 	
+	<!-- 批量删除 -->
+	<delete id="deleteByConfigId">
+		delete from <include refid="Base_Table" />
+		where SEARCH_CONFIG_ID = #{searchConfigId,jdbcType=INTEGER}
+		<if test="query != null and query.queryFilters != null">
+    		<foreach collection="query.queryFilters" item="queryFilter" open=" and " separator=" and ">
+    			<choose>
+    				<when test="queryFilter.operator.value == 1">${queryFilter.columnName} = #{queryFilter.value}</when>
+    				<when test="queryFilter.operator.value == 7">${queryFilter.columnName} in (${queryFilter.value})</when>
+    				<when test="queryFilter.operator.value == 8">${queryFilter.columnName} not in (${queryFilter.value})</when>
+    			</choose>
+    		</foreach>
+        </if>
+	</delete>
+	
 	<insert id="add" parameterType="org.myStudy.entity.SearchConfigField" useGeneratedKeys="true" keyProperty="id">
 		insert into <include refid="Base_Table" />
 			(SEARCH_CONFIG_ID, DISPLAY_NAME, FIELD_NAME, FIELD_TYPE, FIELD_REFERENCE, IS_DEFAULT, ORDER_NUM,
@@ -32,6 +47,22 @@
 		values (#{searchConfigId,jdbcType=INTEGER}, #{displayName,jdbcType=VARCHAR}, #{fieldName,jdbcType=VARCHAR},
 			#{fieldType,jdbcType=TINYINT}, #{fieldReference,jdbcType=VARCHAR}, #{isDefault,jdbcType=TINYINT},
 			#{orderNum,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, now(), #{updatePerson,jdbcType=INTEGER}, now(), 0)
+	</insert>
+	
+	<!-- 批量添加 -->
+	<insert id="addBatch">
+		<selectKey keyProperty="id" resultType="long">
+            select LAST_INSERT_ID()
+        </selectKey>
+		insert into <include refid="Base_Table" />
+			(SEARCH_CONFIG_ID, DISPLAY_NAME, FIELD_NAME, FIELD_TYPE, FIELD_REFERENCE, IS_DEFAULT, ORDER_NUM,
+			CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION)
+		values 
+		<foreach collection="entities" item="entity" separator=",">
+			(#{entity.searchConfigId,jdbcType=INTEGER}, #{entity.displayName,jdbcType=VARCHAR}, #{entity.fieldName,jdbcType=VARCHAR},
+			#{entity.fieldType,jdbcType=TINYINT}, #{entity.fieldReference,jdbcType=VARCHAR}, #{entity.isDefault,jdbcType=TINYINT},
+			#{entity.orderNum,jdbcType=INTEGER}, #{entity.creator,jdbcType=INTEGER}, now(), #{entity.updatePerson,jdbcType=INTEGER}, now(), 0)
+		</foreach>
 	</insert>
 	
 	<update id="edit" parameterType="org.myStudy.entity.SearchConfigField">

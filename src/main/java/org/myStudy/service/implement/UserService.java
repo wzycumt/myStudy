@@ -127,7 +127,7 @@ public class UserService implements IUserService {
 		//先删除不在roleIdList之内的角色关系
 		Query query = new Query();
 		if (entity.getRoles() != null && !entity.getRoles().isEmpty())
-			query.addQueryFilter("roleId", OperatorEnum.NOT_IN, getRoleIdsFromRoleList(entity.getRoles()));
+			query.addQueryFilter("roleId", OperatorEnum.NOT_IN, StringUtility.getIdsFromEntityList(entity.getRoles()));
 		relUserRoleDao.deleteByUserId(entity.getId(), query);
 		//再批量插入新的角色关系
 		if (entity.getRoles() != null && !entity.getRoles().isEmpty()) {
@@ -151,21 +151,6 @@ public class UserService implements IUserService {
 		if (list != null && !list.isEmpty())
 			return list.get(0);
 		return null;
-	}
-	
-	/**
-	 * 根据角色集合roleList获取角色id拼接字符串
-	 * @param roleList
-	 * @return
-	 */
-	private String getRoleIdsFromRoleList(List<Role> roleList) {
-		List<Integer> roleIdList = new ArrayList<Integer>();
-		if (roleList == null || roleList.isEmpty())
-			return null;
-		for (Role role : roleList) {
-			roleIdList.add(role.getId());
-		}
-		return StringUtility.join(roleIdList, ",");
 	}
 
 }

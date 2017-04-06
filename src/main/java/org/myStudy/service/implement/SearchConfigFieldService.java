@@ -89,7 +89,7 @@ public class SearchConfigFieldService implements ISearchConfigFieldService {
 		dbEntity.setFieldType(entity.getFieldType());
 		dbEntity.setFieldReference(entity.getFieldReference());
 		dbEntity.setDefault(entity.isDefault());
-		dbEntity.setOrder(entity.getOrder());
+		dbEntity.setOrderNum(entity.getOrderNum());
 		return searchConfigFieldDao.edit(dbEntity);
 	}
 
@@ -106,6 +106,16 @@ public class SearchConfigFieldService implements ISearchConfigFieldService {
 			return searchConfigFieldDao.getList(query);
 		}
 		return null;
+	}
+
+	@Override
+	public int addBatch(List<SearchConfigField> entities) {
+		return searchConfigFieldDao.addBatch(entities);
+	}
+
+	@Override
+	public int deleteByConfigId(int searchConfigId, Query query) {
+		return searchConfigFieldDao.deleteByConfigId(searchConfigId, query);
 	}
 
 }

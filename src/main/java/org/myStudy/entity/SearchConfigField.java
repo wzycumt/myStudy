@@ -14,7 +14,7 @@ public class SearchConfigField extends BaseEntity {
 	private FieldTypeEnum fieldType;
 	private String fieldReference;
 	private boolean isDefault;
-	private int order;
+	private int orderNum;
 
 	public int getSearchConfigId() {
 		return searchConfigId;
@@ -64,12 +64,12 @@ public class SearchConfigField extends BaseEntity {
 		this.isDefault = isDefault;
 	}
 
-	public int getOrder() {
-		return order;
+	public int getOrderNum() {
+		return orderNum;
 	}
 
-	public void setOrder(int order) {
-		this.order = order;
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
 	}
 
 }

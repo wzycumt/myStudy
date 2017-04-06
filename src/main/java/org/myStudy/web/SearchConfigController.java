@@ -59,10 +59,10 @@ public class SearchConfigController extends BaseController {
 		try {
 			if (searchConfig.getId() == 0) {
 				int id = searchConfigService.add(searchConfig);
-				return jsonResult(true, id, "");
+				return jsonResult(true, id, "添加成功");
 			} else {
 				searchConfigService.edit(searchConfig);
-				return jsonResult(true, searchConfig.getId(), "");
+				return jsonResult(true, searchConfig.getId(), "编辑成功");
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage());

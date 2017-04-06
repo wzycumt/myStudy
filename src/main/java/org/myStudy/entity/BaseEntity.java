@@ -24,7 +24,7 @@ public class BaseEntity {
 	private Date updateTime;
 	private int version;
 	
-	private boolean isChecked;
+	private boolean checked;
 
 	public int getId() {
 		return id;
@@ -81,11 +81,11 @@ public class BaseEntity {
 	}
 
 	public boolean isChecked() {
-		return isChecked;
+		return checked;
 	}
 
-	public void setChecked(boolean isChecked) {
-		this.isChecked = isChecked;
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 
 	//----------------------------

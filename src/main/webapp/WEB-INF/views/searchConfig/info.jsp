@@ -75,7 +75,7 @@
                     </form:select>
                   </td>
                   <td><form:input class="form-control" path="fields[${status.index}].fieldReference" /></td>
-                  <td><form:input class="form-control" path="fields[${status.index}].order" /></td>
+                  <td><form:input class="form-control" path="fields[${status.index}].orderNum" /></td>
                   <td><a href="javascript:void(0);">删除</a></td>
                 </tr>
               </c:forEach>
@@ -93,7 +93,7 @@
                   </form:select>
                 </td>
                 <td><form:input class="form-control" path="fields[0].fieldReference" /></td>
-                <td><form:input class="form-control" path="fields[0].order" /></td>
+                <td><form:input class="form-control" path="fields[0].orderNum" /></td>
                 <td><a href="javascript:void(0);">删除</a></td>
               </tr>
             </c:if>
@@ -140,24 +140,42 @@ $(document).ready(function() {
 			window.layerClose();
 	})
 
-    //添加行
+    // 添加行
     $('#btnAdd').click(function() {
-        var count = $("#tblItems tbody tr").length;
+        var count = $('#tblItems tbody tr').length;
         var index = parseInt(count);
-        var $tr = $("#tblItems tbody tr").first().clone(true).attr("id", "tr_" + index); //克隆新的一行
-        $tr.appendTo("#tblItems");
+        var $tr = $('#tblItems tbody tr').first().clone(true).attr('id', 'tr_' + index); //克隆新的一行
+        $tr.appendTo('#tblItems');
         //清空克隆行的数据
-        $tr.find("input[name='fields[0].id']").attr("name", "fields[" + index + "].id").val("0");
-        $tr.find("input[name='fields[0].displayName']").attr("name", "fields[" + index + "].displayName").val("");
-        $tr.find("input[name='fields[0].fieldName']").attr("name", "fields[" + index + "].fieldName").val("");
-        $tr.find("select[name='fields[0].fieldType']").children('option').first().attr('selected', true);
-        $tr.find("select[name='fields[0].fieldType']").attr("name", "fields[" + index + "].fieldType");
-        $tr.find("input[name='fields[0].fieldReference']").attr("name", "fields[" + index + "].fieldReference").val("");
-        $tr.find("input[name='fields[0].order']").attr("name", "fields[" + index + "].order").val(index);
+        $tr.find('input[name="fields[0].id"]').attr('id', 'fields' + index + '.id').attr('name', 'fields[' + index + '].id').val('0');
+        $tr.find('input[name="fields[0].displayName"]').attr('id', 'fields' + index + '.displayName').attr('name', 'fields[' + index + '].displayName').val('');
+        $tr.find('input[name="fields[0].fieldName"]').attr('id', 'fields' + index + '.fieldName').attr('name', 'fields[' + index + '].fieldName').val('');
+        $tr.find('select[name="fields[0].fieldType"]').children('option').first().attr('selected', true);
+        $tr.find('select[name="fields[0].fieldType"]').attr('id', 'fields' + index + '.fieldType').attr('name', 'fields[' + index + '].fieldType');
+        $tr.find('input[name="fields[0].fieldReference"]').attr('id', 'fields' + index + '.fieldReference').attr('name', 'fields[' + index + '].fieldReference').val('');
+        $tr.find('input[name="fields[0].orderNum"]').attr('id', 'fields' + index + '.orderNum').attr('name', 'fields[' + index + '].orderNum').val(index);
     });
 	
+	// 删除行
 	$('#tblItems td a').click(function() {
-		$(this).parents('tr').remove();
+        var count = $('#tblItems tbody tr').length;
+        if (count > 1) {
+			$(this).parents('tr').remove();
+            $('#tblItems tbody tr').each(function(index, element) {
+            	$(element).attr('id', 'tr_' + index);
+            	// 修改行内表单的id与name属性
+            	$(element).find('.form-control').each(function() {
+            		var id = $(this).attr('id');
+            		var name = $(this).attr('name');
+					id = id.replace(/fields[0-9]\d*/, 'fields' + index);
+            		name = name.replace(/[[0-9]\d*]/, '[' + index + ']');
+            		$(this).attr('id', id).attr('name', name);
+            	});
+            });
+        }
+        else {
+        	layer.msg('至少保留一行', {time: 2000 });
+        }
 	})
 })
 </script>

@@ -1,6 +1,9 @@
 package org.myStudy.utility;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.myStudy.entity.BaseEntity;
 
 public class StringUtility {
 	
@@ -58,5 +61,23 @@ public class StringUtility {
 	        }
 	    }
 	    return result.toString();
+	}
+	
+	/**
+	 * 获取实体集合entityList的id拼接字符串
+	 * @param list BaseEntity类型集合
+	 * @return
+	 */
+	public static String getIdsFromEntityList(List<?> list) {
+		List<Integer> idList = new ArrayList<Integer>();
+		if (list == null || list.isEmpty())
+			return null;
+		for (Object obj : list) {
+			if (obj instanceof BaseEntity) {
+				BaseEntity entity = (BaseEntity)obj;
+				idList.add(entity.getId());
+			}
+		}
+		return StringUtility.join(idList, ",");
 	}
 }

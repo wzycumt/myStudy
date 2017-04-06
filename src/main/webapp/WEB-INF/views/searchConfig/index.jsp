@@ -29,7 +29,7 @@
           data-url="searchConfig/pageList">
           <thead>
             <tr>
-                <th data-field="isChecked" data-checkbox="true"></th>
+                <th data-field="checked" data-checkbox="true"></th>
                 <th data-field="id" data-visible="false" data-switchable="false">ID</th>
                 <th data-field="code" data-sortable="true">编码</th>
                 <th data-field="description" data-sortable="true">描述</th>

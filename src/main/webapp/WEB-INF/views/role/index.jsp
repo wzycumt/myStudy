@@ -23,18 +23,17 @@
           data-side-pagination="server"
           data-pagination-loop="false"
           data-page-list="[10, 20, 100, ALL]"
-          data-search="true"
-          data-search-on-enter-key="true"
           data-show-columns="true"
           data-click-to-select="true"
           data-toolbar="#toolbar"
           data-id-field="id"
+          data-search-code="22"
           data-url="role/pageList">
           <thead>
             <tr>
-                <th data-field="isChecked" data-checkbox="true"></th>
-                <th data-field="id" data-visible="false">ID</th>
-                <th data-field="name" data-sortable="true">用户名</th>
+                <th data-field="checked" data-checkbox="true"></th>
+                <th data-field="id" data-visible="false" data-switchable="false">ID</th>
+                <th data-field="name" data-sortable="true">角色名</th>
                 <th data-field="statusDes" data-sortable="true">状态</th>
                 <th data-field="remark">备注</th>
                 <th data-field="creator" data-sortable="true">创建人</th>

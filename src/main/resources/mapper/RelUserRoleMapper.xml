@@ -43,6 +43,9 @@
 	
 	<!-- 批量添加 -->
 	<insert id="addBatch">
+		<selectKey keyProperty="id" resultType="long">
+            select LAST_INSERT_ID()
+        </selectKey>
 		insert ignore into <include refid="Base_Table" />
 			(USER_ID, ROLE_ID, CREATOR, CREATE_TIME, UPDATE_PERSON, UPDATE_TIME, VERSION)
 		values 
