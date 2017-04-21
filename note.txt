@@ -17,5 +17,5 @@ MyBatis排序时使用order by 动态参数时需要注意，用$而不是#
 菜单、角色service,controller,view
 母版页
 
-查询类Query封装
+查询类Query封装❄
 登录、权限
