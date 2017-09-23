@@ -43,21 +43,6 @@
           </div>
         </div>
       </form>
-      <%-- <div class="media message-item">
-        <div class="pull-left">
-          <a href="javascript:void(0);"> 
-            <img alt="image" width="40px" height="40px" src="${pageContext.request.contextPath}/resources/images/avatar-collection/boy-5.png">
-          </a>
-        </div>
-        <div class="media-body">
-          <div class="row">
-            <div class="col-xs-11"><a class="media-heading" href="javascript:void(0);">站长</a></div>
-            <div class="col-xs-1 text-right">1#</div>
-          </div>
-          <p>@匿名，增加xml生成实体的功能已经加上了，请大家享用，在左侧“实体生成”菜单下</p>
-          <small class="text-muted">10小时前</small>
-        </div>
-      </div> --%>
       <a href="javascript:void(0)" id="more"><div class="alert alert-success text-center">加载更多</div></a>
     </div>
   </div>
@@ -76,7 +61,7 @@
 					if (data.result) {
 						location.reload();
 					} else {
-						alert(data.des);
+						layer.msg(data.des, { time: 2000 });
 					}
 				},
 				error : function(xhr, textStatus) {
@@ -123,22 +108,6 @@
 			});
 		});
 
-		//加载更多
-		/* <div class="media social-comment">
-        <div class="pull-left">
-          <a href="javascript:void(0);">
-            <img alt="image" width="40px" height="40px" src="${pageContext.request.contextPath}/resources/images/avatar-collection/boy-5.png">
-          </a>
-        </div>
-        <div class="media-body">
-          <div class="row">
-            <a class="media-heading col-md-11" href="javascript:void(0);">站长</a>
-            <small class="text-right col-xs-1">1#</small>
-          </div>
-          <p>@匿名，增加xml生成实体的功能已经加上了，请大家享用，在左侧“实体生成”菜单下</p>
-          <small class="text-muted">10小时前</small>
-        </div>
-      </div> */
 		var page = 1;
         $('#more').click(function () {
             $.post('message/list', { page: page}, function (data) {

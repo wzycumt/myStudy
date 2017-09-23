@@ -24,10 +24,10 @@
 <!-- <script src="http://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script> -->
 
 <!-- metisMenu -->
-<link href="resources/plugins/metisMenu-v2.7.0/metisMenu.min.css" rel="stylesheet">
-<script src="resources/plugins/metisMenu-v2.7.0/metisMenu.min.js"></script>
-<!-- <link href="http://cdn.bootcss.com/metisMenu/2.7.0/metisMenu.min.css" rel="stylesheet"> -->
-<!-- <script src="http://cdn.bootcss.com/metisMenu/2.7.0/metisMenu.min.js"></script> -->
+<!-- <link href="resources/plugins/metisMenu-v2.7.0/metisMenu.min.css" rel="stylesheet"> -->
+<!-- <script src="resources/plugins/metisMenu-v2.7.0/metisMenu.min.js"></script> -->
+<link href="http://cdn.bootcss.com/metisMenu/2.7.0/metisMenu.min.css" rel="stylesheet">
+<script src="http://cdn.bootcss.com/metisMenu/2.7.0/metisMenu.min.js"></script>
 
 <!-- iCheck 单选/复选框插件 -->
 <link href="resources/plugins/iCheck-v1.0.2/green.css" rel="stylesheet">
