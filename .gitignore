@@ -13,3 +13,7 @@ hs_err_pid*
 /target/
 
 target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+.idea/
+out/
+myStudy.iml
+src/main/main.iml
