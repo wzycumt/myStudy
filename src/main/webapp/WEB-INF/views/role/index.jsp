@@ -25,6 +25,7 @@
           data-page-list="[10, 20, 100, ALL]"
           data-show-columns="true"
           data-click-to-select="true"
+          data-single-select="true"
           data-toolbar="#toolbar"
           data-id-field="id"
           data-search-code="22"

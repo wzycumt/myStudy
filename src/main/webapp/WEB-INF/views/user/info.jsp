@@ -73,6 +73,10 @@
       </form:form>
     </div>
   </div>
+  <div class="layer-toolbar">
+    <button type="button" class="btn btn-success" id="btnSave">保存</button>
+    <button type="button" class="btn btn-default" id="btnClose">关闭</button>
+  </div>
 <script type="text/javascript">
 $(document).ready(function() {
 	//保存
