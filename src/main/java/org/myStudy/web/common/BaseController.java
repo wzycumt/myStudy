@@ -21,15 +21,15 @@ public class BaseController {
 	 * 序列化json返回结果
 	 * @param result
 	 * @param value
-	 * @param descriptoin
+	 * @param description
 	 * @return
 	 */
-	protected String jsonResult(boolean result, Object value, String descriptoin) {
+	protected String jsonResult(boolean result, Object value, String description) {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("result", result);
 			map.put("value", value);
-			map.put("des", descriptoin);
+			map.put("des", description);
 			ObjectMapper json = new ObjectMapper();
 			json.setSerializationInclusion(Include.ALWAYS);
 			return json.writeValueAsString(map);
